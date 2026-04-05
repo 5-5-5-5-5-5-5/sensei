@@ -2,7 +2,9 @@
 import { mapaReversao } from '@analistas/corrections/mapa-reversao.js';
 import { ExitCode, sair } from '@cli/helpers/exit-codes.js';
 import { CliComandoReverterMensagens } from '@core/messages/cli/cli-comando-reverter-messages.js';
-import { ICONES_DIAGNOSTICO, log, logAuto, logSistema } from '@core/messages/index.js';
+import { ICONES_DIAGNOSTICO } from '@core/messages/shared/icons.js';
+import { getMessages } from '@core/messages/index.js';
+const { log, logAuto, logSistema } = getMessages();
 import { Command } from 'commander';
 
 export function registrarComandoReverter(program: Command): void {

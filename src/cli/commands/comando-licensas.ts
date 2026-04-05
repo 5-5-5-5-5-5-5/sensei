@@ -6,7 +6,8 @@
 import path from 'node:path';
 
 import { ExitCode, sair } from '@cli/helpers/exit-codes.js';
-import { log } from '@core/messages/index.js';
+import { getMessages } from '@core/messages/index.js';
+const { log } = getMessages();
 import * as licensas from '@licensas/licensas.js';
 import { Command } from 'commander';
 

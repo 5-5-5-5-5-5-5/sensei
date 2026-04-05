@@ -7,7 +7,8 @@ import { ExitCode, sair } from '@cli/helpers/exit-codes.js';
 import { getFilesWithExtension, getSourceFiles } from '@cli/helpers/get-files-src.js';
 import chalk from '@core/config/chalk-safe.js';
 import { config } from '@core/config/config.js';
-import { log } from '@core/messages/index.js';
+import { getMessages } from '@core/messages/index.js';
+const { log, CliComandoRenameMensagens } = getMessages();
 import { Command } from 'commander';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -53,9 +54,7 @@ export function comandoRename(
   aplicarFlagsGlobais: (opts: Record<string, unknown>) => void,
 ): Command {
   return new Command('rename')
-    .description(
-      'Aplica as renomeações de variáveis baseadas no arquivo(s) de mapeamento em names/.',
-    )
+    .description(CliComandoRenameMensagens.descricao)
     .action(async function (this: Command) {
       try {
         await aplicarFlagsGlobais(
@@ -84,7 +83,7 @@ export function comandoRename(
         const txtFiles = getFilesWithExtension(NAMES_DIR, '.txt');
         if (txtFiles.length === 0) {
           log.erro(
-            `Nenhum arquivo de mapeamento em ${chalk.bold('names/')}. Execute o comando ${chalk.bold('names')} primeiro.`,
+            CliComandoRenameMensagens.nenhumArquivoMapeamento.replace('{pasta}', chalk.bold('names/')).replace('{comando}', chalk.bold('names')),
           );
           sair(ExitCode.Failure);
           return;
@@ -94,7 +93,7 @@ export function comandoRename(
         }
       } else {
         log.erro(
-          `Pasta de mapeamento não encontrada: ${chalk.bold('names/')}. Execute o comando ${chalk.bold('names')} primeiro.`,
+          CliComandoRenameMensagens.pastaNaoEncontrada.replace('{pasta}', chalk.bold('names/')).replace('{comando}', chalk.bold('names')),
         );
         sair(ExitCode.Failure);
         return;
@@ -102,7 +101,7 @@ export function comandoRename(
 
       if (mappings.size === 0) {
         log.aviso(
-          'Nenhum mapeamento de tradução encontrado (formato: nomeAntigo = nomeNovo por linha).',
+          CliComandoRenameMensagens.nenhumMapeamento,
         );
         return;
       }
@@ -111,7 +110,7 @@ export function comandoRename(
       let totalArquivosUpdated = 0;
       log.info(
         chalk.cyan(
-          `Iniciando renomeação de variáveis (${mappings.size} mapeamentos)...`,
+          CliComandoRenameMensagens.iniciandoRenomeacao.replace('{total}', String(mappings.size)),
         ),
       );
       for (const file of files) {
@@ -143,7 +142,7 @@ export function comandoRename(
             );
             fs.writeFileSync(file, output.code);
             if (config.VERBOSE)
-              log.info(`Atualizado: ${path.relative(RAIZ_DIR, file)}`);
+              log.info(CliComandoRenameMensagens.arquivoAtualizado.replace('{arquivo}', path.relative(RAIZ_DIR, file)));
             totalArquivosUpdated++;
           }
         } catch {
@@ -151,7 +150,7 @@ export function comandoRename(
         }
       }
       log.sucesso(
-        `Renomeação concluída! ${totalArquivosUpdated} arquivos atualizados.`,
+        CliComandoRenameMensagens.renomeacaoConcluida.replace('{total}', String(totalArquivosUpdated)),
       );
     });
 }

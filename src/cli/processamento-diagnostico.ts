@@ -13,7 +13,8 @@ import { isInsideSrc } from '@core/config/paths.js';
 import { executarInquisicao, iniciarInquisicao, prepararComAst, registrarUltimasMetricas } from '@core/execution/inquisidor.js';
 import { CliProcessamentoDiagnosticoMensagens } from '@core/messages/cli/cli-processamento-diagnostico-messages.js';
 import { ExcecoesMensagens } from '@core/messages/core/excecoes-messages.js';
-import { log, logGuardian, logRelatorio, logSistema, MENSAGENS_AUTOFIX } from '@core/messages/index.js';
+import { getMessages } from '@core/messages/index.js';
+const { log, logGuardian, logRelatorio, logSistema, MENSAGENS_AUTOFIX, CliProcessamentoExtraMensagens } = getMessages();
 import { aplicarSupressaoOcorrencias } from '@core/parsing/filters.js';
 import { scanSystemIntegrity } from '@guardian/sentinela.js';
 import { emitirConselhoSenseial } from '@relatorios/conselheiro-senseial.js';
@@ -601,7 +602,7 @@ export async function processarDiagnostico(opts: OpcoesProcessamentoDiagnostico)
                 }
               }
             } catch (err) {
-              log.erro(`❌ Erro ao corrigir ${arquivo}: ${err instanceof Error ? err.message : String(err)}`);
+              log.erro(CliProcessamentoExtraMensagens.erroAplicarCorrecoes.replace('{erro}', err instanceof Error ? err.message : String(err)));
             }
           }
           if (arquivosCorrigidos > 0) {

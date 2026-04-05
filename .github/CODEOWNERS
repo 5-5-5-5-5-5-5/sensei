@@ -6,45 +6,45 @@
 
 # Default owner for everything
 
-- @5-5-5-0-0
+- @5-5-5-5-5-5-5
 
 # Core source code
 
-/src/ @5-5-5-0-0
+/src/ @5-5-5-5-5-5-5
 
 # CLI commands
 
-/src/cli/ @5-5-5-0-0
+/src/cli/ @5-5-5-5-5-5-5
 
 # Analysts and detectors
 
-/src/analistas/ @5-5-5-0-0
+/src/analistas/ @5-5-5-5-5-5-5
 
 # Guardian integrity system
 
-/src/guardian/ @5-5-5-0-0
+/src/guardian/ @5-5-5-5-5-5-5
 
 # Tests
 
-/tests/ @5-5-5-0-0
+/tests/ @5-5-5-5-5-5-5
 
 # Documentation
 
-/docs/ @5-5-5-0-0
-\*.md @5-5-5-0-0
+/docs/ @5-5-5-5-5-5-5
+\*.md @5-5-5-5-5-5-5
 
 # Configuration files
 
-/_.json @5-5-5-0-0
-/_.ts @5-5-5-0-0
-/\*.js @5-5-5-0-0
+/_.json @5-5-5-5-5-5-5
+/_.ts @5-5-5-5-5-5-5
+/\*.js @5-5-5-5-5-5-5
 
 # CI/CD workflows
 
-/.github/ @5-5-5-0-0
+/.github/ @5-5-5-5-5-5-5
 
 # Security-sensitive files
 
-/SECURITY.md @5-5-5-0-0
-/.github/workflows/release.yml @5-5-5-0-0
-/.github/workflows/compliance.yml @5-5-5-0-0
+/SECURITY.md @5-5-5-5-5-5-5
+/.github/workflows/release.yml @5-5-5-5-5-5-5
+/.github/workflows/compliance.yml @5-5-5-5-5-5-5

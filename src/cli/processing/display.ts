@@ -3,7 +3,8 @@
 // Justificativa: tipos locais para formatação de display
 import { chalk } from '@core/config/chalk-safe.js';
 import { config } from '@core/config/config.js';
-import { log } from '@core/messages/index.js';
+import { getMessages } from '@core/messages/index.js';
+const { log } = getMessages();
 
 /**
  * Utilitários para exibição de informações da CLI

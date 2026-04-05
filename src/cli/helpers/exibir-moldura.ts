@@ -5,7 +5,8 @@
  */
 
 import { CliExibirMolduraMensagens } from '@core/messages/cli/cli-exibir-moldura-messages.js';
-import { log } from '@core/messages/index.js';
+import { getMessages } from '@core/messages/index.js';
+const { log } = getMessages();
 import { normalizePath } from '@shared/helpers/path.js';
 
 /**

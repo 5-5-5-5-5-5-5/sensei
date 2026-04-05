@@ -8,7 +8,8 @@ import { ExitCode, sair } from '@cli/helpers/exit-codes.js';
 import { config } from '@core/config/config.js';
 import { iniciarInquisicao } from '@core/execution/inquisidor.js';
 import { CliComandoGuardianMensagens } from '@core/messages/cli/cli-comando-guardian-messages.js';
-import { log, logGuardian } from '@core/messages/index.js';
+import { getMessages } from '@core/messages/index.js';
+const { log, logGuardian } = getMessages();
 import { acceptNewBaseline } from '@guardian/sentinela.js';
 import { Command } from 'commander';
 

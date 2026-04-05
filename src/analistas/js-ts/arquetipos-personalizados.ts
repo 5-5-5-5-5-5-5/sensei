@@ -15,7 +15,8 @@ import path from 'node:path';
 import { ARQUETIPOS } from '@analistas/estrategistas/arquetipos-defs.js';
 // NOTA: parseFileAST ainda não foi implementado no módulo de parsing
 // import { parseFileAST } from '@core/parsing/parser.js';
-import { log } from '@core/messages/index.js';
+import { getMessages } from '@core/messages/index.js';
+const { log, ArquetiposExtraMensagens } = getMessages();
 import { SENSEI_ARQUIVOS } from '@core/registry/paths.js';
 import { lerEstado, salvarEstado } from '@shared/persistence/persistencia.js';
 
@@ -52,7 +53,7 @@ export async function carregarArquetipoPersonalizado(baseDir: string = process.c
         verbose?: boolean;
       }).verbose || false;
       if (!isTest && isVerbose) {
-        log.aviso(`⚠️ Arquétipo personalizado não encontrado em ${novoCaminho} nem ${caminhoLegado}`);
+        log.aviso(ArquetiposExtraMensagens.naoEncontrado.replace('{novo}', novoCaminho).replace('{legado}', caminhoLegado));
       }
       return null;
     }
@@ -89,7 +90,7 @@ export async function salvarArquetipoPersonalizado(arquetipo: Omit<ArquetipoPers
     // Diretório já existe
   }
   await salvarEstado(novoCaminho, arquetipoCompleto);
-  log.sucesso(`✅ Arquétipo personalizado salvo em ${novoCaminho}`);
+  log.sucesso(ArquetiposExtraMensagens.salvo.replace('{caminho}', novoCaminho));
 }
 
 /**
@@ -132,23 +133,21 @@ export function gerarSugestaoArquetipoPersonalizado(projetoDesconhecido: {
   arquivosRaiz: string[];
 }): string {
   const sugestao = `
-🌟 Projeto personalizado detectado: "${projetoDesconhecido.nome}"
+${ArquetiposExtraMensagens.projetoPersonalizado.replace('{nome}', projetoDesconhecido.nome)}
 
-O Sensei identificou uma estrutura de projeto que não corresponde a arquétipos oficiais,
-mas você pode criar um arquétipo personalizado para receber sugestões otimizadas!
+${ArquetiposExtraMensagens.descricaoPersonalizado}
 
-📁 Estrutura detectada:
+${ArquetiposExtraMensagens.estruturaDetectada}
 ${projetoDesconhecido.estruturaDetectada.map(dir => `  • ${dir}`).join('\n')}
 
-📄 Arquivos na raiz:
+${ArquetiposExtraMensagens.arquivosRaiz}
 ${projetoDesconhecido.arquivosRaiz.slice(0, 5).map(file => `  • ${file}`).join('\n')}
 ${projetoDesconhecido.arquivosRaiz.length > 5 ? `  • ... e mais ${projetoDesconhecido.arquivosRaiz.length - 5} arquivos` : ''}
 
-💡 Para criar seu arquétipo personalizado, execute:
-   sensei diagnosticar --criar-arquetipo
+${ArquetiposExtraMensagens.dicaCriar}
+${ArquetiposExtraMensagens.comandoCriar}
 
-Isso criará um arquivo 'sensei.repo.arquetipo.json' com base na estrutura atual,
-que o Sensei usará para oferecer sugestões personalizadas mantendo as melhores práticas.
+${ArquetiposExtraMensagens.explicacaoCriar}
 `;
   return sugestao;
 }
@@ -232,25 +231,25 @@ export function validarArquetipoPersonalizado(arquetipo: ArquetipoPersonalizado)
 } {
   const erros: string[] = [];
   if (!arquetipo.nome || typeof arquetipo.nome !== 'string') {
-    erros.push('Nome do projeto é obrigatório');
+    erros.push(ArquetiposExtraMensagens.validacao.nomeObrigatorio);
   }
   if (!arquetipo.arquetipoOficial || typeof arquetipo.arquetipoOficial !== 'string') {
-    erros.push('Arquétipo oficial base é obrigatório');
+    erros.push(ArquetiposExtraMensagens.validacao.arquetipoObrigatorio);
   } else {
     // Verifica se o arquétipo oficial existe
     const arquetipoOficial = ARQUETIPOS.find((arq: ArquetipoEstruturaDef) => arq.nome === arquetipo.arquetipoOficial) as ArquetipoEstruturaDef | undefined;
     if (!arquetipoOficial) {
-      erros.push(`Arquétipo oficial '${arquetipo.arquetipoOficial}' não encontrado. Use: ${ARQUETIPOS.map(a => (a as unknown as ArquetipoEstruturaDef).nome).join(', ')}`);
+      erros.push(ArquetiposExtraMensagens.validacao.arquetipoNaoEncontrado.replace('{arquetipo}', arquetipo.arquetipoOficial).replace('{disponiveis}', ARQUETIPOS.map(a => (a as unknown as ArquetipoEstruturaDef).nome).join(', ')));
     }
   }
   if (!arquetipo.estruturaPersonalizada) {
-    erros.push('Estrutura personalizada é obrigatória');
+    erros.push(ArquetiposExtraMensagens.validacao.estruturaObrigatoria);
   } else {
     if (!Array.isArray(arquetipo.estruturaPersonalizada.diretorios)) {
-      erros.push('Diretórios devem ser um array');
+      erros.push(ArquetiposExtraMensagens.validacao.diretoriosArray);
     }
     if (!Array.isArray(arquetipo.estruturaPersonalizada.arquivosChave)) {
-      erros.push('Arquivos-chave devem ser um array');
+      erros.push(ArquetiposExtraMensagens.validacao.arquivosChaveArray);
     }
   }
   return {

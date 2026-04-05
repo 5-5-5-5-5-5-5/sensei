@@ -2,7 +2,8 @@
 import type { ParserOptions } from '@babel/parser';
 import { parse as babelParse } from '@babel/parser';
 import type { File as BabelFile } from '@babel/types';
-import { log, logCore } from '@core/messages/index.js';
+import { getMessages } from '@core/messages/index.js';
+const { log, logCore, ParserExtraMensagens } = getMessages();
 import { initializeDefaultPlugins } from '@shared/plugins/init.js';
   /* -------------------------- SISTEMA DE PLUGINS - Novo sistema de parsers modular (Fase 1) -------------------------- */
 import { getGlobalRegistry } from '@shared/plugins/registry.js';
@@ -105,7 +106,7 @@ function parseComPhp(codigo: string) {
   const classes = Array.from(codigo.matchAll(/\bclass\s+([A-Za-z0-9_]+)/g)).map(m => m[1]);
   const functions = Array.from(codigo.matchAll(/\bfunction\s+([A-Za-z0-9_]+)/g)).map(m => m[1]);
   const namespaces = Array.from(codigo.matchAll(/\bnamespace\s+([A-Za-z0-9_\\]+)/g)).map(m => m[1]);
-  log.debug(`🐘 PHP pseudo-parse: ${classes.length} classes, ${functions.length} funções`);
+  log.debug(ParserExtraMensagens.phpParse.replace('{classes}', String(classes.length)).replace('{functions}', String(functions.length)));
   return wrapMinimal('php', {
     classes,
     functions,
@@ -116,7 +117,7 @@ function parseComPython(codigo: string) {
   // Heurística simples para Python: extrai classes e funções (def)
   const classes = Array.from(codigo.matchAll(/^class\s+([A-Za-z0-9_]+)/gm)).map(m => m[1]);
   const functions = Array.from(codigo.matchAll(/^def\s+([A-Za-z0-9_]+)/gm)).map(m => m[1]);
-  log.debug(`🐍 Python pseudo-parse: ${classes.length} classes, ${functions.length} funções`);
+  log.debug(ParserExtraMensagens.pythonParse.replace('{classes}', String(classes.length)).replace('{functions}', String(functions.length)));
   return wrapMinimal('python', {
     classes,
     functions
@@ -322,7 +323,7 @@ function initializePluginSystem() {
   const registeredPlugins = registry.getRegisteredPlugins();
   if (registeredPlugins.length === 0) {
     initializeDefaultPlugins();
-    log.debug('🔌 Plugins padrão registrados no sistema');
+    log.debug(ParserExtraMensagens.pluginsRegistrados);
   }
 }
 

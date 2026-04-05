@@ -8,7 +8,8 @@
  */
 
 import { ExcecoesMensagens } from '@core/messages/core/excecoes-messages.js';
-import { log, MENSAGENS_AUTOFIX } from '@core/messages/index.js';
+import { getMessages } from '@core/messages/index.js';
+const { log, MENSAGENS_AUTOFIX, CliAutoFixHandlerMensagens } = getMessages();
 
 import type { AutoFixOptions, AutoFixResult, FileEntryWithAst } from '@';
 
@@ -51,7 +52,7 @@ export async function executarAutoFix(entries: FileEntryWithAst[], options: Auto
         correcoesAplicadas
       } = resultado.stats;
       if (options.dryRun && resultado.stats.correcoesSugeridas > 0) {
-        console.log(`Correções sugeridas: ${resultado.stats.correcoesSugeridas} em ${resultado.stats.arquivosAnalisados} arquivo(s)`);
+        console.log(CliAutoFixHandlerMensagens.correcoesSugeridas.replace('{correcoes}', String(resultado.stats.correcoesSugeridas)).replace('{arquivos}', String(resultado.stats.arquivosAnalisados)));
       } else if (correcoesAplicadas > 0) {
         console.log(MENSAGENS_AUTOFIX.concluido(correcoesAplicadas, 0));
       } else {

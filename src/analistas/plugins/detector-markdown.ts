@@ -16,7 +16,8 @@
 import { promises as fs } from 'node:fs';
 
 import { config } from '@core/config/config.js';
-import { log } from '@core/messages/index.js';
+import { getMessages } from '@core/messages/index.js';
+const { log } = getMessages();
 
 import type { Ocorrencia } from '@';
 

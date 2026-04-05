@@ -223,7 +223,9 @@ export const configPadrao = {
     files: ['**/*.test.*', '**/*.spec.*', 'test/**/*', 'tests/**/*', '**/__tests__/**'] as string[],
     excludeFromOrphanCheck: true,
     allowAnyType: false
-  }
+  },
+  // Locale das mensagens (pt padrão, en disponível). Definido em sensei.config.json
+  LOCALE: 'pt' as string
 };
 
 // Clonamos para instância mutável

@@ -8,9 +8,12 @@ import { OperarioEstrutura } from '@analistas/estrategistas/operario-estrutura.j
 import { carregarArquetipoPersonalizado, integrarArquetipos, obterArquetipoOficial } from '@analistas/js-ts/arquetipos-personalizados.js';
 import { scoreArquetipoAvancado } from '@analistas/pontuadores/pontuador.js';
 import { config } from '@core/config/config.js';
+import { getMessages } from '@core/messages/index.js';
 import { lerEstado, salvarEstado } from '@shared/persistence/persistencia.js';
 
 import type { ArquetipoDrift, ArquetipoEstruturaDef, ArquetipoPersonalizado, ContextoExecucao, PackageJson, ResultadoContexto, ResultadoDeteccaoArquetipo, SinaisProjetoAvancados, SnapshotEstruturaBaseline } from '@';
+
+const { DetectorArquetiposExtraMensagens } = getMessages();
 
 function scoreArquetipo(def: ArquetipoEstruturaDef, arquivos: string[], _sinaisAvancados: SinaisProjetoAvancados): ResultadoDeteccaoArquetipo {
   // Implementação simplificada temporária.
@@ -59,7 +62,7 @@ export async function detectarArquetipos(contexto: Pick<ContextoExecucao, 'arqui
   arquetipoPersonalizado?: ArquetipoPersonalizado | null; // Para compatibilidade futura
 }> {
   if (!options?.quiet && config.VERBOSE) {
-    console.log('🔍 detectarArquetipos chamado com', contexto.arquivos.length, 'arquivos');
+    console.log(DetectorArquetiposExtraMensagens.debugChamado, contexto.arquivos.length, 'arquivos');
   }
   const arquivos = contexto.arquivos.map(f => f.relPath);
 
@@ -92,7 +95,7 @@ export async function detectarArquetipos(contexto: Pick<ContextoExecucao, 'arqui
 
   // 🚀 INTEGRAÇÃO SISTEMA INTELIGENTE: Aplicar boost contextual
   if (!options?.quiet && config.VERBOSE) {
-    console.log('🔍 Tentando chamar detector contextual...');
+    console.log(DetectorArquetiposExtraMensagens.debugContextual);
   }
   try {
     const {

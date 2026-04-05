@@ -41,7 +41,7 @@ export interface SenseiGlobalFlags {
   silence?: boolean;
   verbose?: boolean;
   export?: boolean;
-  dev?: boolean; // legado removido da CLI; mantido aqui apenas para compat de parse em tests antigos
+  dev?: boolean;
   debug?: boolean;
   logEstruturado?: boolean;
   incremental?: boolean;

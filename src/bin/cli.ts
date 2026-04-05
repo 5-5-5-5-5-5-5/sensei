@@ -8,7 +8,8 @@ import { comandoPerf } from '@cli/commands/index.js';
 import { ExitCode, sair } from '@cli/helpers/exit-codes.js';
 import chalk from '@core/config/chalk-safe.js';
 import { aplicarConfigParcial, config, inicializarConfigDinamica } from '@core/config/config.js';
-import { ICONES_NIVEL, log } from '@core/messages/index.js';
+import { getMessages, ICONES_NIVEL } from '@core/messages/index.js';
+const { log, CliBinMensagens } = getMessages();
 import type { ConversationMemory } from '@shared/memory.js';
 import { getDefaultMemory } from '@shared/memory.js';
 import { lerArquivoTexto } from '@shared/persistence/persistencia.js';
@@ -54,7 +55,7 @@ async function aplicarFlagsGlobais(opts: unknown) {
     } = await import('@shared/validation/validacao.js');
     sanitizarFlags(flags as Record<string, unknown>);
   } catch (e) {
-    console.error(chalk.red(`${ICONES_NIVEL.erro} Flags inválidas: ${(e as Error).message}`));
+    console.error(chalk.red(CliBinMensagens.flagsInvalidas.replace('{erro}', (e as Error).message)));
     sair(ExitCode.InvalidUsage);
   }
   config.REPORT_SILENCE_LOGS = Boolean(flags.silence);
@@ -86,7 +87,7 @@ export async function mainCli(): Promise<void> {
 
   // Handler de rejeições não tratadas com mensagem identificável (usado por testes e ops)
   function __sensei_unhandledRejectionHandler(err: ErrorLike) {
-    const MARCADOR = 'Sensei: unhandled rejection';
+    const MARCADOR = CliBinMensagens.unhandledRejection;
     const mensagem = extrairMensagemErro(err);
     console.error(MARCADOR, mensagem);
     if (!process.env.VITEST) {
@@ -103,7 +104,7 @@ export async function mainCli(): Promise<void> {
   // Mantemos handler para exceções não capturadas — garante comportamento crítico em produção
   process.on('uncaughtException', (err: ErrorLike) => {
     const mensagem = extrairMensagemErro(err);
-    console.error(chalk.red(`${ICONES_NIVEL.erro} Exceção não capturada: ${mensagem}`));
+    console.error(chalk.red(CliBinMensagens.excecaoNaoCapturada.replace('{mensagem}', mensagem)));
     if (err && typeof err === 'object' && 'stack' in err) {
       console.error((err as {
         stack?: string;
@@ -166,21 +167,21 @@ export async function mainCli(): Promise<void> {
   if (argv.includes('--historico')) {
     if (memoria) {
       const resumo = memoria.getSummary();
-      console.log(chalk.cyan('\n📊 RESUMO DA CONVERSA'));
-      console.log(`Total: ${resumo.totalMessages}`);
-      console.log(`Usuário: ${resumo.userMessages}`);
-      console.log(`Sensei: ${resumo.assistantMessages}`);
-      if (resumo.firstMessage) console.log(`Primeira: ${resumo.firstMessage}`);
-      if (resumo.lastMessage) console.log(`Última: ${resumo.lastMessage}`);
+      console.log(chalk.cyan(CliBinMensagens.resumoConversa.titulo));
+      console.log(CliBinMensagens.resumoConversa.total.replace('{total}', String(resumo.totalMessages)));
+      console.log(CliBinMensagens.resumoConversa.usuario.replace('{total}', String(resumo.userMessages)));
+      console.log(CliBinMensagens.resumoConversa.sensei.replace('{total}', String(resumo.assistantMessages)));
+      if (resumo.firstMessage) console.log(CliBinMensagens.resumoConversa.primeira.replace('{mensagem}', resumo.firstMessage));
+      if (resumo.lastMessage) console.log(CliBinMensagens.resumoConversa.ultima.replace('{mensagem}', resumo.lastMessage));
       console.log('');
     } else {
-      console.log(chalk.yellow('Histórico indisponível.'));
+      console.log(chalk.yellow(CliBinMensagens.historicoIndisponivel));
     }
     return; // encerra após exibir
   }
   if (argv.includes('--limpar-historico')) {
     if (memoria) await memoria.clear();
-    console.log(chalk.green('Histórico limpo.'));
+    console.log(chalk.green(CliBinMensagens.historicoLimpo));
     return;
   }
 
@@ -212,7 +213,7 @@ export async function mainCli(): Promise<void> {
 // Global handler para reduzir falsos-positivos e capturar rejeições não tratadas.
 // A mensagem contém um marcador único para que testes possam verificar o registro.
 function __sensei_unhandledRejectionHandler(err: ErrorLike) {
-  const MARCADOR = 'Sensei: unhandled rejection';
+  const MARCADOR = CliBinMensagens.unhandledRejection;
   const mensagem = extrairMensagemErro(err);
   // Mensagem identificável: usada pelos testes unitários para detectar o handler
   // e por operadores para diagnóstico rápido.

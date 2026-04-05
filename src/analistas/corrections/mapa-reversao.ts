@@ -3,11 +3,13 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
 import { ExcecoesMensagens } from '@core/messages/core/excecoes-messages.js';
-import { log, logAuto } from '@core/messages/index.js';
+import { getMessages } from '@core/messages/index.js';
 import { SENSEI_ARQUIVOS } from '@core/registry/paths.js';
 import { lerEstado, salvarEstado } from '@shared/persistence/persistencia.js';
 
 import type { MapaReversao, MoveReversao } from '@';
+
+const { log, logAuto, MapaReversaoExtraMensagens } = getMessages();
 
 const CONSTANTES_MAPA = {
   VERSAO: '1.0.0',
@@ -83,7 +85,7 @@ export class GerenciadorMapaReversao {
         recursive: true
       });
       await salvarEstado(this.mapaPath, this.mapa);
-      log.info(`💾 Mapa de reversão salvo: ${this.mapa.moves.length} moves`);
+      log.info(MapaReversaoExtraMensagens.mapaSalvo.replace('{total}', String(this.mapa.moves.length)));
     } catch (error) {
       logAuto.mapaReversaoErroSalvar((error as Error).message);
     }
@@ -117,7 +119,7 @@ export class GerenciadorMapaReversao {
       if (!skipSalvar) {
         await this.salvar();
       }
-      log.info(`📝 Move registrado: ${origem} → ${destino} (${motivo})`);
+      log.info(MapaReversaoExtraMensagens.moveRegistrado.replace('{origem}', origem).replace('{destino}', destino).replace('{motivo}', motivo));
       return id;
     } catch (err) {
       logAuto.mapaReversaoErroSalvar((err as Error).message);
@@ -216,11 +218,11 @@ export class GerenciadorMapaReversao {
         // Se os imports foram reescritos, usa o conteúdo original
         await fs.writeFile(origemCaminho, move.conteudoOriginal, 'utf-8');
         await fs.unlink(destinoCaminho);
-        log.sucesso(`↩️ Arquivo revertido com conteúdo original: ${move.destino} → ${move.origem}`);
+        log.sucesso(MapaReversaoExtraMensagens.arquivoRevertidoConteudo.replace('{destino}', move.destino).replace('{origem}', move.origem));
       } else {
         // Move simples
         await fs.rename(destinoCaminho, origemCaminho);
-        log.sucesso(`↩️ Arquivo revertido: ${move.destino} → ${move.origem}`);
+        log.sucesso(MapaReversaoExtraMensagens.arquivoRevertido.replace('{destino}', move.destino).replace('{origem}', move.origem));
       }
 
       // Remove o move do mapa
@@ -264,9 +266,9 @@ export class GerenciadorMapaReversao {
    */
   listarMoves(): string {
     if (this.mapa.moves.length === 0) {
-      return '📋 Nenhum move registrado no mapa de reversão.';
+      return MapaReversaoExtraMensagens.nenhumMoveRegistrado;
     }
-    let resultado = `📋 Mapa de Reversão (${this.mapa.moves.length} moves):\n\n`;
+    let resultado = MapaReversaoExtraMensagens.tituloMapa.replace('{total}', String(this.mapa.moves.length));
 
     // Ordena por timestamp (mais recente primeiro)
     const movesOrdenados = [...this.mapa.moves].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
@@ -290,7 +292,7 @@ export class GerenciadorMapaReversao {
       this.mapa.metadata.totalMoves = 0;
       this.mapa.metadata.ultimoMove = '';
       await this.salvar();
-      log.info('🧹 Mapa de reversão limpo');
+      log.info(MapaReversaoExtraMensagens.mapaLimpo);
     } catch (err) {
       logAuto.mapaReversaoErroSalvar((err as Error).message);
     }

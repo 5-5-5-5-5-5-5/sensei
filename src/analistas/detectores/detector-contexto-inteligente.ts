@@ -13,6 +13,8 @@
 import type { NodePath } from '@babel/traverse';
 import type { ExportDeclaration, ImportDeclaration, Program } from '@babel/types';
 import { config } from '@core/config/config.js';
+import { getMessages } from '@core/messages/index.js';
+const { DetectorContextoExtraMensagens } = getMessages();
 import { traverse } from '@core/config/traverse.js';
 
 import type { EvidenciaContexto, FileEntryWithAst, PackageJson, ResultadoDeteccaoContextual } from '@';
@@ -267,7 +269,7 @@ function analisarDependencias(packageJson?: PackageJson): EvidenciaContexto[] {
     ...(packageJson.devDependencies as Record<string, string> || {})
   };
   if (config.VERBOSE) {
-    console.log('🔍 Analisando dependências:', Object.keys(deps));
+    console.log(DetectorContextoExtraMensagens.debugDependencias, Object.keys(deps));
   }
   for (const [tecnologia, padroes] of Object.entries(PADROES_TECNOLOGIA)) {
     for (const dep of padroes.dependencias) {
@@ -551,9 +553,9 @@ export function detectarContextoInteligente(estruturaDetectada: string[], arquiv
 }): ResultadoDeteccaoContextual[] {
   // DEBUG: Log simples para verificar se está sendo chamado
   if (!options?.quiet && config.VERBOSE) {
-    console.log('🔍 Package.json completo:', JSON.stringify(packageJson, null, 2));
+    console.log(DetectorContextoExtraMensagens.debugPackageCompleto, JSON.stringify(packageJson, null, 2));
     if (packageJson?.dependencies?.vue) {
-      console.log('🔍 Package.json tem Vue:', packageJson.dependencies.vue);
+      console.log(DetectorContextoExtraMensagens.debugPackageVue, packageJson.dependencies.vue);
     }
   }
   const todasEvidencias: EvidenciaContexto[] = [...analisarDependencias(packageJson), ...analisarScripts(packageJson), ...analisarEstrutura(estruturaDetectada), ...analisarImportsExports(arquivos), ...analisarPadroesCodigo(arquivos)];

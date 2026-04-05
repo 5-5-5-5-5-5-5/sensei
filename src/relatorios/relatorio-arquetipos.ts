@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: MIT
 import path from 'node:path';
 
-import { RelatorioMensagens, log } from '@core/messages/index.js';
+import { getMessages } from '@core/messages/index.js';
+const { RelatorioMensagens, log } = getMessages();
 import { ExcecoesMensagens } from '@core/messages/core/excecoes-messages.js';
 import { lerArquivoTexto, salvarEstado } from '@shared/persistence/persistencia.js';
 

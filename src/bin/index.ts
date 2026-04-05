@@ -6,6 +6,9 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 import type { ErrorLike } from '@';
 import { extrairMensagemErro } from '@';
+import { getMessages } from '@core/messages/index.js';
+
+const { CliBinMensagens } = getMessages();
 
 // Resolve o diretório raiz do dist usando import.meta.url para funcionar em instalações globais
 const __filename = fileURLToPath(import.meta.url);
@@ -46,7 +49,7 @@ const entryUrl = pathToFileURL(entryCaminho).toString();
       process.exit(0);
     }
     const msg = typeof message === 'string' ? message : extrairMensagemErro(err);
-    console.error('Erro ao inicializar o sensei:', msg);
+    console.error(CliBinMensagens.erroInicializacao, msg);
     if (err && typeof err === 'object' && 'stack' in err) {
       console.error((err as {
         stack?: string;

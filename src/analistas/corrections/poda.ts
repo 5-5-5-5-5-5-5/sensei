@@ -3,7 +3,8 @@ import path from 'node:path';
 
 import { detectarFantasmas } from '@analistas/detectores/detector-fantasmas.js';
 import { config } from '@core/config/config.js';
-import { log, logAuto } from '@core/messages/index.js';
+import { getMessages } from '@core/messages/index.js';
+const { log, logAuto } = getMessages();
 import {
   gerarRelatorioPodaJson,
   gerarRelatorioPodaMarkdown,

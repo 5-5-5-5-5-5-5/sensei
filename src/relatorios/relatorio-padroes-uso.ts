@@ -2,10 +2,13 @@
 // import { log } from '@nucleo/constelacao/log.js';
 
 import {
+  getMessages,
+} from '@core/messages/index.js';
+const {
   log,
   logRelatorio,
   MENSAGENS_RELATORIOS_ANALISE,
-} from '@core/messages/index.js';
+} = getMessages();
 
 import type { LogComBloco } from '@';
 

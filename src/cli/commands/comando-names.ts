@@ -5,7 +5,8 @@ import traverseModule from '@babel/traverse';
 import { ExitCode, sair } from '@cli/helpers/exit-codes.js';
 import { getSourceFiles } from '@cli/helpers/get-files-src.js';
 import chalk from '@core/config/chalk-safe.js';
-import { log } from '@core/messages/index.js';
+import { getMessages } from '@core/messages/index.js';
+const { log, CliComandoNamesMensagens } = getMessages();
 import { Command } from 'commander';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -16,12 +17,10 @@ export function comandoNames(
   aplicarFlagsGlobais: (opts: Record<string, unknown>) => void,
 ): Command {
   return new Command('names')
-    .description(
-      'Varre o repositório em busca de nomes de variáveis e gera arquivos de mapeamento (estrutura fragmentada em names/).',
-    )
+    .description(CliComandoNamesMensagens.descricao)
     .option(
       '--legacy',
-      'Gera também names/name.txt único (compatibilidade com fluxo antigo).',
+      CliComandoNamesMensagens.opcaoAgregado,
       false,
     )
     .action(async function (this: Command, opts: { legacy?: boolean }) {
@@ -47,7 +46,7 @@ export function comandoNames(
         fs.mkdirSync(SAIDA_DIR, { recursive: true });
       }
 
-      log.info(chalk.cyan('Iniciando varredura de nomes de variáveis...'));
+      log.info(chalk.cyan(CliComandoNamesMensagens.iniciandoVarredura));
 
       const files = getSourceFiles(SRC_DIR);
       const allNomes = new Set<string>();
@@ -86,9 +85,9 @@ export function comandoNames(
             arquivosComNomes++;
           }
         } catch {
-          console.warn(
-            `[Aviso] Erro ao processar ${path.relative(RAIZ_DIR, file)}`,
-          );
+            console.warn(
+              CliComandoNamesMensagens.avisoErroProcessar.replace('{arquivo}', path.relative(RAIZ_DIR, file)),
+            );
         }
       }
 

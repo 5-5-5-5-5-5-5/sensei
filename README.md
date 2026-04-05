@@ -27,7 +27,7 @@ Licença: `MIT`
 ### Uso local no repositório
 
 ```bash
-git clone https://github.com/5-5-5-0-5-5-5/sensei.git
+git clone https://github.com/5-5-5-5-5-5-5/sensei.git
 cd sensei
 npm install
 npm run build
@@ -202,7 +202,7 @@ npm run fix-types
 
 ## Repositório
 
-- Código-fonte: `https://github.com/5-5-5-0-5-5-5/sensei`
-- Issues: `https://github.com/5-5-5-0-5-5-5/sensei/issues`
+- Código-fonte: `https://github.com/5-5-5-5-5-5-5/sensei`
+- Issues: `https://github.com/5-5-5-5-5-5-5/sensei/issues`
 
 

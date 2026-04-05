@@ -7,7 +7,9 @@ import { ExitCode, sair } from '@cli/helpers/exit-codes.js';
 import { config } from '@core/config/config.js';
 import { formatPct } from '@core/config/format.js';
 import { CliComandoDesempMensagens } from '@core/messages/cli/cli-comando-perf-messages.js';
-import { ICONES_DIAGNOSTICO, log, logSistema } from '@core/messages/index.js';
+import { ICONES_DIAGNOSTICO } from '@core/messages/shared/icons.js';
+import { getMessages } from '@core/messages/index.js';
+const { log, logSistema } = getMessages();
 import { lerEstado, salvarEstado } from '@shared/persistence/persistencia.js';
 import { Command } from 'commander';
 

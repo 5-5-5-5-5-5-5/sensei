@@ -2,7 +2,8 @@
 import path from 'node:path';
 
 import { config } from '@core/config/config.js';
-import { log } from '@core/messages/index.js';
+import { getMessages } from '@core/messages/index.js';
+const { log } = getMessages();
 import { lerEstado, salvarEstado } from '@shared/persistence/persistencia.js';
 import { ensureDir } from '@shared/helpers/fs.js';
 

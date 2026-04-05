@@ -3,7 +3,8 @@
  * License normalizer ported from original JS implementation.
  */
 
-import { log } from '@core/messages/index.js';
+import { getMessages } from '@core/messages/index.js';
+const { log } = getMessages();
 import type { SpdxCorrectFn,SpdxParseFn } from '../types/core/config/config.js';
 
 export type { SpdxCorrectFn,SpdxParseFn };

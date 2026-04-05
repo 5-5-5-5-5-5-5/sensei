@@ -2,7 +2,8 @@
 import { estatisticasUsoGlobal } from '@analistas/js-ts/analista-padroes-uso.js';
 import chalk from '@core/config/chalk-safe.js';
 import { config } from '@core/config/config.js';
-import { log, logRelatorio, RelatorioMensagens } from '@core/messages/index.js';
+import { getMessages } from '@core/messages/index.js';
+const { log, logRelatorio, RelatorioMensagens, RelatorioZeladorSaudeMensagens } = getMessages();
 
 import type { LogComBloco, Ocorrencia } from '@';
 
@@ -51,35 +52,35 @@ export function exibirRelatorioZeladorSaude(ocorrencias: Ocorrencia[]): void {
     const temImprimirBloco = typeof (log as unknown as LogComBloco).imprimirBloco === 'function';
     if (mostrarTabela && temImprimirBloco) {
       // Tabela compacta com moldura, sem caminhos
-      const header1 = 'arquivos';
-      const header2 = 'quantidade';
+      const header1 = RelatorioZeladorSaudeMensagens.headerArquivos;
+      const header2 = RelatorioZeladorSaudeMensagens.headerQuantidade;
       const linhas: string[] = [];
-      const col1Width = Math.max(header1.length, 'com função longa'.length, 'funções longas (total)'.length, 'maior por arquivo'.length);
+      const col1Width = Math.max(header1.length, RelatorioZeladorSaudeMensagens.comFuncaoLonga.length, RelatorioZeladorSaudeMensagens.funcoesLongasTotal.length, RelatorioZeladorSaudeMensagens.maiorPorArquivo.length);
       const col2Width = Math.max(header2.length, String(totalOcorrencias).length, String(arquivosAfetados).length, String(maiorPorArquivo).length);
       const pinta = (n: number) => chalk.yellow(String(n).padStart(col2Width));
-      linhas.push(`${header1.padEnd(col1Width)}  ${header2.padStart(col2Width)}`, `${'-'.repeat(col1Width)}  ${'-'.repeat(col2Width)}`, `${'com função longa'.padEnd(col1Width)}  ${pinta(arquivosAfetados)}`, `${'funções longas (total)'.padEnd(col1Width)}  ${pinta(totalOcorrencias)}`, `${'maior por arquivo'.padEnd(col1Width)}  ${pinta(maiorPorArquivo)}`, ''.padEnd(col1Width + col2Width + 2, ' '), `${'RESUMIDO'.padStart(Math.floor(col1Width / 2) + 4).padEnd(col1Width + col2Width + 2)}`);
+      linhas.push(`${header1.padEnd(col1Width)}  ${header2.padStart(col2Width)}`, `${'-'.repeat(col1Width)}  ${'-'.repeat(col2Width)}`, `${RelatorioZeladorSaudeMensagens.comFuncaoLonga.padEnd(col1Width)}  ${pinta(arquivosAfetados)}`, `${RelatorioZeladorSaudeMensagens.funcoesLongasTotal.padEnd(col1Width)}  ${pinta(totalOcorrencias)}`, `${RelatorioZeladorSaudeMensagens.maiorPorArquivo.padEnd(col1Width)}  ${pinta(maiorPorArquivo)}`, ''.padEnd(col1Width + col2Width + 2, ' '), `${RelatorioZeladorSaudeMensagens.modoResumido.padStart(Math.floor(col1Width / 2) + 4).padEnd(col1Width + col2Width + 2)}`);
       (log as unknown as {
         imprimirBloco: (t: string, l: string[], c?: (s: string) => string, w?: number) => void;
-      }).imprimirBloco('funções longas:', linhas, chalk.cyan.bold, (log as unknown as {
+      }).imprimirBloco(RelatorioZeladorSaudeMensagens.funcoesLongasLabel, linhas, chalk.cyan.bold, (log as unknown as {
         calcularLargura?: Function;
       }).calcularLargura ? (log as unknown as {
         calcularLargura: Function;
-      }).calcularLargura('funções longas:', linhas, config.COMPACT_MODE ? 84 : 96) : 84);
+      }).calcularLargura(RelatorioZeladorSaudeMensagens.funcoesLongasLabel, linhas, config.COMPACT_MODE ? 84 : 96) : 84);
       // Dicas usando mensagens centralizadas
       log.info(RelatorioMensagens.saude.instrucoes.diagnosticoDetalhado);
       log.info(RelatorioMensagens.saude.instrucoes.tabelasVerbosas);
       log.info('');
     } else if (mostrarTabela) {
       // Fallback tabular simplificado
-      const header1 = 'arquivos';
-      const header2 = 'quantidade';
-      const col1Width = Math.max(header1.length, 'com função longa'.length, 'funções longas (total)'.length, 'maior por arquivo'.length);
+      const header1 = RelatorioZeladorSaudeMensagens.headerArquivos;
+      const header2 = RelatorioZeladorSaudeMensagens.headerQuantidade;
+      const col1Width = Math.max(header1.length, RelatorioZeladorSaudeMensagens.comFuncaoLonga.length, RelatorioZeladorSaudeMensagens.funcoesLongasTotal.length, RelatorioZeladorSaudeMensagens.maiorPorArquivo.length);
       const col2Width = Math.max(header2.length, String(totalOcorrencias).length, String(arquivosAfetados).length, String(maiorPorArquivo).length);
       log.info(`${header1.padEnd(col1Width)}  ${header2.padStart(col2Width)}`);
       log.info(`${'-'.repeat(col1Width)}  ${'-'.repeat(col2Width)}`);
-      log.info(`${'com função longa'.padEnd(col1Width)}  ${chalk.yellow(String(arquivosAfetados).padStart(col2Width))}`);
-      log.info(`${'funções longas (total)'.padEnd(col1Width)}  ${chalk.yellow(String(totalOcorrencias).padStart(col2Width))}`);
-      log.info(`${'maior por arquivo'.padEnd(col1Width)}  ${chalk.yellow(String(maiorPorArquivo).padStart(col2Width))}`);
+      log.info(`${RelatorioZeladorSaudeMensagens.comFuncaoLonga.padEnd(col1Width)}  ${chalk.yellow(String(arquivosAfetados).padStart(col2Width))}`);
+      log.info(`${RelatorioZeladorSaudeMensagens.funcoesLongasTotal.padEnd(col1Width)}  ${chalk.yellow(String(totalOcorrencias).padStart(col2Width))}`);
+      log.info(`${RelatorioZeladorSaudeMensagens.maiorPorArquivo.padEnd(col1Width)}  ${chalk.yellow(String(maiorPorArquivo).padStart(col2Width))}`);
       log.info('');
       // Dicas (mantém compatibilidade com testes que só checam mensagens principais)
       log.info(RelatorioMensagens.saude.instrucoes.diagnosticoDetalhado);
@@ -112,14 +113,14 @@ export function exibirRelatorioZeladorSaude(ocorrencias: Ocorrencia[]): void {
   if (constExcessivas.length > 0) {
     log.info(RelatorioMensagens.saude.secoes.constantesDuplicadas.titulo);
     for (const [nome, qtd] of constExcessivas) {
-      log.info(`  - ${nome}: ${qtd} vez(es)`);
+      log.info(RelatorioZeladorSaudeMensagens.itemLista.replace('{nome}', nome).replace('{qtd}', String(qtd)));
     }
     log.info('');
   }
   if (requireRepetidos.length > 0) {
     log.info(RelatorioMensagens.saude.secoes.modulosRequire.titulo);
     for (const [nome, qtd] of requireRepetidos) {
-      log.info(`  - ${nome}: ${qtd} vez(es)`);
+      log.info(RelatorioZeladorSaudeMensagens.itemLista.replace('{nome}', nome).replace('{qtd}', String(qtd)));
     }
     log.info('');
   }
@@ -129,7 +130,7 @@ export function exibirRelatorioZeladorSaude(ocorrencias: Ocorrencia[]): void {
   // Moldura de rodapé (somente em runtime humano)
   if (!process.env.VITEST) {
     const tituloFim = RelatorioMensagens.saude.secoes.fim.titulo;
-    const linhasFim: string[] = ['Mandou bem!'];
+    const linhasFim: string[] = [RelatorioZeladorSaudeMensagens.mandouBem];
     const larguraFim = (log as unknown as {
       calcularLargura?: Function;
     }).calcularLargura ? (log as unknown as {

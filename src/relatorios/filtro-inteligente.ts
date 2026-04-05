@@ -4,7 +4,8 @@
 // Sistema inteligente de filtragem e priorização de relatórios
 // Agrupa problemas similares e prioriza por impacto para evitar sobrecarga de informação
 
-import { AGRUPAMENTOS_MENSAGEM, PRIORIDADES, RelatorioMensagens } from '@core/messages/index.js';
+import { getMessages } from '@core/messages/index.js';
+const { AGRUPAMENTOS_MENSAGEM, PRIORIDADES, RelatorioMensagens } = getMessages();
 
 import type { Ocorrencia, OcorrenciaNivel, ProblemaAgrupado, RelatorioResumo } from '@';
 

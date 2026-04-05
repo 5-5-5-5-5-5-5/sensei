@@ -2,7 +2,9 @@
 import type { ParserOptions as BabelParserOptions } from '@babel/parser';
 import { parse as babelParse } from '@babel/parser';
 import type { File as BabelFile } from '@babel/types';
-import { log, logCore } from '@core/messages/index.js';
+import { getMessages } from '@core/messages/index.js';
+import { PluginCoreMensagens } from '@core/messages/index.js';
+const { log, logCore } = getMessages();
 import { getCurrentParsingFile } from '@core/parsing/parser.js';
 import * as csstree from 'css-tree';
 import { XMLParser, XMLValidator } from 'fast-xml-parser';
@@ -276,12 +278,14 @@ export class CorePlugin implements ParserPlugin {
       const namespaces = Array.from(
         codigo.matchAll(/\bnamespace\s+([A-Za-z0-9_\\]+)/g),
       ).map((m) => m[1]);
+      const msgPhp = PluginCoreMensagens.phpParse;
       log.debug(
-        `🐘 PHP pseudo-parse: ${classes.length} classes, ${functions.length} funções`,
+        msgPhp.replace('{classes}', String(classes.length)).replace('{funcoes}', String(functions.length)),
       );
       return this.wrapMinimal('php', { classes, functions, namespaces });
     } catch (e) {
-      log.debug(`⚠️ Erro ao parsear PHP: ${(e as Error).message}`);
+      const msgErro = PluginCoreMensagens.phpErro;
+      log.debug(msgErro.replace('{erro}', (e as Error).message));
       return null;
     }
   }
@@ -298,12 +302,14 @@ export class CorePlugin implements ParserPlugin {
       const functions = Array.from(
         codigo.matchAll(/^def\s+([A-Za-z0-9_]+)/gm),
       ).map((m) => m[1]);
+      const msgPython = PluginCoreMensagens.pythonParse;
       log.debug(
-        `🐍 Python pseudo-parse: ${classes.length} classes, ${functions.length} funções`,
+        msgPython.replace('{classes}', String(classes.length)).replace('{funcoes}', String(functions.length)),
       );
       return this.wrapMinimal('python', { classes, functions });
     } catch (e) {
-      log.debug(`⚠️ Erro ao parsear Python: ${(e as Error).message}`);
+      const msgErro = PluginCoreMensagens.pythonErro;
+      log.debug(msgErro.replace('{erro}', (e as Error).message));
       return null;
     }
   }

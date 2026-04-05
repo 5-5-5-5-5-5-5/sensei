@@ -11,7 +11,9 @@ import chalk from '@core/config/chalk-safe.js';
 import { config } from '@core/config/config.js';
 import { executarInquisicao, prepararComAst } from '@core/execution/inquisidor.js';
 import { CliComandoReestruturarMensagens } from '@core/messages/cli/cli-comando-reestruturar-messages.js';
-import { CABECALHOS, log } from '@core/messages/index.js';
+import { CABECALHOS } from '@core/messages/index.js';
+import { getMessages } from '@core/messages/index.js';
+const { log, CliReestruturarExtraMensagens } = getMessages();
 import { Command } from 'commander';
 import ora from 'ora';
 
@@ -275,7 +277,7 @@ if (typeof iniciarInquisicao === 'function') {
               input: process.stdin,
               output: process.stdout
             });
-            answer = await rl.question(chalk.yellow('Tem certeza que deseja aplicar essas correções? (s/N) '));
+            answer = await rl.question(chalk.yellow(CliReestruturarExtraMensagens.temCertezaAplicar));
             rl.close();
           } catch {
             // Se readline falhar, cancela por segurança

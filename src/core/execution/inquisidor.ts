@@ -4,7 +4,8 @@ import { promises as fs } from 'node:fs';
 import { config } from '@core/config/config.js';
 import { isMetaPath } from '@core/config/paths.js';
 import { InquisidorMensagens } from '@core/messages/core/inquisidor-messages.js';
-import { log } from '@core/messages/index.js';
+import { getMessages } from '@core/messages/index.js';
+const { log, InquisidorExtraMensagens } = getMessages();
 import { lerEstado } from '@shared/persistence/persistencia.js';
 import * as path from 'path';
 
@@ -205,7 +206,7 @@ export async function iniciarInquisicao(
     incluirMetadados = true,
     skipExec = false
   } = options;
-  log.info(`${S.scan} Iniciando a Inquisição do Sensei em: ${baseDir}`);
+  log.info(InquisidorExtraMensagens.iniciandoInquisicao.replace('{icone}', S.scan).replace('{diretorio}', baseDir));
   const fileMap = await scanRepository(baseDir, {
     includeContent,
     onProgress: msg => {
@@ -317,9 +318,9 @@ export async function iniciarInquisicao(
           }));
         } else {
           const exibidos = somentePrioritarios.slice(0, 5).map(e => e.relPath).join(', ') || '—';
-          log.info(`🧮 Priorização aplicada (top 5 sem meta): ${exibidos}`);
+          log.info(InquisidorExtraMensagens.priorizacaoAplicada.replace('{exibidos}', exibidos));
           if (metas.length) {
-            log.info(`   (${S.info} ${metas.length} arquivos meta movidos para o final da fila)`);
+            log.info(InquisidorExtraMensagens.arquivosMetaMovidos.replace('{icone}', S.info).replace('{total}', String(metas.length)));
           }
         }
       }
@@ -413,7 +414,7 @@ export async function iniciarInquisicao(
     }
   }
   if (!skipExec) {
-    log.sucesso(`🔮 Inquisição concluída. Total de ocorrências: ${ocorrencias.length}`);
+    log.sucesso(InquisidorExtraMensagens.inquisicaoConcluida.replace('{total}', String(ocorrencias.length)));
   } else if (!config.COMPACT_MODE) {
     __infoDestaque(`Varredura concluída: total de arquivos: ${fileEntries.length}`);
   }

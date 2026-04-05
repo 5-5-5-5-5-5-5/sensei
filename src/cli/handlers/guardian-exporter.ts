@@ -9,7 +9,8 @@ import path from 'node:path';
 
 import { config } from '@core/config/config.js';
 import { CliExportersMensagens } from '@core/messages/cli/cli-exporters-messages.js';
-import { log } from '@core/messages/index.js';
+import { getMessages } from '@core/messages/index.js';
+const { log } = getMessages();
 
 import type { GuardianBaseline, GuardianExportOptions, GuardianExportResult } from '@';
 

@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
-import { log } from '@core/messages/index.js';
+import { getMessages } from '@core/messages/index.js';
+const { log, VigiaOcultaMensagens } = getMessages();
 
 import type { FileEntry } from '@';
 
@@ -29,7 +30,7 @@ export async function vigiaOculta(
 
   if (corrompidos.length > 0) {
     log.aviso(
-      `🔐 [VigiaOculta] Alterações detectadas em ${corrompidos.length} arquivo(s):`,
+      VigiaOcultaMensagens.alteracoesDetectadas.replace('{total}', String(corrompidos.length)),
     );
     for (const arq of corrompidos) {
       log.info(`  - ${arq}`);
@@ -37,8 +38,8 @@ export async function vigiaOculta(
 
     if (autoReset) {
       await salvarRegistros(arquivos, caminhoRegistro);
-      log.sucesso(
-        '🌀 Registros recalibrados automaticamente pela Vigia Oculta.\\n',
+log.sucesso(
+        VigiaOcultaMensagens.registrosRecalibrados,
       );
     }
   }

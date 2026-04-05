@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Gerador de relatórios: Markdown e JSON
-import { gerarHeaderRelatorio, gerarSecaoGuardian, gerarTabelaOcorrencias, gerarTabelaResumoTipos, RelatorioMensagens } from '@core/messages/index.js';
+import { getMessages } from '@core/messages/index.js';
+const { gerarHeaderRelatorio, gerarSecaoGuardian, gerarTabelaOcorrencias, gerarTabelaResumoTipos, RelatorioMensagens } = getMessages();
 
 import type { GeradorMarkdownOptions, Ocorrencia, ResultadoInquisicaoCompleto } from '@';
 

@@ -4,7 +4,8 @@
  * Integra com o sistema existente de detectores do Sensei
  */
 
-import { log } from '@core/messages/index.js';
+import { getMessages } from '@core/messages/index.js';
+const { log } = getMessages();
 
 import type { ValidationResult } from '@';
 

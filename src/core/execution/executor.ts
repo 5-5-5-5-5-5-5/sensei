@@ -4,7 +4,8 @@ import crypto from 'node:crypto';
 import { config } from '@core/config/config.js';
 import { formatMs } from '@core/config/format.js';
 import { traverse } from '@core/config/traverse.js';
-import { log, logCore } from '@core/messages/index.js';
+import { getMessages } from '@core/messages/index.js';
+const { log, logCore, ExecutorExtraMensagens } = getMessages();
 import { logAnalistas } from '@core/messages/log/log-helper.js';
 import { createDefaultReporter } from '@core/reporting/default-reporter.js';
 import { WorkerPool } from '@core/workers/worker-pool.js';
@@ -104,7 +105,7 @@ export async function executarInquisicao(fileEntriesComAst: FileEntryWithAst[], 
             let timer: NodeJS.Timeout | null = null;
             try {
               const race = Promise.race([execPromise, new Promise<never>((_, reject) => {
-                timer = setTimeout(() => reject(new Error(`Timeout: analista global '${tecnica.nome}' excedeu ${timeoutMs}ms`)), timeoutMs);
+                timer = setTimeout(() => reject(new Error(ExecutorExtraMensagens.timeoutGlobal.replace('{nome}', tecnica.nome || 'desconhecido').replace('{timeout}', String(timeoutMs)))), timeoutMs);
               })]);
               return await race;
             } finally {
@@ -128,7 +129,7 @@ export async function executarInquisicao(fileEntriesComAst: FileEntryWithAst[], 
           });
         }
         if (opts?.verbose) {
-          log.sucesso(`Técnica global "${tecnica.nome}"`);
+          log.sucesso(ExecutorExtraMensagens.tecnicaGlobal.replace('{nome}', tecnica.nome || 'desconhecido'));
         }
         if (config.LOG_ESTRUTURADO) {
           log.info(JSON.stringify({
@@ -149,11 +150,11 @@ export async function executarInquisicao(fileEntriesComAst: FileEntryWithAst[], 
         if (nivelLog === 'aviso') {
           log.aviso(`${prefixo} ${err.message}`);
         } else {
-          log.erro(`${prefixo} Erro na técnica global '${tecnica.nome}': ${err.message}`);
+          log.erro(`${prefixo} ${ExecutorExtraMensagens.erroTecnicaGlobal.replace('{prefixo}', prefixo).replace('{nome}', tecnica.nome || 'desconhecido').replace('{erro}', err.message)}`);
           // Exibe stack trace em modo verbose ou debug
           if (err.stack) {
             if (opts?.verbose || config.DEV_MODE) {
-              log.info('Stack trace:');
+              log.info(ExecutorExtraMensagens.stackTrace);
               log.info(err.stack);
             }
           }
@@ -172,7 +173,7 @@ export async function executarInquisicao(fileEntriesComAst: FileEntryWithAst[], 
 
   // Modo Fast: usar WorkerPool para processamento paralelo
   if (opts?.fast && fileEntriesComAst.length > 0) {
-    log.info('🚀 Modo rápido ativado: processamento paralelo com Workers');
+    log.info(ExecutorExtraMensagens.modoRapido);
     const workerPool = new WorkerPool({
       enabled: true,
       maxWorkers: config.WORKER_POOL_MAX_WORKERS || undefined,
@@ -189,7 +190,7 @@ export async function executarInquisicao(fileEntriesComAst: FileEntryWithAst[], 
     ocorrencias.push(...resultadoWorkers.occurrences);
     metricasAnalistas.push(...resultadoWorkers.metrics);
     const duracaoTotal = performance.now() - inicioExecucao;
-    log.sucesso(`✅ Análise rápida concluída: ${fileEntriesComAst.length} arquivos em ${formatMs(duracaoTotal)}`);
+    log.sucesso(ExecutorExtraMensagens.analiseRapidaConcluida.replace('{arquivos}', String(fileEntriesComAst.length)).replace('{duracao}', formatMs(duracaoTotal)));
 
     // Salvar estado incremental (se habilitado)
     if (config.ANALISE_INCREMENTAL_ENABLED) {
@@ -308,24 +309,24 @@ export async function executarInquisicao(fileEntriesComAst: FileEntryWithAst[], 
     arquivoAtual++;
     if (opts?.compact) {
       if (arquivoAtual === totalArquivos) {
-        log.info(`Arquivos analisados: ${totalArquivos}`);
+        log.info(ExecutorExtraMensagens.arquivosAnalisados.replace('{total}', String(totalArquivos)));
       }
     } else if (opts?.verbose) {
       // Em verbose: detalha por arquivo somente até o limiar; entre 101-250 mostra "Arquivo X/Y" com throttle; acima disso, só resumo de progresso.
       if (permitirArquivoXY) {
         if (arquivoAtual === 1 || arquivoAtual % stepVerbose === 0 || arquivoAtual === totalArquivos) {
           const seta = frames[arquivoAtual % frames.length];
-          log.info(`${seta} Arquivo ${arquivoAtual}/${totalArquivos}: ${entry.relPath}`);
+          log.info(ExecutorExtraMensagens.arquivoAtual.replace('{seta}', seta).replace('{atual}', String(arquivoAtual)).replace('{total}', String(totalArquivos)).replace('{arquivo}', entry.relPath));
         }
       } else {
         if (arquivoAtual === 1 || arquivoAtual % stepVerbose === 0 || arquivoAtual === totalArquivos) {
-          log.info(`Arquivos analisados: ${arquivoAtual}/${totalArquivos}`);
+          log.info(ExecutorExtraMensagens.progresso.replace('{atual}', String(arquivoAtual)).replace('{total}', String(totalArquivos)));
         }
       }
     } else if (arquivoAtual % 50 === 0 || arquivoAtual === totalArquivos) {
       // Modo padrão: log apenas a cada 50 arquivos para reduzir ruído
       if (arquivoAtual === totalArquivos) {
-        __infoD(`Arquivos analisados: ${arquivoAtual}/${totalArquivos}`);
+        __infoD(ExecutorExtraMensagens.progresso.replace('{atual}', String(arquivoAtual)).replace('{total}', String(totalArquivos)));
       }
     }
     // Verifica incremento
@@ -393,7 +394,7 @@ export async function executarInquisicao(fileEntriesComAst: FileEntryWithAst[], 
             let timer: any = null;
             try {
               const race = Promise.race([execPromise, new Promise<never>((_, reject) => {
-                timer = setTimeout(() => reject(new Error(`Timeout: analista '${tecnica.nome}' excedeu ${timeoutMs}ms para ${entry.relPath}`)), timeoutMs);
+                timer = setTimeout(() => reject(new Error(ExecutorExtraMensagens.timeoutAnalista.replace('{nome}', tecnica.nome || 'desconhecido').replace('{timeout}', String(timeoutMs)).replace('{arquivo}', entry.relPath))), timeoutMs);
               })]);
               return await race;
             } finally {
@@ -457,7 +458,7 @@ export async function executarInquisicao(fileEntriesComAst: FileEntryWithAst[], 
           // Exibe stack trace em modo verbose ou debug
           if (err.stack) {
             if (opts?.verbose || config.DEV_MODE) {
-              log.info('Stack trace:');
+              log.info(ExecutorExtraMensagens.stackTrace);
               log.info(err.stack);
             }
           }

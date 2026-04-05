@@ -5,7 +5,9 @@ import { listarAnalistas, registroAnalistas } from '@analistas/registry/registry
 import { ExitCode, sair } from '@cli/helpers/exit-codes.js';
 import { config } from '@core/config/config.js';
 import { CliComandoAnalistasMensagens } from '@core/messages/cli/cli-comando-analistas-messages.js';
-import { ICONES_DIAGNOSTICO, log } from '@core/messages/index.js';
+import { ICONES_DIAGNOSTICO } from '@core/messages/shared/icons.js';
+import { getMessages } from '@core/messages/index.js';
+const { log } = getMessages();
 import { salvarEstado } from '@shared/persistence/persistencia.js';
 import { Command } from 'commander';
 

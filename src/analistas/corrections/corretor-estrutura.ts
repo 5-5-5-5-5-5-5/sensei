@@ -7,12 +7,14 @@ import path from 'node:path';
 import { mapaReversao } from '@analistas/corrections/mapa-reversao.js';
 import { config } from '@core/config/config.js';
 import { resolverPluginSeguro } from '@core/config/seguranca.js';
-import { log, logAuto } from '@core/messages/index.js';
+import { getMessages } from '@core/messages/index.js';
 import { importarModuloSeguro } from '@core/utils/import-safe.js';
 import { reescreverImports } from '@shared/helpers/imports.js';
 import pLimit from 'p-limit';
 
 import type { ConfigPlugin, ErroComMensagem, FileEntryWithAst, ResultadoEstrutural } from '@';
+
+const { log, logAuto, CorretorEstruturaExtraMensagens } = getMessages();
 
 export async function corrigirEstrutura(mapa: ResultadoEstrutural[], fileEntries: FileEntryWithAst[], baseDir: string = process.cwd()): Promise<void> {
   // Captura dinâmica das configs (evita congelar valores em tempo de import)
@@ -33,7 +35,7 @@ export async function corrigirEstrutura(mapa: ResultadoEstrutural[], fileEntries
     const nomeArquivo = path.basename(arquivo);
     const destino = path.join(baseDir, ideal, nomeArquivo);
     if (!AUTO_CORRECAO) {
-      log.info(`→ Simular: ${arquivo} → ${path.relative(baseDir, destino)}`);
+      log.info(CorretorEstruturaExtraMensagens.simular.replace('{arquivo}', arquivo).replace('{destino}', path.relative(baseDir, destino)));
       return;
     }
     try {
@@ -55,7 +57,7 @@ export async function corrigirEstrutura(mapa: ResultadoEstrutural[], fileEntries
       // Reescrever imports relativos (opcional; somente quando AUTO_FIX)
       try {
         if (config.SAFE_MODE && !config.ALLOW_MUTATE_FS) {
-          log.info(`→ SAFE_MODE: simulando escrita/movimento para ${arquivo} → ${path.relative(baseDir, destino)}`);
+          log.info(CorretorEstruturaExtraMensagens.safeMode.replace('{arquivo}', arquivo).replace('{destino}', path.relative(baseDir, destino)));
         } else {
           const conteudo = await fs.readFile(origem, 'utf-8');
           const {
@@ -85,7 +87,7 @@ export async function corrigirEstrutura(mapa: ResultadoEstrutural[], fileEntries
           }
         }
       }
-      log.sucesso(`✅ Movido: ${arquivo} → ${path.relative(baseDir, destino)}`);
+      log.sucesso(CorretorEstruturaExtraMensagens.movido.replace('{arquivo}', arquivo).replace('{destino}', path.relative(baseDir, destino)));
     } catch (err) {
       const msg = err && typeof err === 'object' && 'message' in err ? String((err as {
         message: unknown;

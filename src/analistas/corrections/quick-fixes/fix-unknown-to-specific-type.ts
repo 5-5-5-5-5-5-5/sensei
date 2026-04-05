@@ -6,7 +6,8 @@
 
 import type { Node } from '@babel/types';
 import { buildTypesRelPathPosix, getTypesDirectoryDisplay } from '@core/config/conventions.js';
-import { MENSAGENS_CORRECAO_TIPOS } from '@core/messages/index.js';
+import { getMessages } from '@core/messages/index.js';
+const { MENSAGENS_CORRECAO_TIPOS } = getMessages();
 
 import type { QuickFix, QuickFixResult, TypeSafetyWarning } from '@';
 

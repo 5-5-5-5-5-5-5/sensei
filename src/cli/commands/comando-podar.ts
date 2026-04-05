@@ -9,7 +9,9 @@ import chalk from '@core/config/chalk-safe.js';
 import { config } from '@core/config/config.js';
 import { iniciarInquisicao } from '@core/execution/inquisidor.js';
 import { CliComandoPodarMensagens } from '@core/messages/cli/cli-comando-podar-messages.js';
-import { ICONES_DIAGNOSTICO, log, logSistema } from '@core/messages/index.js';
+import { ICONES_DIAGNOSTICO } from '@core/messages/shared/icons.js';
+import { getMessages } from '@core/messages/index.js';
+const { log, logSistema } = getMessages();
 import { Command } from 'commander';
 
 import type { ArquivoFantasma, ResultadoPoda, Tecnica } from '@';

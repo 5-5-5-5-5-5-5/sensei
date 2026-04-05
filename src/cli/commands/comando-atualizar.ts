@@ -4,7 +4,9 @@ import { ExitCode, sair } from '@cli/helpers/exit-codes.js';
 import chalk from '@core/config/chalk-safe.js';
 import { config } from '@core/config/config.js';
 import { iniciarInquisicao } from '@core/execution/inquisidor.js';
-import { ICONES_DIAGNOSTICO, log, logSistema } from '@core/messages/index.js';
+import { ICONES_STATUS } from '@core/messages/shared/icons.js';
+import { getMessages } from '@core/messages/index.js';
+const { log, logSistema, CliAtualizarExtraMensagens } = getMessages();
 import { executarShellSeguro } from '@core/utils/exec-safe.js';
 import { scanSystemIntegrity } from '@guardian/sentinela.js';
 import { Command } from 'commander';
@@ -33,7 +35,7 @@ export function comandoAtualizar(
         return;
       }
 
-      log.info(chalk.bold('\n🔄 Iniciando processo de atualização...\n'));
+      log.info(chalk.bold(CliAtualizarExtraMensagens.iniciandoAtualizacao));
 
       const baseDir = process.cwd();
       let fileEntries: FileEntryWithAst[] = [];
@@ -54,14 +56,14 @@ export function comandoAtualizar(
             ('baseline-aceito' as typeof guardianResultado.status)
         ) {
           log.sucesso(
-            `${ICONES_DIAGNOSTICO.sucesso} Guardian: integridade validada. Prosseguindo atualização.`,
+            `${ICONES_STATUS.ok} Guardian: integridade validada. Prosseguindo atualização.`,
           );
         } else {
           log.aviso(
-            '🌀 Guardian gerou novo baseline ou detectou alterações. Prosseguindo com cautela.',
+            CliAtualizarExtraMensagens.guardianBaselineAlterado,
           );
           log.info(
-            'Recomendado: `sensei guardian --diff` e `sensei guardian --accept-baseline` antes de atualizar.',
+            CliAtualizarExtraMensagens.recomendadoGuardianDiff,
           );
         }
 

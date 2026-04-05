@@ -8,7 +8,8 @@ import { configurarFiltros } from '@cli/processing/filters.js';
 import chalk from '@core/config/chalk-safe.js';
 import { config } from '@core/config/config.js';
 import { scanRepository } from '@core/execution/scanner.js';
-import { log } from '@core/messages/index.js';
+import { getMessages } from '@core/messages/index.js';
+const { log, CliFormatarExtraMensagens } = getMessages();
 import {
   formatarComPrettierProjeto,
   formatarPrettierMinimo,
@@ -114,10 +115,10 @@ export function comandoFormatar(
           arquivosMudaram: [],
         };
 
-        log.info(chalk.bold('🧽 FORMATAR'));
+        log.info(chalk.bold(CliFormatarExtraMensagens.titulo));
         if (config.SCAN_ONLY) {
           log.aviso(
-            'SCAN_ONLY ativo; o comando formatar precisa ler conteúdo.',
+          CliFormatarExtraMensagens.scanOnlyAtivo,
           );
         }
 
@@ -173,7 +174,7 @@ export function comandoFormatar(
 
           if (!resolved.ok) {
             result.erros++;
-            log.erro(`Falha ao formatar ${relPath}: ${resolved.error}`);
+            log.erro(CliFormatarExtraMensagens.falhaFormatar.replace('{arquivo}', relPath).replace('{erro}', resolved.error));
             continue;
           }
 
@@ -197,7 +198,7 @@ export function comandoFormatar(
         }
 
         if (result.erros > 0) {
-          log.erro(`Erros: ${result.erros}`);
+          log.erro(CliFormatarExtraMensagens.errosEncontrados.replace('{total}', String(result.erros)));
           sair(ExitCode.Failure);
           return;
         }
@@ -205,21 +206,21 @@ export function comandoFormatar(
         if (check) {
           if (result.mudaram > 0) {
             log.aviso(
-              `Encontrados ${result.mudaram} arquivo(s) que precisam de formatação. Use --write para aplicar.`,
+            CliFormatarExtraMensagens.precisaFormatacao.replace('{total}', String(result.mudaram)),
             );
             sair(ExitCode.Failure);
             return;
           }
-          log.sucesso('Tudo formatado.');
+          log.sucesso(CliFormatarExtraMensagens.tudoFormatado);
           sair(ExitCode.Ok);
           return;
         }
 
         // write
         if (result.mudaram > 0) {
-          log.sucesso(`Formatados ${result.mudaram} arquivo(s).`);
+          log.sucesso(CliFormatarExtraMensagens.arquivosFormatados.replace('{total}', String(result.mudaram)));
         } else {
-          log.info('Nenhuma mudança necessária.');
+          log.info(CliFormatarExtraMensagens.nenhumaMudanca);
         }
         sair(ExitCode.Ok);
       } catch (err) {

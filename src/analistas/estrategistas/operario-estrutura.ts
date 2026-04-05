@@ -6,7 +6,8 @@ import { extrairSinaisAvancados } from '@analistas/arquitetos/sinais-projeto-ava
 import { corrigirEstrutura } from '@analistas/corrections/corretor-estrutura.js';
 import { detectarArquetipos } from '@analistas/detectores/detector-arquetipos.js';
 import { config } from '@core/config/config.js';
-import { log, MENSAGENS_ARQUETIPOS_HANDLER } from '@core/messages/index.js';
+import { getMessages } from '@core/messages/index.js';
+const { log, MENSAGENS_ARQUETIPOS_HANDLER } = getMessages();
 
 import type {
   FileEntryWithAst,

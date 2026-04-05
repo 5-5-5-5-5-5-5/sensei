@@ -5,7 +5,8 @@ import { promises as fs } from 'node:fs';
 import * as fsCb from 'node:fs';
 import path from 'node:path';
 
-import { log } from '@core/messages/index.js';
+import { getMessages } from '@core/messages/index.js';
+const { log } = getMessages();
 import { ExcecoesMensagens } from '@core/messages/core/excecoes-messages.js';
 
 import type { GlobalComVitest, SalvarBinarioFn, SalvarEstadoFn, VitestSpyWrapper } from '@';

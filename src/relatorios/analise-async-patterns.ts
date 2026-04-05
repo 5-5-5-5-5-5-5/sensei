@@ -11,7 +11,8 @@
 
 import path from 'node:path';
 
-import { log, MENSAGENS_RELATORIOS_ANALISE } from '@core/messages/index.js';
+import { getMessages } from '@core/messages/index.js';
+const { log, MENSAGENS_RELATORIOS_ANALISE, RelatorioAsyncPatternsMensagens } = getMessages();
 import { salvarEstado } from '@shared/persistence/persistencia.js';
 
 import type { Ocorrencia } from '@';
@@ -76,7 +77,7 @@ export async function analisarAsyncPatterns(ocorrencias: Ocorrencia[], options: 
   // Filtrar apenas unhandled-async
   const asyncIssues = ocorrencias.filter(o => o.mensagem && o.mensagem.includes('unhandled-async'));
   log.info(MENSAGENS_RELATORIOS_ANALISE.asyncPatterns.titulo);
-  log.info(`Total de ocorrências unhandled-async: ${asyncIssues.length}`);
+  log.info(RelatorioAsyncPatternsMensagens.totalOcorrencias.replace('{total}', String(asyncIssues.length)));
 
   // Agrupar por arquivo
   const porArquivo = agruparPorArquivo(asyncIssues);
@@ -89,7 +90,7 @@ export async function analisarAsyncPatterns(ocorrencias: Ocorrencia[], options: 
   })).sort((a, b) => b.total - a.total);
 
   // Top arquivos
-  log.info(`\n🔴 TOP ${Math.min(topN, arquivosOrdenados.length)} Arquivos com Mais Promises Não Tratadas:\n`);
+  log.info(RelatorioAsyncPatternsMensagens.topArquivos.replace('{total}', String(Math.min(topN, arquivosOrdenados.length))));
   for (let i = 0; i < Math.min(topN, arquivosOrdenados.length); i++) {
     const {
       arquivo,
@@ -98,8 +99,8 @@ export async function analisarAsyncPatterns(ocorrencias: Ocorrencia[], options: 
     } = arquivosOrdenados[i];
     const nivelIcon = nivel === 'erro' ? '🔴' : nivel === 'aviso' ? '⚠️' : 'ℹ️';
     log.info(`${i + 1}. ${nivelIcon} ${arquivo}`);
-    log.info(`   └─ ${total} promise(s) sem tratamento de erro`);
-    log.info(`   └─ Prioridade: ${nivel.toUpperCase()}\n`);
+    log.info(RelatorioAsyncPatternsMensagens.promiseSemTratamento.replace('{total}', String(total)));
+    log.info(RelatorioAsyncPatternsMensagens.prioridade.replace('{nivel}', nivel.toUpperCase()));
   }
 
   // Estatísticas por categoria
@@ -137,10 +138,10 @@ export async function analisarAsyncPatterns(ocorrencias: Ocorrencia[], options: 
     categorias[categoria].totalArquivos++;
     categorias[categoria].totalPromises += total;
   }
-  log.info(`\n📂 Distribuição por Categoria:\n`);
+  log.info(RelatorioAsyncPatternsMensagens.distribuicaoCategoria);
   for (const [cat, stats] of Object.entries(categorias)) {
     if (stats.totalArquivos > 0) {
-      log.info(`  ${cat.toUpperCase()}: ${stats.totalArquivos} arquivos, ${stats.totalPromises} promises`);
+      log.info(RelatorioAsyncPatternsMensagens.categoriaStats.replace('{categoria}', cat.toUpperCase()).replace('{arquivos}', String(stats.totalArquivos)).replace('{promises}', String(stats.totalPromises)));
     }
   }
 
@@ -165,11 +166,11 @@ export async function analisarAsyncPatterns(ocorrencias: Ocorrencia[], options: 
         log.info(`   - ${arquivo}`);
       }
     }
-    log.info(`\n📋 Próximos Passos:\n`);
-    log.info('1. Revisar arquivos CRÍTICOS e adicionar .catch() ou try/catch');
-    log.info('2. Para arquivos com muitas ocorrências, considerar refatoração');
-    log.info('3. Validar se promises têm tratamento em nível superior');
-    log.info('4. Adicionar testes para garantir robustez\n');
+    log.info(RelatorioAsyncPatternsMensagens.proximosPassos);
+    log.info(RelatorioAsyncPatternsMensagens.passo1);
+    log.info(RelatorioAsyncPatternsMensagens.passo2);
+    log.info(RelatorioAsyncPatternsMensagens.passo3);
+    log.info(RelatorioAsyncPatternsMensagens.passo4);
   }
 
   // Montar relatório
@@ -186,7 +187,12 @@ export async function analisarAsyncPatterns(ocorrencias: Ocorrencia[], options: 
     report.recomendacoes = {
       criticos: criticos.slice(0, 5).map(a => a.arquivo),
       altos: altos.slice(0, 10).map(a => a.arquivo),
-      proximosPassos: ['Revisar arquivos CRÍTICOS e adicionar .catch() ou try/catch', 'Para arquivos com muitas ocorrências, considerar refatoração', 'Validar se promises têm tratamento em nível superior', 'Adicionar testes para garantir robustez']
+      proximosPassos: [
+        RelatorioAsyncPatternsMensagens.passo1.replace('. ', ''),
+        RelatorioAsyncPatternsMensagens.passo2.replace('. ', ''),
+        RelatorioAsyncPatternsMensagens.passo3.replace('. ', ''),
+        RelatorioAsyncPatternsMensagens.passo4.replace('. ', ''),
+      ]
     };
   }
   return report;

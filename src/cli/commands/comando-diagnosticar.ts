@@ -4,7 +4,9 @@
 import { optionsDiagnosticar } from '@cli/options-diagnosticar.js';
 import { processarDiagnostico } from '@cli/processamento-diagnostico.js';
 import { CliComandoDiagnosticarMensagens } from '@core/messages/cli/cli-comando-diagnosticar-messages.js';
-import { CABECALHOS, log } from '@core/messages/index.js';
+import { CABECALHOS } from '@core/messages/index.js';
+import { getMessages } from '@core/messages/index.js';
+const { log } = getMessages();
 import { ativarModoJson } from '@shared/helpers/json-mode.js';
 import { Command } from 'commander';
 import ora from 'ora';

@@ -6,7 +6,8 @@ import { ExitCode, sair } from '@cli/helpers/exit-codes.js';
 import { processPatternList } from '@cli/helpers/pattern-helpers.js';
 import chalk from '@core/config/chalk-safe.js';
 import { scanRepository } from '@core/execution/scanner.js';
-import { log } from '@core/messages/index.js';
+import { getMessages } from '@core/messages/index.js';
+const { log, CliOtimizarSvgExtraMensagens } = getMessages();
 import {
   otimizarSvgLikeSvgo,
   shouldSugerirOtimizacaoSvg,
@@ -69,7 +70,7 @@ export function comandoOtimizarSvg(
         const includeList = processPatternList(opts.include);
         const excludeList = processPatternList(opts.exclude);
 
-        log.info(chalk.bold('OTIMIZAR SVG'));
+        log.info(chalk.bold(CliOtimizarSvgExtraMensagens.titulo));
 
         const files = await scanRepository(baseDir, {
           includeContent: true,
@@ -125,7 +126,7 @@ export function comandoOtimizarSvg(
         }
 
         if (!candidates) {
-          log.info('Nenhum SVG acima do limiar de otimização.');
+          log.info(CliOtimizarSvgExtraMensagens.nenhumSvgAcimaLimiar);
           sair(ExitCode.Ok);
           return;
         }
@@ -139,7 +140,7 @@ export function comandoOtimizarSvg(
             `Otimização aplicada em ${optimized}/${candidates} arquivos.`,
           );
         } else {
-          log.info('Use --write para aplicar as otimizações.');
+          log.info(CliOtimizarSvgExtraMensagens.useWriteAplicar);
         }
 
         sair(ExitCode.Ok);
