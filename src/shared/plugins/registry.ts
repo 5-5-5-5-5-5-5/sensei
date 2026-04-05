@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
-import { getMessages } from '@core/messages/index.js';
-import { PluginRegistryMensagens } from '@core/messages/index.js';
+import { getMessages, PluginRegistryMensagens } from '@core/messages/index.js';
 import { ExcecoesMensagens } from '@core/messages/pt/core/excecoes-messages.js';
 
 import type { GlobalComImport, ImportDinamico, LanguageSupport, ParserPlugin, PluginConfig } from '@';

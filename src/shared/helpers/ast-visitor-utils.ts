@@ -34,21 +34,20 @@ export class DedupeManager {
  * Roda o visitor do Babel gerenciando deduplicações
  */
 export function runUniqueVisitor(
-  ast: any,
+  ast: unknown,
   relPath: string,
   visitor: Visitor<unknown>,
-  initialState: any = {}
+  initialState: Record<string, unknown> = {}
 ): Ocorrencia[] {
   const manager = new DedupeManager(relPath);
   const state = { ...initialState, manager, relPath };
 
-  const nodeToTraverse = ast?.node || ast;
+  const nodeToTraverse = (ast as { node?: unknown })?.node || ast;
   if (!nodeToTraverse) return [];
 
-  // Proteção contra crashes durante traverse
   try {
-    traverse(nodeToTraverse, visitor, undefined, state);
-  } catch (error) {
+    traverse(nodeToTraverse as Parameters<typeof traverse>[0], visitor, undefined, state);
+  } catch {
      // Ignorar silenciosamente falhas de parser em sub-nós
   }
 

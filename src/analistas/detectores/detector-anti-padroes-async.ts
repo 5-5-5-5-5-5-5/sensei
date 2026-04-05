@@ -33,7 +33,7 @@ const visitorAsync: Visitor<AsyncVisitorState> = {
       if (funcName && isProbablyAsync(funcName)) {
         // Se temos definição local, respeite se é async ou não
         const binding = path.scope.getBinding(funcName);
-        if (binding && binding.path.isFunction() && !(binding.path.node as any).async) {
+        if (binding && binding.path.isFunction() && !(binding.path.node as { async?: boolean }).async) {
           return; // Definida como síncrona localmente
         }
 

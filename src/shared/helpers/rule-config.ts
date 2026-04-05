@@ -80,7 +80,11 @@ export function isTestArquivo(
     };
   }
 ): boolean {
-  const data = configData || (config as unknown as any);
+  const data = configData || (config as unknown as {
+    testPadroes?: {
+      files?: string[];
+    };
+  });
   const testPadroes =
     data.testPadroes?.files || [
       '**/*.test.*',

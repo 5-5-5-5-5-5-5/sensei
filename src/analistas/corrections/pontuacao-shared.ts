@@ -242,7 +242,7 @@ export function calcularLinha(src: string, posOrIndex: number | undefined, match
     return src.substring(0, posOrIndex).split('\n').length;
   }
   if (match) {
-    const idx = (match as any).index;
+    const idx = match.index;
     if (typeof idx === 'number') {
       return src.substring(0, idx).split('\n').length;
     }

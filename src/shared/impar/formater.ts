@@ -1273,7 +1273,7 @@ function formatarScssMinimo(code: string): FormatadorMinimoResult {
   const out: string[] = [];
   let indent = 0;
   let currentBlockProps: Array<{ prop: string; value: string; isComment: boolean }> = [];
-  const currentSelector = '';
+  const _currentSelector = '';
 
   const flushBlock = () => {
     if (currentBlockProps.length > 0) {
@@ -1587,7 +1587,7 @@ function formatarTomlMinimo(code: string): FormatadorMinimoResult {
   const lines = normalized.split('\n');
   const out: string[] = [];
   let currentSection: Array<{ key: string; value: string; comment: string }> = [];
-  const currentSectionHeader = '';
+  const _currentSectionHeader = '';
 
   const flushSection = () => {
     if (currentSection.length > 0) {

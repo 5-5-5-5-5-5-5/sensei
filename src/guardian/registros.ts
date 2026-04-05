@@ -30,7 +30,6 @@ export async function salvarRegistros(
     registros.push({ arquivo: relPath, hash });
   }
 
-  const fs = await import('node:fs');
   await ensureDir(destino);
   await salvarEstado(destino, registros);
   log.sucesso(`??? Registro de integridade salvo em: ${destino}`);

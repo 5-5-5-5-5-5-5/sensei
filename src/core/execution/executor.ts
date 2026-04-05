@@ -257,27 +257,27 @@ export async function executarInquisicao(fileEntriesComAst: FileEntryWithAst[], 
   };
 
   // Otimização: Identifica analistas que usam visitor compartilhado
-  const analistasComVisitor = (tecnicas as any[]).filter(t => typeof t.visitor === 'object' && t.visitor !== null);
-  const visitorCombinado: Record<string, any> = {};
-  if (analistasComVisitor.length > 0) {
-    for (const a of analistasComVisitor) {
+  type TecnicaComVisitor = { visitor?: Record<string, unknown> };
+  const visitantes = (tecnicas as unknown as TecnicaComVisitor[]).filter(t => t.visitor != null);
+  const visitorCombinado: Record<string, unknown> = {};
+  if (visitantes.length > 0) {
+    for (const a of visitantes) {
+      if (!a.visitor) continue;
       for (const [key, val] of Object.entries(a.visitor)) {
         if (!visitorCombinado[key]) {
           visitorCombinado[key] = val;
         } else {
-          // Wrap both visitors to execute in sequence
           const prev = visitorCombinado[key];
-          visitorCombinado[key] = (path: any, state: any) => {
-            // Se prev for função ou objeto com enter/exit
+          visitorCombinado[key] = (path: unknown, state: unknown) => {
             if (typeof prev === 'function') {
               prev(path, state);
-            } else if (prev.enter) {
+            } else if (prev && typeof prev === 'object' && 'enter' in prev && typeof prev.enter === 'function') {
               prev.enter(path, state);
             }
             if (typeof val === 'function') {
               val(path, state);
-            } else if ((val as any).enter) {
-              (val as any).enter(path, state);
+            } else if (val && typeof val === 'object' && 'enter' in val && typeof val.enter === 'function') {
+              val.enter(path, state);
             }
           };
         }
@@ -356,11 +356,11 @@ export async function executarInquisicao(fileEntriesComAst: FileEntryWithAst[], 
     if (reaproveitou) continue; // pula analistas
 
     // Otimização: Travessia única para analistas com visitor
-    const resultadosOtimizados = new Map<string, any[]>();
+    const resultadosOtimizados = new Map<string, unknown[]>();
     if (Object.keys(visitorCombinado).length > 0 && entry.ast) {
       try {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const astParam = isNodePath(entry.ast) ? (entry.ast as any).node : entry.ast;
-        // Injetar contexto para os visitors se necessário (através de state)
         traverse(astParam, visitorCombinado, undefined, {
           relPath: entry.relPath,
           contexto: contextoGlobal,
@@ -387,12 +387,15 @@ export async function executarInquisicao(fileEntriesComAst: FileEntryWithAst[], 
         let resultado: Awaited<ReturnType<typeof tecnica.aplicar>> | undefined;
         if (timeoutMs > 0) {
           // Promise.race entre execução do analista e timeout
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const astParam = (tecnica as any).visitor
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             ? { node: isNodePath(entry.ast) ? (entry.ast as any).node : entry.ast, preColetado: resultadosOtimizados.get(tecnica.nome || '') }
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             : (isNodePath(entry.ast) ? entry.ast as any : null);
           const execPromise = tecnica.aplicar(entry.content ?? '', entry.relPath, astParam, entry.fullCaminho, contextoGlobal);
           resultado = await (async () => {
-            let timer: any = null;
+            let timer: ReturnType<typeof setTimeout> | null = null;
             try {
               const race = Promise.race([execPromise, new Promise<never>((_, reject) => {
                 timer = setTimeout(() => reject(new Error(ExecutorExtraMensagens.timeoutAnalista.replace('{nome}', tecnica.nome || 'desconhecido').replace('{timeout}', String(timeoutMs)).replace('{arquivo}', entry.relPath))), timeoutMs);
@@ -404,8 +407,11 @@ export async function executarInquisicao(fileEntriesComAst: FileEntryWithAst[], 
           })();
         } else {
           // Execução sem timeout
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const astParam2 = (tecnica as any).visitor
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             ? { node: isNodePath(entry.ast) ? (entry.ast as any).node : entry.ast, preColetado: resultadosOtimizados.get(tecnica.nome || '') }
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             : (isNodePath(entry.ast) ? (entry.ast as any) : null);
           resultado = await tecnica.aplicar(entry.content ?? '', entry.relPath, astParam2, entry.fullCaminho, contextoGlobal);
         }

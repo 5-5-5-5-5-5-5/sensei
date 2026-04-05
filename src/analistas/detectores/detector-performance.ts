@@ -192,7 +192,7 @@ function detectarProblemasPerformanceAST(ast: NodePath<Node>, problemas: Problem
   try {
     const isLoop = (type: string) => ['ForStatement', 'WhileStatement', 'DoWhileStatement', 'ForInStatement', 'ForOfStatement'].includes(type);
 
-    const checkNesting = (path: NodePath<any>) => {
+    const checkNesting = (path: NodePath<Node>) => {
       let parent = path.parentPath;
       while (parent) {
         if (isLoop(parent.type)) {
