@@ -60,10 +60,12 @@ function resolverLocale(): string {
 }
 
 export function getMessages(): typeof pt {
-  return new Proxy({} as typeof pt, {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return new Proxy({} as any, {
     get(_, prop) {
       const locale = resolverLocale();
       const target = locale === 'en' ? en : pt;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return (target as any)[prop];
     }
   });
