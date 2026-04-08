@@ -3,6 +3,7 @@
 .vscode
 .legados
 .codex
+.prometheus
 scripts
 
 # Node modules
