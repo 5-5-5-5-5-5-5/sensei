@@ -1,58 +1,58 @@
 // SPDX-License-Identifier: MIT
 // @prometheus-disable tipo-literal-inline-complexo
-// Justificativa: tipos inline para mensagens de zeladores
+//  justificativa: ゼラドールメッセージ用のインラインマルチタイプ
 
 import { ICONES_ACAO, ICONES_STATUS, ICONES_ZELADOR as ICONES_ZELADOR_CENTRAL } from '../../shared/icons.js';
 /**
- * Mensagens dos Zeladores
+ * ゼラドールメッセージ
  *
- * Centraliza todas as mensagens relacionadas aos zeladores (auto-fix)
- * incluindo: imports, tipos, estrutura, etc.
+ * ゼラドール（自動修正）に関連するすべてのメッセージを一元化
+ * 含む: インポート、タイプ、構造など。
  */
 
 /**
- * Ícones e emojis usados pelos zeladores
+ * ゼラドールが使用するアイコンと絵文字
  */
 export const ICONES_ZELADOR = {
   ...ICONES_ZELADOR_CENTRAL
 } as const;
 
 /**
- * Mensagens do Zelador de Imports
+ * インポートゼラドールメッセージ
  */
 export const MENSAGENS_IMPORTS = {
-  titulo: `${ICONES_ACAO.correcao} Zelador de Imports - Iniciando correções...`,
-  resumo: `${ICONES_ZELADOR.resumo} Resumo:`,
-  dryRunAviso: `${ICONES_ZELADOR.dryRun} Modo dry-run: nenhum arquivo foi modificado`,
-  sucessoFinal: `${ICONES_STATUS.ok} Correções aplicadas com sucesso!`
+  titulo: `${ICONES_ACAO.correcao} インポートゼラドール - 修正を開始...`,
+  resumo: `${ICONES_ZELADOR.resumo} 要約:`,
+  dryRunAviso: `${ICONES_ZELADOR.dryRun} dry-runモード: ファイルは変更されませんでした`,
+  sucessoFinal: `${ICONES_STATUS.ok} 修正が正常に適用されました！`
 } as const;
 
 /**
- * Mensagens de progresso do zelador de imports
+ * インポートゼラドールの進捗メッセージ
  */
 export const PROGRESSO_IMPORTS = {
-  diretorioNaoEncontrado: (dir: string) => `${ICONES_ZELADOR.aviso} Diretório não encontrado: ${dir}`,
-  arquivoProcessado: (arquivo: string, count: number) => `${ICONES_ZELADOR.sucesso} ${arquivo} (${count} correção${count !== 1 ? 'ões' : ''})`,
+  diretorioNaoEncontrado: (dir: string) => `${ICONES_ZELADOR.aviso} ディレクトリが見つかりません: ${dir}`,
+  arquivoProcessado: (arquivo: string, count: number) => `${ICONES_ZELADOR.sucesso} ${arquivo} (${count}件の修正)`,
   arquivoErro: (arquivo: string, erro: string) => `${ICONES_ZELADOR.erro} ${arquivo}: ${erro}`,
-  lendoDiretorio: (dir: string) => `Lendo diretório: ${dir}`
+  lendoDiretorio: (dir: string) => `ディレクトリを読み込み中: ${dir}`
 } as const;
 
 /**
- * Mensagens de erro do zelador de imports
+ * インポートゼラドールのエラーメッセージ
  */
 export const ERROS_IMPORTS = {
   lerDiretorio: (dir: string, error: unknown) => {
     const mensagem = error instanceof Error ? error.message : String(error);
-    return `Erro ao ler diretório ${dir}: ${mensagem}`;
+    return `ディレクトリ ${dir}の読み取りエラー: ${mensagem}`;
   },
   processar: (arquivo: string, error: unknown) => {
     const mensagem = error instanceof Error ? error.message : String(error);
-    return `Erro ao processar ${arquivo}: ${mensagem}`;
+    return `${arquivo}の処理エラー: ${mensagem}`;
   }
 } as const;
 
 /**
- * Formata linha de estatísticas de resumo
+ * 要約統計行をフォーマット
  */
 export function formatarEstatistica(label: string, valor: number | string, icone?: string): string {
   const prefixo = icone ? `${icone} ` : '   ';
@@ -60,7 +60,7 @@ export function formatarEstatistica(label: string, valor: number | string, icone
 }
 
 /**
- * Gera resumo de correções de imports
+ * インポート修正の概要を生成
  */
 export function gerarResumoImports(stats: {
   processados: number;
@@ -69,9 +69,9 @@ export function gerarResumoImports(stats: {
   erros: number;
   dryRun: boolean;
 }): string[] {
-  const linhas: string[] = ['', MENSAGENS_IMPORTS.resumo, formatarEstatistica('Arquivos processados', stats.processados), formatarEstatistica('Arquivos modificados', stats.modificados), formatarEstatistica('Total de correções', stats.totalCorrecoes)];
+  const linhas: string[] = ['', MENSAGENS_IMPORTS.resumo, formatarEstatistica('処理されたファイル', stats.processados), formatarEstatistica('変更されたファイル', stats.modificados), formatarEstatistica('修正合計', stats.totalCorrecoes)];
   if (stats.erros > 0) {
-    linhas.push(formatarEstatistica('Erros', stats.erros, ICONES_ZELADOR.aviso));
+    linhas.push(formatarEstatistica('エラー', stats.erros, ICONES_ZELADOR.aviso));
   }
   linhas.push('');
   if (stats.dryRun) {
@@ -83,34 +83,34 @@ export function gerarResumoImports(stats: {
 }
 
 /**
- * Mensagens do Zelador de Tipos (future)
+ * タイプゼラドールメッセージ（将来）
  */
 export const MENSAGENS_TIPOS = {
-  titulo: `${ICONES_ACAO.correcao} Zelador de Tipos - Iniciando correções...`,
-  analisandoTipo: (tipo: string) => `Analisando tipo: ${tipo}`,
-  tipoCorrigido: (antes: string, depois: string) => `Corrigido: ${antes} → ${depois}`
+  titulo: `${ICONES_ACAO.correcao} タイプゼラドール - 修正を開始...`,
+  analisandoTipo: (tipo: string) => `タイプを分析中: ${tipo}`,
+  tipoCorrigido: (antes: string, depois: string) => `修正済み: ${antes} → ${depois}`
 } as const;
 
 /**
- * Mensagens do Zelador de Estrutura (future)
+ * 構造ゼラドールメッセージ（将来）
  */
 export const MENSAGENS_ESTRUTURA = {
-  titulo: `${ICONES_ACAO.organizacao} Zelador de Estrutura - Reorganizando arquivos...`,
-  movendo: (origem: string, destino: string) => `Movendo: ${origem} → ${destino}`,
-  criandoDiretorio: (dir: string) => `Criando diretório: ${dir}`
+  titulo: `${ICONES_ACAO.organizacao} 構造ゼラドール - ファイルを再編成中...`,
+  movendo: (origem: string, destino: string) => `移動中: ${origem} → ${destino}`,
+  criandoDiretorio: (dir: string) => `ディレクトリを作成中: ${dir}`
 } as const;
 
 /**
- * Mensagens genéricas de zeladores
+ * ゼラドールの一般的なメッセージ
  */
 export const MENSAGENS_ZELADOR_GERAL = {
-  iniciando: (zelador: string) => `${ICONES_ZELADOR.inicio} ${zelador} - Iniciando...`,
-  concluido: (zelador: string) => `${ICONES_ZELADOR.sucesso} ${zelador} - Concluído!`,
-  erro: (zelador: string, mensagem: string) => `${ICONES_ZELADOR.erro} ${zelador} - Erro: ${mensagem}`
+  iniciando: (zelador: string) => `${ICONES_ZELADOR.inicio} ${zelador} - 開始...`,
+  concluido: (zelador: string) => `${ICONES_ZELADOR.sucesso} ${zelador} - 完了！`,
+  erro: (zelador: string, mensagem: string) => `${ICONES_ZELADOR.erro} ${zelador} - エラー: ${mensagem}`
 } as const;
 
 /**
- * Templates de saída para diferentes modos
+ * 異なるモード用の出力テンプレート
  */
 export const MODELOS_SAIDA = {
   compacto: {
@@ -124,12 +124,12 @@ export const MODELOS_SAIDA = {
     fim: (stats: {
       sucesso: number;
       falha: number;
-    }) => `\n${ICONES_ZELADOR.resumo} Sucesso: ${stats.sucesso}, Falha: ${stats.falha}`
+    }) => `\n${ICONES_ZELADOR.resumo} 成功: ${stats.sucesso}, 失敗: ${stats.falha}`
   }
 } as const;
 
 /**
- * Códigos de saída para zeladores
+ * ゼラドールの終了コード
  */
 export const SAIDA_CODIGOS = {
   SUCESSO: 0,
@@ -140,7 +140,7 @@ export const SAIDA_CODIGOS = {
 } as const;
 
 /**
- * Formata lista de arquivos modificados
+ * 変更されたファイルのリストをフォーマット
  */
 export function formatarListaArquivos(arquivos: string[], maxExibir: number = 10): string[] {
   const linhas: string[] = [];
@@ -150,13 +150,13 @@ export function formatarListaArquivos(arquivos: string[], maxExibir: number = 10
   }
   const restantes = arquivos.length - maxExibir;
   if (restantes > 0) {
-    linhas.push(`   ... e mais ${restantes} arquivo${restantes !== 1 ? 's' : ''}`);
+    linhas.push(`   ...他${restantes}ファイル`);
   }
   return linhas;
 }
 
 /**
- * Formata duração de execução
+ * 実行時間をフォーマット
  */
 export function formatarDuracao(ms: number): string {
   if (ms < 1000) {
@@ -167,11 +167,11 @@ export function formatarDuracao(ms: number): string {
   }
   const minutos = Math.floor(ms / 60000);
   const segundos = Math.floor(ms % 60000 / 1000);
-  return `${minutos}m ${segundos}s`;
+  return `${minutos}分 ${segundos}秒`;
 }
 
 /**
- * Formata mensagem com timestamp
+ * タイムスタンプ付きでメッセージをフォーマット
  */
 export function formatarComTimestamp(mensagem: string): string {
   const timestamp = new Date().toISOString().substring(11, 19); // HH:MM:SS

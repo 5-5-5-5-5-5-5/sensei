@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 /**
- * Templates reutilizáveis para geração de relatórios Markdown
- * Funções que geram seções completas de MD com formatação consistente
+ * Markdownレポート生成の再利用可能なテンプレート
+ * 一貫したフォーマットで完全なMDセクションを生成する関数
  */
 
 import { formatMs } from '@core/config/format.js';
@@ -10,11 +10,11 @@ import type { GuardianInfo, MetadadosRelatorioEstendido, ProblemaAgrupado } from
 
 import { RelatorioMensagens } from './relatorio-messages.js';
 
-// Re-exporta o tipo para compatibilidade
+// 互換性のためにタイプを再エクスポート
 export type { MetadadosRelatorioEstendido };
 
 /**
- * Gera o cabeçalho padrão do relatório Markdown
+ * Markdownレポートの標準ヘッダーを生成
  */
 export function gerarHeaderRelatorio(metadados: MetadadosRelatorioEstendido): string[] {
   const lines: string[] = [];
@@ -31,7 +31,7 @@ export function gerarHeaderRelatorio(metadados: MetadadosRelatorioEstendido): st
   lines.push(RelatorioMensagens.comum.separadores.secao);
   lines.push('');
 
-  // Se houver manifest
+  // マニフェストがある場合
   if (metadados.manifestFile && metadados.relatoriosDir) {
     lines.push(`**${principal.secoes.metadados.arquivoManifest}:** \`${metadados.manifestFile}\`  `);
     lines.push('');
@@ -44,7 +44,7 @@ export function gerarHeaderRelatorio(metadados: MetadadosRelatorioEstendido): st
 }
 
 /**
- * Gera a seção Guardian do relatório
+ * レポートのGuardianセクションを生成
  */
 export function gerarSecaoGuardian(guardian: GuardianInfo): string[] {
   const lines: string[] = [];
@@ -63,7 +63,7 @@ export function gerarSecaoGuardian(guardian: GuardianInfo): string[] {
 }
 
 /**
- * Gera tabela de resumo por tipo
+ * タイプ別の要約テーブルを生成
  */
 export function gerarTabelaResumoTipos(tiposContagem: Record<string, number>, limite = 10): string[] {
   const lines: string[] = [];
@@ -85,7 +85,7 @@ export function gerarTabelaResumoTipos(tiposContagem: Record<string, number>, li
 }
 
 /**
- * Gera tabela de ocorrências
+ * 発生テーブルを生成
  */
 function escapeMarkdownTableCell(value: string): string {
   return value.replace(/\\/g, '\\\\').replace(/\|/g, '\\|');
@@ -116,7 +116,7 @@ export function gerarTabelaOcorrencias<T extends {
 }
 
 /**
- * Gera seção de problemas agrupados (para filtro inteligente)
+ * グループ化された問題セクションを生成（インテリジェントフィルタ用）
  */
 export function gerarSecaoProblemasAgrupados(titulo: string, problemas: ProblemaAgrupado[], mostrarExemplos = true): string[] {
   const lines: string[] = [];
@@ -134,13 +134,13 @@ export function gerarSecaoProblemasAgrupados(titulo: string, problemas: Problema
     lines.push(`### ${prob.icone} ${prob.titulo}`);
     lines.push('');
     lines.push(`**${labels.quantidade}:** ${prob.quantidade}  `);
-    lines.push(`**Resumo:** ${prob.resumo}  `);
+    lines.push(`**要約:** ${prob.resumo}  `);
     if (prob.acaoSugerida) {
       lines.push(`**${labels.acaoSugerida}:** ${prob.acaoSugerida}  `);
     }
     lines.push('');
 
-    // Mostrar até 3 exemplos
+    // 最大3つの例を表示
     if (mostrarExemplos && prob.ocorrencias.length > 0) {
       lines.push(`**${labels.exemplos}:**`);
       const exemplos = prob.ocorrencias.slice(0, 3);
@@ -150,7 +150,7 @@ export function gerarSecaoProblemasAgrupados(titulo: string, problemas: Problema
         lines.push(`  - \`${local}\`${msg}`);
       }
       if (prob.ocorrencias.length > 3) {
-        lines.push(`  - _...e mais ${prob.ocorrencias.length - 3} ocorrências_`);
+        lines.push(`  - _...他${prob.ocorrencias.length - 3}件の発生_`);
       }
       lines.push('');
     }
@@ -161,7 +161,7 @@ export function gerarSecaoProblemasAgrupados(titulo: string, problemas: Problema
 }
 
 /**
- * Gera tabela genérica de duas colunas
+ * 2列の汎用テーブルを生成
  */
 export function gerarTabelaDuasColunas(dados: Array<[string, string | number]>, cabecalhos: [string, string]): string[] {
   const lines: string[] = [];
@@ -175,7 +175,7 @@ export function gerarTabelaDuasColunas(dados: Array<[string, string | number]>, 
 }
 
 /**
- * Gera seção de estatísticas
+ * 統計セクションを生成
  */
 export function gerarSecaoEstatisticas(stats: Record<string, string | number>): string[] {
   const lines: string[] = [];
@@ -192,13 +192,13 @@ export function gerarSecaoEstatisticas(stats: Record<string, string | number>): 
 }
 
 /**
- * Gera footer do relatório
+ * レポートのフッターを生成
  */
 export function gerarFooterRelatorio(timestampISO?: string): string[] {
   const lines: string[] = [];
   lines.push(RelatorioMensagens.comum.separadores.secao);
   lines.push('');
-  lines.push('_Gerado por Prometheus CLI_');
+  lines.push('_Prometheus CLIによって生成_');
   if (timestampISO) {
     lines.push(`_${timestampISO}_`);
   }
@@ -207,7 +207,7 @@ export function gerarFooterRelatorio(timestampISO?: string): string[] {
 }
 
 /**
- * Helper para escrever arquivo MD completo
+ * 完全なMDファイルを書き込むためのヘルパー
  */
 export async function escreverRelatorioMarkdown(outputCaminho: string, lines: string[]): Promise<void> {
   const {

@@ -1,25 +1,25 @@
 // SPDX-License-Identifier: MIT
 
 /**
- * @fileoverview Mensagens de diagnóstico para o detector de achados agregados.
- * Fornece templates de texto resumidos para problemas de segurança, performance,
- * documentação, duplicações e qualidade de testes, com suporte a paginação
- * de resultados.
+ * @fileoverview 集約検出器用の診断メッセージ。
+ * セキュリティ、パフォーマンス、ドキュメント、重複、
+ * テスト品質の問題の簡潔なテキストテンプレートを提供し、
+ * 結果のページネーションをサポートします。
  */
 
 type ErroUnknown = unknown;
 function erroToMessage(erro: ErroUnknown): string {
-  return erro instanceof Error ? erro.message : 'Erro desconhecido';
+  return erro instanceof Error ? erro.message : '不明なエラー';
 }
 export const DetectorAgregadosMensagens = {
-  problemasSegurancaResumo: (severidade: string, resumo: string, total: number) => `Problemas de segurança (${severidade}): ${resumo}${total > 3 ? ` (+${total - 3} mais)` : ''}`,
-  erroAnalisarSeguranca: (erro: ErroUnknown) => `Erro ao analisar segurança: ${erroToMessage(erro)}`,
-  problemasPerformanceResumo: (impacto: string, resumo: string, total: number) => `Problemas de performance (${impacto}): ${resumo}${total > 3 ? ` (+${total - 3} mais)` : ''}`,
-  erroAnalisarPerformance: (erro: ErroUnknown) => `Erro ao analisar performance: ${erroToMessage(erro)}`,
-  problemasDocumentacaoResumo: (prioridade: string, resumo: string, total: number) => `Problemas de documentação (${prioridade}): ${resumo}${total > 3 ? ` (+${total - 3} mais)` : ''}`,
-  erroAnalisarDocumentacao: (erro: ErroUnknown) => `Erro ao analisar documentação: ${erroToMessage(erro)}`,
-  duplicacoesResumo: (tipo: string, resumo: string, total: number) => `Duplicações ${tipo}: ${resumo}${total > 3 ? ` (+${total - 3} mais)` : ''}`,
-  erroAnalisarDuplicacoes: (erro: ErroUnknown) => `Erro ao analisar duplicações: ${erroToMessage(erro)}`,
-  problemasTesteResumo: (severidade: string, resumo: string, total: number) => `Problemas de teste (${severidade}): ${resumo}${total > 3 ? ` (+${total - 3} mais)` : ''}`,
-  erroAnalisarQualidadeTestes: (erro: ErroUnknown) => `Erro ao analisar qualidade de testes: ${erroToMessage(erro)}`
+  problemasSegurancaResumo: (severidade: string, resumo: string, total: number) => `セキュリティ問題（${severidade}）: ${resumo}${total > 3 ? ` (+${total - 3}件以上)` : ''}`,
+  erroAnalisarSeguranca: (erro: ErroUnknown) => `セキュリティ分析エラー: ${erroToMessage(erro)}`,
+  problemasPerformanceResumo: (impacto: string, resumo: string, total: number) => `パフォーマンス問題（${impacto}）: ${resumo}${total > 3 ? ` (+${total - 3}件以上)` : ''}`,
+  erroAnalisarPerformance: (erro: ErroUnknown) => `パフォーマンス分析エラー: ${erroToMessage(erro)}`,
+  problemasDocumentacaoResumo: (prioridade: string, resumo: string, total: number) => `ドキュメント問題（${prioridade}）: ${resumo}${total > 3 ? ` (+${total - 3}件以上)` : ''}`,
+  erroAnalisarDocumentacao: (erro: ErroUnknown) => `ドキュメント分析エラー: ${erroToMessage(erro)}`,
+  duplicacoesResumo: (tipo: string, resumo: string, total: number) => `重複 ${tipo}: ${resumo}${total > 3 ? ` (+${total - 3}件以上)` : ''}`,
+  erroAnalisarDuplicacoes: (erro: ErroUnknown) => `重複分析エラー: ${erroToMessage(erro)}`,
+  problemasTesteResumo: (severidade: string, resumo: string, total: number) => `テスト問題（${severidade}）: ${resumo}${total > 3 ? ` (+${total - 3}件以上)` : ''}`,
+  erroAnalisarQualidadeTestes: (erro: ErroUnknown) => `テスト品質分析エラー: ${erroToMessage(erro)}`
 } as const;

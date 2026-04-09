@@ -1,6 +1,6 @@
 export const InquisidorExtraMensagens = {
-  iniciandoInquisicao: '{icone} Iniciando a Inquisição do Prometheus em: {diretorio}',
-  priorizacaoAplicada: '🧮 Priorização aplicada (top 5 sem meta): {exibidos}',
-  arquivosMetaMovidos: '   ({icone} {total} arquivos meta movidos para o final da fila)',
-  inquisicaoConcluida: '🔮 Inquisição concluída. Total de ocorrências: {total}',
+  iniciandoInquisicao: '{icone} Prometheusの宗教裁判を開始: {diretorio}',
+  priorizacaoAplicada: '🧮 優先順位が適用されました（top 5 メタなし）: {exibidos}',
+  arquivosMetaMovidos: '   ({icone} {total}メタファイルがキューの最後に移動されました)',
+  inquisicaoConcluida: '🔮 宗教裁判が完了しました。合計発生数: {total}',
 } as const;

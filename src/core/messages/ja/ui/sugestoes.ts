@@ -1,191 +1,191 @@
 // SPDX-License-Identifier: MIT
 // @prometheus-disable tipo-literal-inline-complexo
-// Justificativa: tipos inline para sistema de sugestões
+//  justificativa: 提案システム用のインラインマルチタイプ
 /**
- * Sistema Centralizado de Sugestões e Dicas
+ * 集中化された提案とヒントのシステム
  *
- * Centraliza TODAS as sugestões contextuais do Prometheus:
- * - Dicas de uso de comandos
- * - Sugestões baseadas em contexto
- * - Mensagens de ajuda rápida
- * - Call-to-action para diferentes cenários
+ * Prometheusのすべてのコンテキスト提案を一元化:
+ * - コマンド使用のヒント
+ * - コンテキストベースの提案
+ * - クイックヘルプメッセージ
+ * - さまざまなシナリオのアクション叫我
  */
 
 import { ICONES } from '../../shared/icons.js';
 
 /**
- * Sugestões gerais de comandos
+ * コマンドの一般的な提案
  */
 export const SUGESTOES_COMANDOS = {
-  usarFull: `${ICONES.feedback.dica} Use --full para relatório detalhado com todas as informações`,
-  usarJson: `${ICONES.feedback.dica} Use --json para saída estruturada em JSON`,
-  combinarJsonExport: `${ICONES.feedback.dica} Combine --json com --export para salvar o relatório`,
-  usarExport: `${ICONES.feedback.dica} Use --export <caminho> para salvar relatório em arquivo`,
-  usarInclude: `${ICONES.feedback.dica} Use --include <pattern> para focar em arquivos específicos`,
-  usarExclude: `${ICONES.feedback.dica} Use --exclude <pattern> para ignorar arquivos`,
-  usarDryRun: `${ICONES.feedback.dica} Use --dry-run para simular sem modificar arquivos`,
-  removerDryRun: `${ICONES.feedback.dica} Remova --dry-run para aplicar correções`,
-  usarInterativo: `${ICONES.feedback.dica} Use --interactive para confirmar cada correção`,
-  usarGuardian: `${ICONES.feedback.dica} Use --guardian para verificar integridade`,
-  usarBaseline: `${ICONES.feedback.dica} Use --baseline para gerar baseline de referência`,
-  usarAutoFix: `${ICONES.feedback.dica} Use --auto-fix para aplicar correções automáticas`,
+  usarFull: `${ICONES.feedback.dica} --fullですべての情報を含む詳細なレポートを使用`,
+  usarJson: `${ICONES.feedback.dica} --jsonでJSON形式の構造化出力を使用`,
+  combinerJsonExport: `${ICONES.feedback.dica} --jsonと--exportを組み合わせてレポートを保存`,
+  usarExport: `${ICONES.feedback.dica} --export <パス>でファイルにレポートを保存`,
+  usarInclude: `${ICONES.feedback.dica} --include <パターン>で特定のファイルにフォーカス`,
+  usarExclude: `${ICONES.feedback.dica} --exclude <パターン>でファイルを無視`,
+  usarDryRun: `${ICONES.feedback.dica} --dry-runでファイルを変更せずにシミュレート`,
+  removerDryRun: `${ICONES.feedback.dica} --dry-runを削除して修正を適用`,
+  usarInterativo: `${ICONES.feedback.dica} --interactiveで各修正を確認`,
+  usarGuardian: `${ICONES.feedback.dica} --guardianで整合性を確認`,
+  usarBaseline: `${ICONES.feedback.dica} --baselineで参照用のベースラインを生成`,
+  usarAutoFix: `${ICONES.feedback.dica} --auto-fixで自動修正を適用`,
 } as const;
 
 /**
- * Sugestões de diagnóstico
+ * 診断の提案
  */
 export const SUGESTOES_DIAGNOSTICO = {
-  modoExecutivo: `${ICONES.diagnostico.executive} Modo executivo: mostrando apenas problemas críticos`,
+  modoExecutivo: `${ICONES.diagnostico.executive} エグゼクティブモード: 重大な問題のみ表示`,
   primeiraVez: [
-    `${ICONES.feedback.dica} Primeira vez? Comece com: prometheus diagnosticar --full`,
-    `${ICONES.feedback.dica} Use --help para ver todas as opções disponíveis`,
+    `${ICONES.feedback.dica} 初めてですか？まずは: prometheus diagnosticar --full`,
+    `${ICONES.feedback.dica} --helpで利用可能なすべてのオプションを表示`,
   ],
   projetoGrande: [
-    `${ICONES.feedback.dica} Projeto grande detectado - use --include para análise incremental`,
-    `${ICONES.feedback.dica} Use --quick para análise rápida inicial`,
+    `${ICONES.feedback.dica} 大きなプロジェクトが検出されました - インクリメンタル分析に--includeを使用`,
+    `${ICONES.feedback.dica} --quickでクイック初期分析を使用`,
   ],
-  poucoProblemas: `${ICONES.nivel.sucesso} Projeto em bom estado! Apenas {count} problemas menores encontrados.`,
+  poucoProblemas: `${ICONES.nivel.sucesso} プロジェクトの状態良好！小さな問題が{count}件見つかりました。`,
   muitosProblemas: [
-    `${ICONES.feedback.atencao} Muitos problemas encontrados - priorize os críticos primeiro`,
-    `${ICONES.feedback.dica} Use --executive para focar apenas no essencial`,
+    `${ICONES.feedback.atencao} 多くの問題が検出されました - まず重大ものを優先`,
+    `${ICONES.feedback.dica} --executiveで本質的なものにフォーカス`,
   ],
-  usarFiltros: `${ICONES.feedback.dica} Use filtros --include/--exclude para análise focada`,
+  usarFiltros: `${ICONES.feedback.dica} --include/--excludeフィルタを使用して集中化された分析を`,
 } as const;
 
 /**
- * Sugestões de auto-fix
+ * 自動修正の提案
  */
 export const SUGESTOES_AUTOFIX = {
-  autoFixDisponivel: `${ICONES.feedback.dica} Correções automáticas disponíveis - use --auto-fix`,
-  autoFixAtivo: `${ICONES.feedback.atencao} Auto-fix ativo! Use --dry-run para simular sem modificar arquivos`,
-  dryRunRecomendado: `${ICONES.feedback.dica} Recomendado: teste primeiro com --dry-run`,
-  semMutateFS: `${ICONES.feedback.atencao} Auto-fix indisponível no momento`,
+  autoFixDisponivel: `${ICONES.feedback.dica} 自動修正が利用可能です - --auto-fixを使用`,
+  autoFixAtivo: `${ICONES.feedback.atencao} 自動修正アクティブ！ --dry-runでファイルを変更せずにシミュレート`,
+  dryRunRecomendado: `${ICONES.feedback.dica} 推奨: まず--dry-runでテスト`,
+  semMutateFS: `${ICONES.feedback.atencao} 現在自動修正は利用できません`,
   validarDepois: [
-    `${ICONES.feedback.dica} Execute npm run lint para verificar as correções`,
-    `${ICONES.feedback.dica} Execute npm run build para verificar se o código compila`,
-    `${ICONES.feedback.dica} Execute npm test para validar funcionalidades`,
+    `${ICONES.feedback.dica} 修正を確認するにはnpm run lintを実行`,
+    `${ICONES.feedback.dica} コードがコンパイルされるか確認するにはnpm run buildを実行`,
+    `${ICONES.feedback.dica} 機能を検証するにはnpm testを実行`,
   ],
 } as const;
 
 /**
- * Sugestões de Guardian
+ * Guardianの提案
  */
 export const SUGESTOES_GUARDIAN = {
-  guardianDesabilitado: `${ICONES.comando.guardian} Guardian desativado. Use --guardian para verificar integridade`,
+  guardianDesabilitado: `${ICONES.comando.guardian} Guardianが無効です。 --guardianで整合性を確認`,
   primeiroBaseline: [
-    `${ICONES.feedback.dica} Primeira execução: gere um baseline com --baseline`,
-    `${ICONES.feedback.dica} O baseline serve como referência para mudanças futuras`,
+    `${ICONES.feedback.dica} 最初の実行: --baselineでベースラインを生成`,
+    `${ICONES.feedback.dica} ベースラインは将来の変更の参照として機能します`,
   ],
   driftDetectado: [
-    `${ICONES.feedback.atencao} Mudanças detectadas em relação ao baseline`,
-    `${ICONES.feedback.dica} Revise as alterações antes de atualizar o baseline`,
-    `${ICONES.feedback.dica} Use --baseline para atualizar referência`,
+    `${ICONES.feedback.atencao} ベースラインに対して変更が検出されました`,
+    `${ICONES.feedback.dica} ベースラインを更新する前に変更をレビュー`,
+    `${ICONES.feedback.dica} --baselineで参照を更新`,
   ],
-  integridadeOK: `${ICONES.nivel.sucesso} Integridade verificada - nenhuma mudança não autorizada`,
+  integridadeOK: `${ICONES.nivel.sucesso} 整合性確認済み - 未承認の変更はありません`,
 } as const;
 
 /**
- * Sugestões de tipos (fix-types)
+ * タイプ（fix-types）の提案
  */
 export const SUGESTOES_TIPOS = {
   ajustarConfianca: (atual: number) =>
-    `${ICONES.feedback.dica} Use --confidence <num> para ajustar o limiar (atual: ${atual}%)`,
+    `${ICONES.feedback.dica} --confidence <num>でしきい値を調整（現在: ${atual}%）`,
   revisar: (categoria: string) =>
-    `${ICONES.feedback.dica} Revise os casos ${categoria} manualmente`,
+    `${ICONES.feedback.dica} ${カテゴリ}ケースを手動でレビュー`,
   anyEncontrado: [
-    `${ICONES.feedback.atencao} Tipos 'any' detectados - reduzem segurança do código`,
-    `${ICONES.feedback.dica} Priorize substituir 'as any' e casts explícitos`,
+    `${ICONES.feedback.atencao} 'any'タイプが検出されました - コードの安全性を低下させます`,
+    `${ICONES.feedback.dica} 'as any'と明示的なキャストの置き換えを優先`,
   ],
-  unknownLegitimo: `${ICONES.nivel.sucesso} Usos legítimos de 'unknown' identificados`,
-  melhoravelDisponivel: `${ICONES.feedback.dica} Casos melhoráveis encontrados - revisar em refatoração futura`,
+  unknownLegitimo: `${ICONES.nivel.sucesso} 'unknown'の正当な使用を特定`,
+  melhoravelDisponivel: `${ICONES.feedback.dica} 改善可能なケースが見つかりました - 将来のリファクタリングでレビュー`,
 } as const;
 
 /**
- * Sugestões de arquetipos
+ * アーキタイプの提案
  */
 export const SUGESTOES_ARQUETIPOS = {
   monorepo: [
-    `${ICONES.feedback.dica} Monorepo detectado: considere usar filtros por workspace`,
-    `${ICONES.feedback.dica} Use --include packages/* para analisar workspaces específicos`,
+    `${ICONES.feedback.dica} Monorepoが検出されました: ワークスペースごとにフィルタの使用を検討`,
+    `${ICONES.feedback.dica} --include packages/*で特定のワークスペースを分析`,
   ],
   biblioteca: [
-    `${ICONES.feedback.dica} Biblioteca detectada: foque em exports públicos e documentação`,
-    `${ICONES.feedback.dica} Use --guardian para verificar API pública`,
+    `${ICONES.feedback.dica} ライブラリが検出されました: パブリックスAPIとドキュメントにフォーカス`,
+    `${ICONES.feedback.dica} --guardianでパブリックAPIを確認`,
   ],
   cli: [
-    `${ICONES.feedback.dica} CLI detectado: priorize testes de comandos e flags`,
-    `${ICONES.feedback.dica} Valide tratamento de erros em comandos`,
+    `${ICONES.feedback.dica} CLIが検出されました: コマンドとフラグのテストを優先`,
+    `${ICONES.feedback.dica} コマンドのエラー処理を検証`,
   ],
   api: [
-    `${ICONES.feedback.dica} API detectada: foque em endpoints e contratos`,
-    `${ICONES.feedback.dica} Considere testes de integração para rotas`,
-    `${ICONES.feedback.dica} Valide documentação de API (OpenAPI/Swagger)`,
+    `${ICONES.feedback.dica} APIが検出されました: エンドポイントとコントラクトにフォーカス`,
+    `${ICONES.feedback.dica} ルートに対して統合テストを検討`,
+    `${ICONES.feedback.dica} APIドキュメントを検証（OpenAPI/Swagger）`,
   ],
   frontend: [
-    `${ICONES.feedback.dica} Frontend detectado: priorize componentes e state management`,
-    `${ICONES.feedback.dica} Valide acessibilidade e performance`,
+    `${ICONES.feedback.dica} Frontendが検出されました: コンポーネントと状態管理を優先`,
+    `${ICONES.feedback.dica} アクセシビリティとパフォーマンスを検証`,
   ],
   confiancaBaixa: [
-    `${ICONES.feedback.atencao} Confiança baixa na detecção: estrutura pode ser híbrida`,
-    `${ICONES.feedback.dica} Use --criar-arquetipo --salvar-arquetipo para personalizar`,
+    `${ICONES.feedback.atencao} 検出の信頼度が低い: 構造はハイブリッドである可能性があります`,
+    `${ICONES.feedback.dica} --criar-arquetipo --salvar-arquetipoでカスタマイズ`,
   ],
 } as const;
 
 /**
- * Sugestões de reestruturação
+ * 再構成の提案
  */
 export const SUGESTOES_REESTRUTURAR = {
   backupRecomendado: [
-    `${ICONES.feedback.importante} IMPORTANTE: Faça backup antes de reestruturar!`,
-    `${ICONES.feedback.dica} Use git para versionar antes de mudanças estruturais`,
+    `${ICONES.feedback.importante} 重要: 再構成前にバックアップを作成！`,
+    `${ICONES.feedback.dica} 構造変更前にgitでバージョン管理`,
   ],
   validarDepois: [
-    `${ICONES.feedback.dica} Execute testes após reestruturação`,
-    `${ICONES.feedback.dica} Valide imports e referências`,
+    `${ICONES.feedback.dica} 再構成後にテストを実行`,
+    `${ICONES.feedback.dica} インポートと参照を検証`,
   ],
-  usarDryRun: `${ICONES.feedback.dica} Primeira vez? Use --dry-run para ver mudanças propostas`,
+  usarDryRun: `${ICONES.feedback.dica} 初めてですか？ --dry-runで提案された変更を表示`,
 } as const;
 
 /**
- * Sugestões de poda
+ * 剪定の提案
  */
 export const SUGESTOES_PODAR = {
   cuidado: [
-    `${ICONES.feedback.atencao} Poda remove arquivos permanentemente!`,
-    `${ICONES.feedback.importante} Certifique-se de ter backup ou controle de versão`,
+    `${ICONES.feedback.atencao} 剪定はファイルを完全に削除します！`,
+    `${ICONES.feedback.importante} バックアップまたはバージョン管理があるか確認`,
   ],
-  revisar: `${ICONES.feedback.dica} Revise a lista de arquivos antes de confirmar`,
-  usarDryRun: `${ICONES.feedback.dica} Use --dry-run para simular poda sem deletar`,
+  revisar: `${ICONES.feedback.dica} 確認する前にファイルのリストをレビュー`,
+  usarDryRun: `${ICONES.feedback.dica} --dry-runで削除せずに剪定をシミュレート`,
 } as const;
 
 /**
- * Sugestões de métricas
+ * メトリクスの提案
  */
 export const SUGESTOES_METRICAS = {
   baseline: [
-    `${ICONES.feedback.dica} Gere baseline para comparações futuras`,
-    `${ICONES.feedback.dica} Use --json para integração com CI/CD`,
+    `${ICONES.feedback.dica} 将来の比較のためにベースラインを生成`,
+    `${ICONES.feedback.dica} --jsonでCI/CDとの統合に使用`,
   ],
-  tendencias: `${ICONES.feedback.dica} Execute regularmente para acompanhar tendências`,
-  comparacao: `${ICONES.feedback.dica} Compare com execuções anteriores`,
+  tendencias: `${ICONES.feedback.dica} 傾向を追跡するために定期的に実行`,
+  comparacao: `${ICONES.feedback.dica} 以前的実行と比較`,
 } as const;
 
 /**
- * Sugestões de zeladores
+ * ゼラドールの提案
  */
 export const SUGESTOES_ZELADOR = {
   imports: [
-    `${ICONES.feedback.dica} Zelador de imports corrige caminhos automaticamente`,
-    `${ICONES.feedback.dica} Use --dry-run para ver correções propostas`,
+    `${ICONES.feedback.dica} インポートゼラドールがパスを自動的に修正`,
+    `${ICONES.feedback.dica} --dry-runで提案された修正を表示`,
   ],
   estrutura: [
-    `${ICONES.feedback.dica} Zelador de estrutura organiza arquivos por padrão`,
-    `${ICONES.feedback.dica} Configure padrões em prometheus.config.json`,
+    `${ICONES.feedback.dica} 構造ゼラドールがパターンごとにファイルを整理`,
+    `${ICONES.feedback.dica} prometheus.config.jsonでパターンを構成`,
   ],
 } as const;
 
 /**
- * Sugestões contextuais - função helper
+ * コンテキスト提案 - ヘルパー関数
  */
 export function gerarSugestoesContextuais(contexto: {
   comando: string;
@@ -198,7 +198,7 @@ export function gerarSugestoesContextuais(contexto: {
 }): string[] {
   const sugestoes: string[] = [];
 
-  // Sugestões por comando
+  // コマンドごとの提案
   switch (contexto.comando) {
     case 'diagnosticar':
       if (!contexto.temProblemas) {
@@ -248,7 +248,7 @@ export function gerarSugestoesContextuais(contexto: {
       break;
   }
 
-  // Sugestões por arquétipo
+  // アーキタイプごとの提案
   if (contexto.arquetipo) {
     switch (contexto.arquetipo) {
       case 'monorepo':
@@ -273,11 +273,11 @@ export function gerarSugestoesContextuais(contexto: {
 }
 
 /**
- * Formata sugestões para exibição
+ * 表示用に提案をフォーマット
  */
 export function formatarSugestoes(
   sugestoes: string[],
-  titulo = 'Sugestões',
+  titulo = '提案',
 ): string[] {
   if (sugestoes.length === 0) return [];
 
@@ -294,7 +294,7 @@ export function formatarSugestoes(
 }
 
 /**
- * Export consolidado
+ * エクスポート集中化
  */
 export const SUGESTOES = {
   comandos: SUGESTOES_COMANDOS,

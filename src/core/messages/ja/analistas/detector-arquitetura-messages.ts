@@ -1,19 +1,20 @@
 // SPDX-License-Identifier: MIT
 
 /**
- * @fileoverview Mensagens de diagnóstico para o detector de arquitetura.
- * Fornece templates de texto para reportar padrões arquiteturais identificados,
- * violações, métricas de acoplamento/coesão e erros de análise.
+ * @fileoverview アーキテクチャ検出器用の診断メッセージ。
+ * 特定されたアーキテクチャパターン、違反、
+ * 結合/凝集度メトリクス、分析エラーを報告するための
+ * テキストテンプレートを提供します。
  */
 
 type ErroUnknown = unknown;
 function erroToMessage(erro: ErroUnknown): string {
-  return erro instanceof Error ? erro.message : 'Erro desconhecido';
+  return erro instanceof Error ? erro.message : '不明なエラー';
 }
 export const DetectorArquiteturaMensagens = {
-  padraoArquitetural: (padraoIdentificado: string | undefined, confianca: number) => `Padrão arquitetural: ${padraoIdentificado} (${confianca}% confiança)`,
-  caracteristicas: (caracteristicas: string[]) => `Características: ${caracteristicas.slice(0, 3).join(', ')}`,
-  violacao: (violacao: string) => `Violação arquitetural: ${violacao}`,
-  metricas: (acoplamento: number, coesao: number) => `Métricas: Acoplamento=${(acoplamento * 100).toFixed(0)}%, Coesão=${(coesao * 100).toFixed(0)}%`,
-  erroAnalisarArquitetura: (erro: ErroUnknown) => `Erro ao analisar arquitetura: ${erroToMessage(erro)}`
+  padraoArquitetural: (padraoIdentificado: string | undefined, confianca: number) => `アーキテクチャパターン: ${padraoIdentificado}（${confianca}%信頼度）`,
+  caracteristicas: (caracteristicas: string[]) => `特性: ${caracteristicas.slice(0, 3).join(', ')}`,
+  violacao: (violacao: string) => `アーキテクチャ違反: ${violacao}`,
+  metricas: (acoplamento: number, coesao: number) => `メトリクス: 結合度=${(acoplamento * 100).toFixed(0)}%, 凝集度=${(coesao * 100).toFixed(0)}%`,
+  erroAnalisarArquitetura: (erro: ErroUnknown) => `アーキテクチャ分析エラー: ${erroToMessage(erro)}`
 } as const;

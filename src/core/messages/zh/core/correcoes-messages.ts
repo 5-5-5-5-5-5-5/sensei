@@ -1,142 +1,133 @@
 // SPDX-License-Identifier: MIT
 /**
- * Mensagens de Correções Automáticas
+ * 自动修复消息
  *
- * Centraliza todas as mensagens relacionadas a:
- * - Quick Fixes (fix-any-to-proper-type, fix-unknown, etc)
- * - Zeladores (imports, estrutura, tipos)
- * - Auto-fix em geral
+ * 集中所有与以下相关的消息：
+ * - 快速修复 (fix-any-to-proper-type, fix-unknown, etc)
+ * - 守护者 (imports, 结构, 类型)
+ * - 自动修复
  */
 
 import { buildTypesRelPathPosix, getTypesDirectoryDisplay } from '../../../config/conventions.js';
 import { ICONES } from '../../shared/icons.js';
 
 /**
- * Mensagens de Quick Fixes - Any/Unknown
+ * 快速修复消息 - Any/Unknown
  */
 export const MENSAGENS_CORRECAO_TIPOS = {
-  // Títulos e descrições de quick fixes
   fixAny: {
-    title: 'Substituir any por tipos seguros',
-    get description() { return `Analisa uso de any e infere/cria tipos corretos em ${getTypesDirectoryDisplay()}` }
+    title: '用安全类型替换any',
+    get description() { return `分析any的使用并在${getTypesDirectoryDisplay()}中推断/创建正确类型` }
   },
   fixUnknown: {
-    title: 'Substituir unknown por tipos específicos',
-    description: 'Detecta padrões de type guards e cria tipos dedicados'
+    title: '用特定类型替换unknown',
+    description: '检测type guards模式并创建专用类型'
   },
-  // Mensagens de validação
   validacao: {
-    falha: (erros: string[]) => `Validação falhou: ${erros.join(', ')}`,
-    revisar: 'Revise manualmente'
+    falha: (erros: string[]) => `验证失败: ${erros.join(', ')}`,
+    reviewer: '请手动检查'
   },
-  // Warnings e sugestões
   warnings: {
-    confiancaBaixa: (confianca: number) => `Tipo inseguro (any) com confiança muito baixa (${confianca}%) para correção automática`,
-    confiancaMedia: (confianca: number, tipoSugerido: string) => `Tipo inseguro detectado. Sugestão: ${tipoSugerido} (confiança: ${confianca}%)`,
-    unknownApropriado: 'unknown apropriado aqui (entrada genérica ou baixa confiança)',
-    useTiposCentralizados: () => `Use tipos centralizados em diretório dedicado (${getTypesDirectoryDisplay()})`,
-    criarTipoDedicado: (caminho: string) => `Considere criar tipo dedicado em ${buildTypesRelPathPosix(caminho)}`,
-    adicioneTypeGuards: () => `Se possível, adicione type guards ou crie tipo dedicado em ${getTypesDirectoryDisplay()}`
+    confiancaBaixa: (confianca: number) => `不安全类型(any)置信度过低(${confianca}%)，无法自动修复`,
+    confiancaMedia: (confianca: number, tipoSugerido: string) => `检测到不安全类型。建议: ${tipoSugerido} (置信度: ${confianca}%)`,
+    unknownApropriado: 'unknown适用于此处(泛型输入或低置信度)',
+    useTiposCentralizados: () => `使用专用目录中的集中类型 (${getTypesDirectoryDisplay()})`,
+    criarTipoDedicado: (caminho: string) => `考虑在${buildTypesRelPathPosix(caminho)}中创建专用类型`,
+    adicioneTypeGuards: () => `如可能，在${getTypesDirectoryDisplay()}中添加type guards或创建专用类型`
   },
-  // Mensagens de erro
   erros: {
-    extrairNome: 'Não foi possível extrair nome da variável',
-    variavelNaoUsada: 'Variável não utilizada - impossível inferir tipo',
-    analise: (erro: string) => `Erro na análise: ${erro}`
+    extrairNome: '无法提取变量名',
+    variavelNaoUsada: '变量未使用 - 无法推断类型',
+    analise: (erro: string) => `分析错误: ${erro}`
   }
 } as const;
 
 /**
- * Mensagens de Auto-Fix
+ * 自动修复消息
  */
 export const MENSAGENS_AUTOFIX = {
-  // Mensagens de status
-  iniciando: (modo: string) => `${ICONES.acao.correcao} Iniciando auto-fix (modo: ${modo})`,
-  dryRun: `${ICONES.feedback.info} Dry-run: simulando correções (nenhuma mudança será aplicada)`,
-  aplicando: (count: number) => `Aplicando ${count} correção${count !== 1 ? 'ões' : ''}...`,
-  concluido: (aplicadas: number, falhas: number) => `${ICONES.nivel.sucesso} Auto-fix concluído: ${aplicadas} aplicada${aplicadas !== 1 ? 's' : ''}, ${falhas} falha${falhas !== 1 ? 's' : ''}`,
-  naoDisponivel: `${ICONES.feedback.info} Nenhuma correção automática disponível`,
-  // Flags e modos
+  iniciando: (modo: string) => `${ICONES.acao.correcao} 启动自动修复 (模式: ${modo})`,
+  dryRun: `${ICONES.feedback.info} 试运行: 模拟修复(不会应用任何更改)`,
+  applying: (count: number) => `应用${count}个修复...`,
+  concluido: (aplicadas: number, falhas: number) => `${ICONES.nivel.sucesso} 自动修复完成: ${aplicadas}个已应用, ${falhas}个失败`,
+  naoDisponivel: `${ICONES.feedback.info} 没有可用的自动修复`,
   flags: {
-    fixSafe: `${ICONES.comando.guardian} Flag --fix-safe detectada: ativando modo conservador`,
-    requireMutateFS: `${ICONES.status.falha} Auto-fix indisponível no momento.`
+    fixSafe: `${ICONES.comando.guardian} 检测到--fix-safe标志: 启用保守模式`,
+    requireMutateFS: `${ICONES.status.falha} 自动修复目前不可用`
   },
-  // Logs de progresso
   logs: {
-    modoConservador: `${ICONES.comando.guardian} Modo conservador ativado - aplicando apenas correções de alta confiança`,
-    validacaoEslint: `${ICONES.acao.analise} Executando validação ESLint pós-auto-fix...`,
-    arquivoMovido: (origem: string, destino: string) => `${ICONES.status.ok} Movido: ${origem} → ${destino}`,
-    arquivoRevertido: (origem: string, destino: string) => `↩️ Arquivo revertido: ${destino} → ${origem}`,
-    arquivoRevertidoConteudo: (origem: string, destino: string) => `↩️ Arquivo revertido com conteúdo original: ${destino} → ${origem}`
+    modoConservador: `${ICONES.comando.guardian} 保守模式已激活 - 仅应用高置信度修复`,
+    validacaoEslint: `${ICONES.acao.analise} 执行自动修复后的ESLint验证...`,
+    arquivoMovido: (origem: string, destino: string) => `${ICONES.status.ok} 已移动: ${origem} → ${destino}`,
+    arquivoRevertido: (origem: string, destino: string) => `↩️ 文件已还原: ${destino} → ${origem}`,
+    arquivoRevertidoConteudo: (origem: string, destino: string) => `↩️ 文件已还原原始内容: ${destino} → ${origem}`
   },
-  // Resultados
   resultados: {
-    sucesso: (count: number) => `${ICONES.status.ok} ${count} arquivo(s) corrigido(s)`,
-    falhas: (count: number) => `${ICONES.status.falha} ${count} arquivo(s) com erro`,
+    sucesso: (count: number) => `${ICONES.status.ok} ${count}个文件已修复`,
+    falhas: (count: number) => `${ICONES.status.falha} ${count}个文件出错`,
     erroArquivo: (arquivo: string, erro: string) => `${ICONES.status.falha} ${arquivo}: ${erro}`
   },
-  // Dicas pós-correção
   dicas: {
-    executarLint: `${ICONES.feedback.dica} Execute \`npm run lint\` para verificar as correções`,
-    executarBuild: `${ICONES.feedback.dica} Execute \`npm run build\` para verificar se o código compila`,
-    removerDryRun: `${ICONES.feedback.dica} Remova --dry-run para aplicar correções automaticamente`,
-    ajustarConfianca: `${ICONES.feedback.dica} Use --confidence <num> para ajustar o limiar (atual: 85%)`
+    executarLint: `${ICONES.feedback.dica} 运行\`npm run lint\`验证修复`,
+    executarBuild: `${ICONES.feedback.dica} 运行\`npm run build\`验证代码编译`,
+    removerDryRun: `${ICONES.feedback.dica} 删除--dry-run以自动应用修复`,
+    ajustarConfianca: `${ICONES.feedback.dica} 使用--confidence <num>���整阈值(当前: 85%)`
   }
 } as const;
 
 /**
- * Mensagens de Relatórios de Análise
+ * 分析报告消息
  */
 export const MENSAGENS_RELATORIOS_ANALISE = {
   asyncPatterns: {
-    titulo: `${ICONES.relatorio.resumo} Análise de Padrões Async/Await`,
-    padroes: `\n${ICONES.relatorio.resumo} Padrões de Uso do Código:`,
-    recomendacoes: `\n${ICONES.feedback.dica} Recomendações de Correção:\n`,
-    critico: `${ICONES.nivel.erro} CRÍTICO (Revisar Imediatamente):`,
-    alto: `\n${ICONES.feedback.atencao} ALTO (Revisar em Sprint Atual):`,
-    salvo: (caminho: string) => `${ICONES.nivel.sucesso} Relatório async salvo em: ${caminho}`
+    titulo: `${ICONES.relatorio.resumo} Async/Await模式分析`,
+    padroes: `\n${ICONES.relatorio.resumo} 代码使用模式:`,
+    recomendacoes: `\n${ICONES.feedback.dica} 修复建议:\n`,
+    critico: `${ICONES.nivel.erro} 严重(立即审查):`,
+    alto: `\n${ICONES.feedback.atencao} 高(在当前Sprint中审查):`,
+    salvo: (caminho: string) => `${ICONES.nivel.sucesso} Async报告已保存: ${caminho}`
   },
   fixTypes: {
-    analiseSalva: `${ICONES.arquivo.json} Análise detalhada salva em: .prometheus/fix-types-analise.json`,
-    possibilidades: `└─ ${ICONES.acao.analise} Possibilidades alternativas:`,
+    analiseSalva: `${ICONES.arquivo.json} 详细分析已保存: .prometheus/fix-types-analise.json`,
+    possibilidades: `└─ ${ICONES.acao.analise} 替代可能性:`,
     sugestao: (texto: string) => `└─ ${ICONES.feedback.dica} ${texto}`,
-    exportado: `${ICONES.arquivo.doc} Relatórios de fix-types exportados:`
+    exportado: `${ICONES.arquivo.doc} fix-types报告已导出:`
   },
   guardian: {
-    baselineAceito: `${ICONES.status.ok} Guardian: baseline aceito manualmente (--aceitar).`,
-    exportado: `${ICONES.arquivo.doc} Relatórios Guardian exportados:`
+    baselineAceito: `${ICONES.status.ok} Guardian: 手动接受baseline (--accept)`,
+    exportado: `${ICONES.arquivo.doc} Guardian报告已导出:`
   }
 } as const;
 
 /**
- * Mensagens de Arquetipos
+ * 原型消息
  */
 export const MENSAGENS_ARQUETIPOS_HANDLER = {
-  timeout: `${ICONES.feedback.atencao} Detecção de arquetipos expirou (timeout)`,
-  salvo: (caminho: string) => `${ICONES.status.ok} Arquétipo personalizado salvo em ${caminho}`,
-  falha: `${ICONES.feedback.atencao} Falha ao gerar plano via arquétipos.`,
-  falhaEstrategista: `${ICONES.feedback.atencao} Estrategista falhou ao sugerir plano.`,
-  falhaGeral: `${ICONES.feedback.atencao} Falha geral no planejamento.`
+  timeout: `${ICONES.feedback.atencao} 原型检测超时`,
+  salvo: (caminho: string) => `${ICONES.status.ok} 自定义原型已保存${caminho}`,
+  falha: `${ICONES.feedback.atencao} 通过原型生成计划失败`,
+  falhaEstrategista: `${ICONES.feedback.atencao} 战略家建议计划失败`,
+  falhaGeral: `${ICONES.feedback.atencao} 规划总体失败`
 } as const;
 
 /**
- * Mensagens de Plugins
+ * 插件消息
  */
 export const MENSAGENS_PLUGINS = {
-  registrado: (nome: string, extensoes: string[]) => `${ICONES.status.ok} Plugin ${nome} registrado com extensões: ${extensoes.join(', ')}`,
-  configAtualizada: `${ICONES.acao.correcao} Configuração do registry atualizada`,
-  erroParsear: (linguagem: string, erro: string) => `${ICONES.feedback.atencao} Erro ao parsear ${linguagem}: ${erro}`
+  registrado: (nome: string, extensoes: string[]) => `${ICONES.status.ok} 插件${nome}已注册，扩展名: ${extensoes.join(', ')}`,
+  configAtualizada: `${ICONES.acao.correcao} 注册表配置已更新`,
+  erroParsear: (linguagem: string, erro: string) => `${ICONES.feedback.atencao} 解析${linguagem}出错: ${erro}`
 } as const;
 
 /**
- * Mensagens de Executor
+ * 执行器消息
  */
 export const MENSAGENS_EXECUTOR = {
-  analiseCompleta: (tecnica: string, arquivo: string, duracao: string) => `${ICONES.arquivo.arquivo} '${tecnica}' analisou ${arquivo} em ${duracao}`
+  analiseCompleta: (tecnica: string, arquivo: string, duracao: string) => `${ICONES.arquivo.arquivo} '${tecnica}' 分析了${arquivo}，耗时${duracao}`
 } as const;
 
 /**
- * Export consolidado
+ * 合并导出
  */
 export const MENSAGENS_CORRECOES = {
   fixTypes: MENSAGENS_CORRECAO_TIPOS,

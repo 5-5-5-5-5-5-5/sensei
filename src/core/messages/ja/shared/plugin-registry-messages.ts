@@ -1,10 +1,10 @@
 export const PluginRegistryMensagens = {
-  extensaoSobrescrita: '⚠️ Extensão {ext} já mapeada para plugin {existente}, sobrescrevendo com {novo}',
-  pluginRegistrado: '✅ Plugin {nome} registrado com extensões: {extensoes}',
-  carregandoPlugin: '📦 Carregando plugin: {nome}',
-  pluginDesabilitado: '🚫 Plugin {nome} está desabilitado para extensão {extensao}',
-  linguagemDesabilitada: '🚫 Suporte à linguagem {linguagem} está desabilitado',
-  configAtualizada: '🔧 Configuração do registry atualizada',
-  suporteAtualizado: '🌐 Suporte a linguagens atualizado',
-  cacheLimpo: '🧹 Cache do registry limpo',
+  extensaoSobrescrita: '⚠️ 拡張子{ext}は既にプラグイン{existente}にマップされています、{novo}で上書き',
+  pluginRegistrado: '✅ プラグイン{nome}が拡張子で登録されました: {extensoes}',
+  carregandoPlugin: '📦 プラグインを読み込み中: {nome}',
+  pluginDesabilitado: '🚫 プラグイン{nome}は拡張子{extensao}で無効です',
+  linguagemDesabilitada: '🚫 言語{linguagem}のサポートが無効です',
+  configAtualizada: '🔧 レジストリ設定が更新されました',
+  suporteAtualizado: '🌐 言語サポートが更新されました',
+  cacheLimpo: '🧹 レジストリキャッシュがクリアされました',
 } as const;

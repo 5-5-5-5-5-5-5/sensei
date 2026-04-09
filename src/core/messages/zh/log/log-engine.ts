@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 /**
- * Engine de logs adaptativos que se ajusta ao contexto do projeto
- * Detecta automaticamente complexidade e adapta verbosidade
+ * 自适应日志引擎，根据项目上下文自动调整
+ * 自动检测复杂性并调整详细程度
  */
 
 import { config } from '@core/config/config.js';
@@ -25,13 +25,12 @@ class LogEngineAdaptativo {
   }
 
   /**
-   * Detecta automaticamente o contexto do projeto baseado nos arquivos
+   * 根据文件自动检测项目上下文
    */
   detectarContexto(fileMap: FileMap): LogContext {
     this.metricas = this.analisarProjeto(fileMap);
     this.isCI = this.detectarCI();
 
-    // Prioridade: CI > Complexidade > Padrão
     if (this.isCI) {
       this.contextoAtual = 'ci';
       this.log('debug', LogMensagens.contexto.ci_cd, {});
@@ -50,7 +49,6 @@ class LogEngineAdaptativo {
       this.contextoAtual = 'medio';
     }
 
-    // Log de detecção do projeto
     this.log('info', LogMensagens.projeto.detectado, {
       tipo: this.contextoAtual,
       confianca: this.calcularConfianca()
@@ -63,17 +61,15 @@ class LogEngineAdaptativo {
   }
 
   /**
-   * Analisa métricas do projeto para determinar complexidade
+   * 分析项目指标以确定复杂性
    */
   private analisarProjeto(fileMap: FileMap): ProjetoMetricas {
     const arquivos = Object.values(fileMap);
     const totalArquivos = arquivos.length;
 
-    // Detecta linguagens pelos extensions
     const extensoes = new Set(arquivos.map(f => f.relPath.split('.').pop()?.toLowerCase()).filter((ext): ext is string => Boolean(ext)));
     const linguagens = Array.from(extensoes).filter(ext => ['js', 'ts', 'jsx', 'tsx', 'html', 'css', 'php', 'py', 'xml'].includes(ext));
 
-    // Detecta estrutura complexa
     const temSrcFolder = arquivos.some(f => f.relPath.startsWith('src/'));
     const temMultiplosDiretorios = new Set(arquivos.map(f => f.relPath.split('/')[0])).size > 5;
     const temConfiguracaoArquivos = arquivos.some(f => ['package.json', 'tsconfig.json', 'webpack.config.js', 'vite.config.ts'].includes(f.relPath.split('/').pop() || ''));
@@ -94,20 +90,19 @@ class LogEngineAdaptativo {
   }
 
   /**
-   * Detecta se está rodando em ambiente CI/CD
+   * 检测是否在CI/CD环境中运行
    */
   private detectarCI(): boolean {
     return !!(process.env.CI || process.env.GITHUB_ACTIONS || process.env.GITLAB_CI || process.env.JENKINS_URL || config.REPORT_SILENCE_LOGS);
   }
 
   /**
-   * Calcula confiança da detecção de contexto
+   * 计算上下文检测的置信度
    */
   private calcularConfianca(): number {
     if (!this.metricas) return 50;
-    let confianca = 60; // base
+    let confianca = 60;
 
-    // Fatores que aumentam confiança
     if (this.metricas.totalArquivos > 0) confianca += 10;
     if (this.metricas.linguagens.length > 0) confianca += 10;
     if (this.metricas.temTestes) confianca += 10;
@@ -116,11 +111,9 @@ class LogEngineAdaptativo {
   }
 
   /**
-   * Log adaptativo baseado no contexto atual
+   * 基于当前上下文的自适应日志
    */
   log(level: LogLevel, template: LogTemplate, data: LogData = {}): void {
-    // Quando --json está ativo, o stdout deve conter APENAS JSON.
-    // Suprimimos logs visuais e mantemos apenas erros no stderr.
     if (isJsonMode()) {
       if (level !== 'erro') return;
       const formattedMensagem = this.formatMessage(template, data, LogContextConfiguracao[this.contextoAtual]);
@@ -129,13 +122,11 @@ class LogEngineAdaptativo {
     }
     const contextoConfiguracao = LogContextConfiguracao[this.contextoAtual];
 
-    // Em CI, usar formato estruturado
     if (this.isCI && this.contextoAtual === 'ci') {
       this.logEstruturado(level, template, data);
       return;
     }
 
-    // Log normal com adaptações
     const formattedMensagem = this.formatMessage(template, data, contextoConfiguracao);
     const timestamp = this.formatTimestamp();
     const logMethod = this.getLogMethod(level);
@@ -143,7 +134,7 @@ class LogEngineAdaptativo {
   }
 
   /**
-   * Log estruturado para CI/CD
+   * CI/CD的结构化日志
    */
   private logEstruturado(level: LogLevel, template: LogTemplate, data: LogData): void {
     const logEntrada = {
@@ -157,19 +148,17 @@ class LogEngineAdaptativo {
   }
 
   /**
-   * Formata mensagem baseada no contexto
+   * 基于上下文格式化消息
    */
   private formatMessage(template: LogTemplate, data: LogData, contextoConfiguracao = LogContextConfiguracao[this.contextoAtual]): string {
     const processedData = {
       ...data
     };
 
-    // Adapta formato de arquivo baseado no contexto
     if (processedData.arquivo && typeof processedData.arquivo === 'string') {
       processedData.arquivo = this.formatarNomeArquivo(processedData.arquivo, contextoConfiguracao.formato_arquivo);
     }
 
-    // Aplica formatação de template
     return template.replace(/\{(\w+)\}/g, (match: string, key: string) => {
       const value = processedData[key];
       return value !== undefined ? String(value) : match;
@@ -177,7 +166,7 @@ class LogEngineAdaptativo {
   }
 
   /**
-   * Formata nome do arquivo baseado no contexto
+   * 基于上下文格式化文件名
    */
   private formatarNomeArquivo(arquivo: string, formato: string): string {
     switch (formato) {
@@ -193,7 +182,7 @@ class LogEngineAdaptativo {
   }
   private formatTimestamp(): string {
     const now = new Date();
-    return now.toTimeString().slice(0, 8); // HH:mm:ss
+    return now.toTimeString().slice(0, 8);
   }
   private getLogMethod(level: LogLevel) {
     switch (level) {
@@ -207,7 +196,7 @@ class LogEngineAdaptativo {
   }
 
   /**
-   * Getters para uso externo
+   * 外部使用的getter
    */
   get contexto(): LogContext {
     return this.contextoAtual;
@@ -217,11 +206,11 @@ class LogEngineAdaptativo {
   }
 
   /**
-   * Força um contexto específico (para testes ou override manual)
+   * 强制特定上下文(用于测试或手动覆盖)
    */
   forcarContexto(contexto: LogContext): void {
     this.contextoAtual = contexto;
-    this.log('debug', `${ICONES_FEEDBACK.info} Contexto forçado para: ${contexto}`, {});
+    this.log('debug', `${ICONES_FEEDBACK.info} 强制上下文: ${contexto}`, {});
   }
 }
 export const logEngine = LogEngineAdaptativo.getInstance();

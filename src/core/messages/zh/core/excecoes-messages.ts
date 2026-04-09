@@ -1,53 +1,53 @@
 // SPDX-License-Identifier: MIT
 
 /**
- * @fileoverview Mensagens de exceção e erro do core do Prometheus.
- * Centraliza strings de erro relacionadas ao CLI, plugins, analistas,
- * validação, segurança, persistência, schema, scanner, reversão e relatórios.
+ * @fileoverview Prometheus核心异常和错误消息。
+ * 集中CLI、插件、分析器相关的错误字符串，
+ * 验证、安全、持久化、schema、扫描器、还原和报告。
  */
 
 export const ExcecoesMensagens = {
   // CLI
   exit1: 'exit:1',
-  requireMutateFsAutoFix: 'Auto-fix indisponível',
-  autoFixTimeout: (timeoutMs: number) => `Auto-fix timeout após ${timeoutMs}ms`,
-  // Plugins / import seguro
-  pluginsDesabilitadosSafeMode: 'Carregamento de plugins desabilitado em SAFE_MODE. Defina PROMETHEUS_ALLOW_PLUGINS=1 para permitir.',
-  pluginBloqueado: (erro: string) => `Plugin bloqueado: ${erro}`,
-  caminhoPluginNaoResolvido: 'Caminho de plugin não resolvido',
-  // Registry de plugins
-  pluginRegistradoNaoPodeSerObtido: (name: string) => `Plugin ${name} está registrado mas não pode ser obtido`,
-  pluginCarregandoPromiseNaoPodeSerObtida: (name: string) => `Plugin ${name} está sendo carregado mas promise não pode ser obtida`,
-  naoFoiPossivelCarregarPlugin: (name: string, errMsg: string) => `Não foi possível carregar o plugin '${name}': ${errMsg}`,
-  pluginDeveTerNomeValido: 'Plugin deve ter um nome válido',
-  pluginDeveTerVersaoValida: 'Plugin deve ter uma versão válida',
-  pluginDeveDefinirPeloMenosUmaExtensao: 'Plugin deve definir pelo menos uma extensão',
-  pluginDeveImplementarMetodoParse: 'Plugin deve implementar método parse()',
-  // Tipos/Analistas
-  definicaoAnalistaInvalida: 'Definição de analista inválida',
-  analistaSemFuncaoAplicar: (nome: string) => `Analista ${nome} sem função aplicar`,
-  // Validação / Segurança
-  caminhoForaDaCwdNaoPermitido: (p: string) => `Caminho fora da CWD não permitido: ${p}`,
-  persistenciaNegadaForaRaizProjeto: (caminho: string) => `Persistência negada: caminho fora da raiz do projeto: ${caminho}`,
-  // Persistência (ambiente)
-  fsWriteFileBinaryIndisponivel: 'fs.writeFile (binary) indisponível no ambiente atual',
-  fsReadFileIndisponivel: 'fs.readFile indisponível no ambiente atual',
-  fsWriteFileIndisponivel: 'fs.writeFile indisponível no ambiente atual',
-  fsRenameIndisponivel: 'fs.rename indisponível no ambiente atual',
-  fsMkdirIndisponivel: 'fs.mkdir indisponível no ambiente atual',
+  requireMutateFsAutoFix: '自动修复不可用',
+  autoFixTimeout: (timeoutMs: number) => `自动修复超时: ${timeoutMs}ms后`,
+  // 插件 / 安全导入
+  pluginsDesabilitadosSafeMode: 'SAFE_MODE中禁用插件加载。请设置PROMETHEUS_ALLOW_PLUGINS=1以允许。',
+  pluginBloqueado: (erro: string) => `插件被阻止: ${erro}`,
+  caminhoPluginNaoResolvido: '插件路径未解析',
+  // 插件注册表
+  pluginRegistradoNaoPodeSerObtido: (name: string) => `插件${name}已注册但无法获取`,
+  pluginCarregandoPromiseNaoPodeSerObtida: (name: string) => `插件${name}正在加载但无法获取promise`,
+  naoFoiPossivelCarregarPlugin: (name: string, errMsg: string) => `无法加载插件'${name}': ${errMsg}`,
+  pluginDeveTerNomeValido: '插件必须有有效的名称',
+  pluginDeveTerVersaoValida: '插件必须有有效的版本',
+  pluginDeveDefinirPeloMenosUmaExtensao: '插件必须至少定义一个扩展名',
+  pluginDeveImplementarMetodoParse: '插件必须实现parse()方法',
+  // 类型/分析器
+  definicaoAnalistaInvalida: '分析器定义无效',
+ 分析师SemFuncaoAplicar: (nome: string) => `分析器${nome}没有apply函数`,
+  // 验证 / 安全
+  caminhoForaDaCwdNaoPermitido: (p: string) => `不允许超出CWD的路径: ${p}`,
+  persistenciaNegadaForaRaizProjeto: (caminho: string) => `持久化被拒绝: 路径超出项目根目录: ${caminho}`,
+  // 持久化（环境）
+  fsWriteFileBinaryIndisponivel: '当前环境中fs.writeFile（二进制）不可用',
+  fsReadFileIndisponivel: 'fs.readFile在当前环境中不可用',
+  fsWriteFileIndisponivel: 'fs.writeFile在当前环境中不可用',
+  fsRenameIndisponivel: 'fs.rename在当前环境中不可用',
+  fsMkdirIndisponivel: 'fs.mkdir在当前环境中不可用',
   // Schema
-  versaoSchemaDesconhecida: (versao: string) => `Versão de schema desconhecida: ${versao}`,
-  relatorioSchemaInvalido: (erros: string) => `Relatório com schema inválido: ${erros}`,
-  // File registry
-  arquivoNaoEncontrado: (fileCaminho: string) => `Arquivo não encontrado: ${fileCaminho}`,
-  validacaoFalhouPara: (fileCaminho: string) => `Validação falhou para ${fileCaminho}`,
-  erroAoLer: (fileCaminho: string, errMsg: string) => `Erro ao ler ${fileCaminho}: ${errMsg}`,
-  erroAoEscrever: (fileCaminho: string, errMsg: string) => `Erro ao escrever ${fileCaminho}: ${errMsg}`,
-  erroAoDeletar: (fileCaminho: string, errMsg: string) => `Erro ao deletar ${fileCaminho}: ${errMsg}`,
-  // Scanner
-  statIndefinidoPara: (fullCaminho: string) => `Stat indefinido para ${fullCaminho}`,
-  // Reversão
-  mapaReversaoCorrompido: 'Mapa de reversão corrompido',
-  // Relatórios
-  semPkg: 'sem pkg'
+  versaoSchemaDesconhecida: (versao: string) => `未知的schema版本: ${versao}`,
+  relatorioSchemaInvalido: (erros: string) => `报告schema无效: ${erros}`,
+  // 文件注册表
+  arquivoNaoEncontrado: (fileCaminho: string) => `文件未找到: ${fileCaminho}`,
+  validacaoFalhouPara: (fileCaminho: string) => `验证失败: ${fileCaminho}`,
+  erroAoLer: (fileCaminho: string, errMsg: string) => `读取${fileCaminho}时出错: ${errMsg}`,
+  erroAoEscrever: (fileCaminho: string, errMsg: string) => `写入${fileCaminho}时出错: ${errMsg}`,
+  erroAoDeletar: (fileCaminho: string, errMsg: string) => `删除${fileCaminho}时出错: ${errMsg}`,
+  // 扫描器
+  statIndefinidoPara: (fullCaminho: string) => `${fullCaminho}的stat未定义`,
+  // 还原
+  mapaReversaoCorrompido: '还原映射损坏',
+  // 报告
+  semPkg: '无pkg'
 } as const;

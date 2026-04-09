@@ -4,9 +4,9 @@ import { getMessages } from '@core/messages/index.js';
 
 import type { GeradorMarkdownOptions, Ocorrencia, ResultadoInquisicaoCompleto } from '@';
 
-const { gerarHeaderRelatorio, gerarSecaoGuardian, gerarTabelaOcorrencias, gerarTabelaResumoTipos, RelatorioMensagens } = getMessages();
-
 export async function gerarRelatorioMarkdown(resultado: ResultadoInquisicaoCompleto, outputCaminho: string, modoBrief = false, options?: GeradorMarkdownOptions): Promise<void> {
+  const { gerarHeaderRelatorio, gerarSecaoGuardian, gerarTabelaOcorrencias, gerarTabelaResumoTipos, RelatorioMensagens } = getMessages();
+
   const {
     totalArquivos = 0,
     ocorrencias = [],

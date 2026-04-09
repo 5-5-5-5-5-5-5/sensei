@@ -21,6 +21,21 @@ function detectLocale(): string {
       return envLocale;
     }
   }
+
+  try {
+    const configPath = path.join(process.cwd(), 'prometheus.config.json');
+    if (fs.existsSync(configPath)) {
+      const conteudo = fs.readFileSync(configPath, 'utf-8');
+      const json = JSON.parse(conteudo);
+      const confLocale = (json.locale || json.locales || json.LOCALE)?.toLowerCase();
+      if (confLocale && SUPPORTED_LOCALES.includes(confLocale)) {
+        return confLocale;
+      }
+    }
+  } catch (e) {
+    // Ignora erros (arquivo inexistente ou JSON inválido)
+  }
+
   return 'pt';
 }
 

@@ -3,10 +3,10 @@
 import { ICONES_COMANDO } from '../../shared/icons.js';
 
 export const CliComandoPodarMensagens = {
-  inicio: `\n${ICONES_COMANDO.podar} Iniciando processo de poda...\n`,
-  nenhumaSujeira: (iconeSucesso: string) => `${iconeSucesso} Nenhuma sujeira detectada. Repositório limpo!`,
-  orfaosDetectados: (qtd: number) => `\n${qtd} arquivos órfãos detectados:`,
+  inicio: `\n${ICONES_COMANDO.podar} 剪定プロセスを開始しています...\n`,
+  nenhumaSujeira: (iconeSucesso: string) => `${iconeSucesso} ごみが見つかりませんでした。Repositoryはクリーンです！`,
+  orfaosDetectados: (qtd: number) => `\n${qtd}件の孤立ファイルが検出されました:`,
   linhaArquivoOrfao: (arquivo: string) => `- ${arquivo}`,
-  confirmarRemocao: 'Tem certeza que deseja remover esses arquivos? (s/N) ',
-  erroDurantePoda: (erroMensagem: string) => `[ERRO] Erro durante a poda: ${erroMensagem}`
+  confirmarRemocao: 'これらのファイルを削除してもよろしいですか？ (s/N) ',
+  erroDurantePoda: (erroMensagem: string) => `[ERRO] 剪定中のエラー: ${erroMensagem}`
 } as const;

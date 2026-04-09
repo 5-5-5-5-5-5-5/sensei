@@ -18,7 +18,7 @@ export const CliComandoDiagnosticarMensagens = {
   detalheIncludePatterns: (count: number, joined: string) => `インクルードパターン: ${count} (${joined})`,
   detalheExcludePatterns: (count: number, joined: string) => `除外パターン: ${count} (${joined})`,
   detalheExport: (relDir: string) => `エクスポート: サマリーを ./${relDir} に保存します (デフォルト)。`,
-  detalheExportFull: 'Export-full: gzipシャードとマニフェストを生成します (巨大になる場合があります)。完全なダンプが必要な場合のみ使用してください。',
+  detalleExportFull: 'Export-full: gzipシャードとマニフェストを生成します (巨大になる場合があります)。完全なダンプが必要な場合のみ使用してください。',
   detalheLogLevel: (logNivel: string) => `ログレベル: ${String(logNivel)} (--log-level debug でより詳細に表示)`,
   dicaPrefiraLogLevelDebug: 'ヒント: 従来の --debug/--dev よりも --log-level debug を推奨します。',
   dicaAutoFixConservative: 'ヒント: --auto-fix-conservative はショートカットです。明確にするために --auto-fix --auto-fix-mode conservative を明示することをお勧めします。',

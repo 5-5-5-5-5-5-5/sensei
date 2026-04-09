@@ -1,119 +1,119 @@
 // SPDX-License-Identifier: MIT
 /**
- * Mensagens e descrições centralizadas para exportação JSON
- * Define textos explicativos, labels e metadados para campos JSON
+ * JSONエクスポート用の集中化管理メッセージと説明
+ * JSONフィールドの説明的なテキスト、ラベル、メタデータを定義
  */
 
 import type { JsonComMetadados } from '@';
 
 export const JsonMensagens = {
-  /* -------------------------- CAMPOS COMUNS -------------------------- */
+  /* -------------------------- 共通フィールド -------------------------- */
   comum: {
     timestamp: {
       label: 'timestamp',
-      descricao: 'Data e hora da geração do relatório (ISO 8601)'
+      descricao: 'レポート生成日時（ISO 8601）'
     },
     versao: {
       label: 'versao',
-      descricao: 'Versão do Prometheus que gerou este relatório'
+      descricao: 'このレポートを生成したPrometheusのバージョン'
     },
     schemaVersion: {
       label: 'schemaVersion',
-      descricao: 'Versão do schema JSON (para compatibilidade backward)'
+      descricao: 'JSONスキーマバージョン（下位互換性用）'
     },
     duracao: {
       label: 'duracaoMs',
-      descricao: 'Duração total da execução em milissegundos'
+      descricao: 'ミリ秒単位の合計実行時間'
     }
   },
-  /* -------------------------- DIAGNÓSTICO -------------------------- */
+  /* -------------------------- 診断 -------------------------- */
   diagnostico: {
     root: {
       label: 'diagnostico',
-      descricao: 'Resultado completo do diagnóstico do projeto'
+      descricao: 'プロジェクトの完全な診断結果'
     },
     totalArquivos: {
       label: 'totalArquivos',
-      descricao: 'Número total de arquivos escaneados'
+      descricao: 'スキャンされたファイルの合計数'
     },
     ocorrencias: {
       label: 'ocorrencias',
-      descricao: 'Lista de todas as ocorrências detectadas pelos analistas',
+      descricao: 'アナリストによって検出されたすべての発生のリスト',
       campos: {
-        tipo: 'Tipo/categoria da ocorrência',
-        nivel: 'Nível de severidade (info, aviso, erro)',
-        mensagem: 'Descrição detalhada do problema',
-        relPath: 'Caminho relativo do arquivo',
-        linha: 'Linha onde ocorre o problema',
-        coluna: 'Coluna onde ocorre o problema',
-        contexto: 'Contexto adicional (snippet de código)'
+        tipo: '発生するタイプ/カテゴリ',
+        nivel: '重大度レベル（info、aviso、erro）',
+        mensagem: '問題の詳しい説明',
+        relPath: 'ファイルの相対パス',
+        linha: '問題が発生する行',
+        coluna: '問題が発生する列',
+        contexto: '追加のコンテキスト（コードスニペット）'
       }
     },
     metricas: {
       label: 'metricas',
-      descricao: 'Métricas agregadas do projeto',
+      descricao: 'プロジェクトの集約されたメトリクス',
       campos: {
-        totalLinhas: 'Total de linhas de código analisadas',
-        totalArquivos: 'Total de arquivos processados',
-        arquivosComErro: 'Arquivos que falharam no parsing',
-        tempoTotal: 'Tempo total de processamento'
+        totalLinhas: '分析されたコードの合計行数',
+        totalArquivos: '処理されたファイルの合計',
+        arquivosComErro: '解析に失敗したファイル',
+        tempoTotal: '合計処理時間'
       }
     },
     linguagens: {
       label: 'linguagens',
-      descricao: 'Estatísticas de uso de linguagens no projeto',
+      descricao: 'プロジェクトでの言語使用統計',
       campos: {
-        total: 'Total de arquivos de código',
-        extensoes: 'Mapa de extensão -> quantidade'
+        total: 'コードファイルの合計',
+        extensions: '拡張子 -> 数量のマップ'
       }
     },
     parseErros: {
       label: 'parseErros',
-      descricao: 'Erros de parsing agrupados',
+      descricao: '集約された解析エラー',
       campos: {
-        total: 'Total de erros de parsing',
-        porArquivo: 'Mapa de arquivo -> lista de erros',
-        agregado: 'Indica se houve agregação de erros'
+        total: '解析エラーの合計',
+        porArquivo: 'ファイル -> エラーリストのマップ',
+        agregado: 'エラーが集約されたかどうか'
       }
     }
   },
-  /* -------------------------- ESTRUTURA / ARQUETIPOS -------------------------- */
+  /* -------------------------- 構造/アーキタイプ -------------------------- */
   estrutura: {
     root: {
       label: 'estruturaIdentificada',
-      descricao: 'Identificação da estrutura e arquétipo do projeto'
+      descricao: 'プロジェクトの構造とアーキタイプの特定'
     },
     melhores: {
       label: 'melhores',
-      descricao: 'Lista ordenada dos melhores candidatos de arquétipo',
+      descricao: 'アーキタイプ候補の順序付きリスト',
       campos: {
-        nome: 'Nome do arquétipo',
-        score: 'Pontuação calculada',
-        confidence: 'Nível de confiança (%)',
-        descricao: 'Descrição do arquétipo',
-        matchedRequired: 'Arquivos obrigatórios encontrados',
-        missingRequired: 'Arquivos obrigatórios ausentes',
-        matchedOptional: 'Arquivos opcionais encontrados'
+        nome: 'アーキタイプ名',
+        score: '計算されたスコア',
+        confidence: '信頼度（%）',
+        descricao: 'アーキタイプの説明',
+        matchedRequired: '見つかった必須ファイル',
+        missingRequired: '欠けている必須ファイル',
+        matchedOptional: '見つかったオプショナルファイル'
       }
     },
     baseline: {
       label: 'baseline',
-      descricao: 'Snapshot salvo da estrutura para detecção de drift',
+      descricao: 'ドリフト検出のために保存された構造のスナップショット',
       campos: {
-        arquetipo: 'Arquétipo identificado',
-        confidence: 'Confiança quando salvo',
-        timestamp: 'Data do snapshot',
-        arquivosRaiz: 'Lista de arquivos na raiz'
+        arquetipo: '特定されたアーキタイプ',
+        confidence: '保存時の信頼度',
+        timestamp: 'スナップショットの日付',
+        arquivosRaiz: 'ルートにあるファイルのリスト'
       }
     },
     drift: {
       label: 'drift',
-      descricao: 'Mudanças detectadas em relação ao baseline',
+      descricao: 'ベースラインに対して検出された変更',
       campos: {
-        alterouArquetipo: 'Se houve mudança de arquétipo',
-        deltaConfidence: 'Variação percentual de confiança',
-        arquivosRaizNovos: 'Novos arquivos na raiz',
-        arquivosRaizRemovidos: 'Arquivos removidos da raiz'
+        alterouArquetipo: 'アーキタイプが変わったかどうか',
+        deltaConfidence: '信頼度のパーセンテージ変化',
+        arquivosRaizNovos: 'ルートにある新しいファイル',
+        arquivosRaizRemovidos: 'ルートから削除されたファイル'
       }
     }
   },
@@ -121,136 +121,136 @@ export const JsonMensagens = {
   guardian: {
     root: {
       label: 'guardian',
-      descricao: 'Verificação de integridade e proteção do código'
+      descricao: 'コードの整合性確認と保護'
     },
     status: {
       label: 'status',
       opcoes: {
-        sucesso: 'Verificação bem-sucedida, sem alterações',
-        alteracoes: 'Alterações detectadas em arquivos protegidos',
-        baseline: 'Baseline criado (primeira execução)',
-        erro: 'Erro durante verificação',
-        naoExecutada: 'Guardian não foi executado'
+        sucesso: '確認成功、変更なし',
+        alteracoes: '保護されたファイルで変更が検出',
+        baseline: 'ベースライン作成（初回実行）',
+        erro: '確認中のエラー',
+        naoExecutada: 'Guardianが実行されませんでした'
       }
     },
     totalArquivos: {
       label: 'totalArquivos',
-      descricao: 'Número de arquivos protegidos'
+      descricao: '保護されたファイルの番号'
     },
     alteracoes: {
       label: 'alteracoes',
-      descricao: 'Lista de alterações detectadas',
+      descricao: '検出された変更のリスト',
       campos: {
-        arquivo: 'Caminho do arquivo modificado',
-        hashAnterior: 'Hash SHA-256 anterior',
-        hashAtual: 'Hash SHA-256 atual',
-        acao: 'Tipo de ação (modificado, adicionado, removido)'
+        arquivo: '変更されたファイルのパス',
+        hashAnterior: '以前のSHA-256ハッシュ',
+        hashAtual: '現在のSHA-256ハッシュ',
+        acao: 'アクションタイプ（変更、追加、削除）'
       }
     }
   },
-  /* -------------------------- PODA -------------------------- */
+  /* -------------------------- 剪定 -------------------------- */
   poda: {
     root: {
       label: 'poda',
-      descricao: 'Relatório de arquivos/diretórios marcados para remoção'
+      descricao: '削除のためにマークされたファイル/ディレクトリのレポート'
     },
     pendencias: {
       label: 'pendencias',
-      descricao: 'Lista de itens pendentes de remoção',
+      descricao: '削除保留のアイテムのリスト',
       campos: {
-        caminho: 'Caminho completo',
-        tipo: 'arquivo ou diretorio',
-        motivoOriginal: 'Razão da marcação',
-        timestamp: 'Data da marcação'
+        caminho: '完全パス',
+        tipo: 'ファイルまたはディレクトリ',
+        motivoOriginal: 'マークされた理由',
+        timestamp: 'マークされた日付'
       }
     },
     reativar: {
       label: 'listaReativar',
-      descricao: 'Lista de itens marcados para reativação'
+      descricao: '再活性化のためにマークされたアイテムのリスト'
     },
     historico: {
       label: 'historico',
-      descricao: 'Histórico de ações de poda executadas',
+      descricao: '実行された剪定アクションの履歴',
       campos: {
-        acao: 'Tipo de ação (remover, reativar, pendente)',
-        caminho: 'Caminho afetado',
-        timestamp: 'Data da ação',
-        usuario: 'Usuário que executou'
+        acao: 'アクションタイプ（削除、再活性、保留）',
+        caminho: '影響を受けたパス',
+        timestamp: 'アクションの日付',
+        usuario: '実行したユーザー'
       }
     }
   },
-  /* -------------------------- REESTRUTURAÇÃO -------------------------- */
+  /* -------------------------- 再構成 -------------------------- */
   reestruturar: {
     root: {
       label: 'reestruturacao',
-      descricao: 'Plano de reestruturação do projeto'
+      descricao: 'プロジェクトの再構成プラン'
     },
     movimentos: {
       label: 'movimentos',
-      descricao: 'Lista de movimentos de arquivos planejados',
+      descricao: '計画されたファイルの移動のリスト',
       campos: {
-        id: 'ID único do movimento',
-        origem: 'Caminho de origem',
-        destino: 'Caminho de destino',
-        razao: 'Razão do movimento',
-        status: 'Status (zona-verde, bloqueado, pendente)',
-        dependencias: 'Arquivos dependentes afetados'
+        id: '移動の一意のID',
+        origem: '出発パス',
+        destino: '宛先パス',
+        razao: '移動の理由',
+        status: 'ステータス（green-zone、ブロック、保留）',
+        dependencias: '影響を受ける依存ファイル'
       }
     },
     conflitos: {
       label: 'conflitos',
-      descricao: 'Conflitos detectados que impedem movimentos',
+      descricao: '移動を妨げる検出された競合',
       campos: {
-        tipo: 'Tipo de conflito',
-        arquivos: 'Arquivos envolvidos',
-        descricao: 'Descrição do conflito',
-        resolucaoSugerida: 'Como resolver'
+        tipo: '競合タイプ',
+        arquivos: '関わるファイル',
+        descricao: '競合の説明',
+        resolucaoSugerida: '解決方法'
       }
     },
     resumo: {
       label: 'resumo',
-      descricao: 'Resumo estatístico do plano',
+      descricao: 'プランの統計的要約',
       campos: {
-        total: 'Total de movimentos',
-        zonaVerde: 'Movimentos seguros',
-        bloqueados: 'Movimentos bloqueados',
-        impactoEstimado: 'Número de arquivos afetados'
+        total: '移動合計',
+        zonaVerde: '安全な移動',
+        bloqueados: 'ブロックされた移動',
+        impactoEstimado: '影響を受けるファイルの番号'
       }
     }
   },
-  /* -------------------------- FILTRO INTELIGENTE -------------------------- */
+  /* -------------------------- インテリジェントフィルタ -------------------------- */
   filtroInteligente: {
     root: {
       label: 'relatorioResumo',
-      descricao: 'Relatório filtrado com problemas priorizados'
+      descricao: '優先問題がフィルタリングされたレポート'
     },
     problemasCriticos: {
       label: 'problemasCriticos',
-      descricao: 'Problemas de severidade crítica (segurança, dados)'
+      descricao: '重大度の重大な問題（セキュリティ、データ）'
     },
     problemasAltos: {
       label: 'problemasAltos',
-      descricao: 'Problemas de alta prioridade (bugs, código frágil)'
+      descricao: '高優先度の問題（バグ、脆弱コード）'
     },
     problemasOutros: {
       label: 'problemasOutros',
-      descricao: 'Demais problemas (baixa/média prioridade)'
+      descricao: 'その他の問題（低/中優先度）'
     },
     estatisticas: {
       label: 'estatisticas',
-      descricao: 'Estatísticas do agrupamento inteligente',
+      descricao: 'インテリジェントグループ化の統計',
       campos: {
-        totalOcorrencias: 'Total de ocorrências processadas',
-        arquivosAfetados: 'Número de arquivos únicos afetados',
-        problemasPrioritarios: 'Problemas críticos + altos',
-        problemasAgrupados: 'Número de grupos criados'
+        totalOcorrencias: '処理された発生の合計',
+        arquivosAfetados: '影響を受けるUniqueファイルの番号',
+        problemasPrioritarios: '重大 + 高い問題',
+        problemasAgrupados: '作成されたグループの番号'
       }
     }
   }
 };
 
 /**
- * Envolve dados JSON com metadados explicativos
+ * 説明的なメタデータでJSONデータをラップ
  */
 export function wrapComMetadados<T>(data: T, schema: string, versao: string, descricao: string): JsonComMetadados<T> {
   return {
@@ -262,24 +262,24 @@ export function wrapComMetadados<T>(data: T, schema: string, versao: string, des
     },
     dados: data
   };
-}
+};
 
 /**
- * Helper para gerar descrição de campo JSON com tipagem segura
+ * タイプセーフなJSONフィールドの説明を生成するヘルパー
  */
 export function getDescricaoCampo(caminho: string): string {
   const parts = caminho.split('.');
-  // Tipo seguro para navegação no objeto de mensagens
+  // タイプセーフなメッセージオブジェクトナビゲーション
   let current: unknown = JsonMensagens;
   for (const part of parts) {
     if (typeof current === 'object' && current !== null && part in current) {
       current = (current as Record<string, unknown>)[part];
     } else {
-      return `Campo: ${caminho}`;
+      return `フィールド: ${caminho}`;
     }
   }
 
-  // Type guard para verificar se tem descrição
+  // 説明があるかどうかを確認するためのタイプガード
   if (typeof current === 'object' && current !== null && 'descricao' in current && typeof (current as {
     descricao: unknown;
   }).descricao === 'string') {
@@ -287,5 +287,5 @@ export function getDescricaoCampo(caminho: string): string {
       descricao: string;
     }).descricao;
   }
-  return `Campo: ${caminho}`;
+  return `フィールド: ${caminho}`;
 }

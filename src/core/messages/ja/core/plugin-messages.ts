@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 // @prometheus-disable seguranca vulnerabilidade-seguranca
 /**
- * Mensagens dos Analistas de Plugins
+ * プラグインアナリストメッセージ
  *
- * Centraliza todas as mensagens dos plugins:
+ * プラグインすべてのメッセージを一元化:
  * - React
  * - React Hooks
  * - Tailwind
@@ -12,203 +12,203 @@
  * - Python
  */
 
-  /* -------------------------- MENSAGENS REACT -------------------------- */
+  /* -------------------------- REACT メッセージ -------------------------- */
 
 export const ReactMensagens = {
-  linkTargetBlank: 'Link com target="_blank" sem rel="noreferrer"/"noopener".',
-  dangerouslySetInnerHTML: 'Uso de dangerouslySetInnerHTML encontrado; valide a necessidade.',
-  imgWithoutAlt: 'Imagem sem atributo alt (acessibilidade).',
-  httpFetch: 'Chamada HTTP sem TLS detectada; prefira HTTPS.',
-  hardcodedCredential: 'Possível credencial hardcoded; use variáveis de ambiente.',
-  locationHrefRedirect: 'Atribuição direta a location.href; valide origem para evitar open redirect.',
-  listItemNoKey: 'Item em lista (map) sem atributo key.',
-  indexAsKey: 'Uso de índice como key (pode causar problemas de reordenação).',
-  inlineHandlerJsx: 'Handler inline detectado em JSX; prefira funções estáveis (useCallback) ou extrair fora do render.',
-  deprecatedLifecycleMethod: (name: string) => `Método de ciclo de vida obsoleto: ${name}. Use componentDidMount, componentDidUpdate ou hooks.`,
-  complexInlineStyles: 'Estilos inline complexos detectados. Considere usar CSS modules ou styled-components para melhor performance e organização.'
+  linkTargetBlank: 'target="_blank"のLinkにrel="noreferrer"/"noopener"がありません。',
+  dangerouslySetInnerHTML: 'dangerouslySetInnerHTMLの使用が見つかりました; 必要性を検証してください。',
+  imgWithoutAlt: 'alt属性のない画像（アクセシビリティ）。',
+  httpFetch: 'TLSなしのHTTP検出; HTTPSを使用してください。',
+  hardcodedCredential: '的可能性のあるハードコードされた認証情報; 環境変数を使用してください。',
+  locationHrefRedirect: 'location.hrefへの直接代入; 起源を検証してopen redirectを避けてください。',
+  listItemNoKey: 'リストアイテム（map）にkey属性がありません。',
+  indexAsKey: 'インデックスをkeyとして使用（並べ替えの問題を引き起こす可能性があります）。',
+  inlineHandlerJsx: 'JSXでインラインハンドラを検出; 安定した関数（useCallback）を使用するかレンダリング外に抽出してください。',
+  deprecatedLifecycleMethod: (name: string) => `廃止されたライフサイクルメソッド: ${name}。componentDidMount、componentDidUpdate、またはフックを使用してください。`,
+  complexInlineStyles: '複雑なインラインスタイルを検出しました。パフォーマンスと整理のためにCSS modulesまたはstyled-componentsの使用を検討してください。`
 } as const;
 
-  /* -------------------------- MENSAGENS REACT HOOKS -------------------------- */
+  /* -------------------------- REACT HOOKS メッセージ -------------------------- */
 
 export const ReactHooksMensagens = {
-  useEffectNoDeps: 'useEffect sem array de dependências (avalie deps para evitar loops).',
-  memoCallbackNoDeps: 'Hook sem array de dependências (useMemo/useCallback).',
-  hookInConditional: 'Hook declarado dentro de condicional (quebra Rules of Hooks).'
+  useEffectNoDeps: '依存配列のないuseEffect（ループを避けるためにdepsを評価）。',
+  memoCallbackNoDeps: '依存配列のないフック（useMemo/useCallback）。',
+  hookInConditional: '条件内で宣言されたフック（フックルールを壊します）。'
 } as const;
 
-  /* -------------------------- MENSAGENS TAILWIND -------------------------- */
+  /* -------------------------- TAILWIND メッセージ -------------------------- */
 
 export const TailwindMensagens = {
-  conflictingClasses: (key: string, tokens: string[]) => `Possível conflito ${key} (${tokens.slice(0, 4).join(', ')}). Verifique duplicidades.`,
-  repeatedClass: (token: string) => `Classe repetida detectada (${token}). Considere remover redundância.`,
-  importantUsage: (token: string) => `Uso de ! (important) detectado em (${token}). Prefira classes utilitárias ou reforço de escopo ao invés de important.`,
-  variantConflict: (prop: string, variants: string[]) => `Possível conflito de variantes para ${prop} (variantes: ${variants.slice(0, 6).join(', ')}). Verifique ordem/escopo.`,
-  dangerousArbitraryValue: (token: string) => `Valor arbitrário com url potencialmente perigosa (${token}). Evite javascript:/data:text/html.`,
-  arbitraryValue: (token: string) => `Classe com valor arbitrário (${token}). Confirme se está alinhada ao design.`
+  conflictingClasses: (key: string, tokens: string[]) => `的可能性のある競合${key} (${tokens.slice(0, 4).join(', ')})。重複を確認してください。`,
+  repeatedClass: (token: string) => `重複クラスを検出 (${token})。冗長性の削除を検討してください。`,
+  importantUsage: (token: string) => `! (important)の使用を検出 (${token})。ユーティリティクラスまたはスコープの強化を使用し、importantの代わりにしてください。`,
+  variantConflict: (prop: string, variants: string[]) => `的可能性のあるバリアント競合${prop} (variants: ${variants.slice(0, 6).join(', ')})。順序/スコープを確認してください。`,
+  dangerousArbitraryValue: (token: string) => `潜在的に危険なURLを持つ任意の値 (${token})。javascript:/data:text/htmlを避けてください。`,
+  arbitraryValue: (token: string) => `任意の値を持つクラス (${token})。デザインと一致していることを確認してください。`
 } as const;
 
-  /* -------------------------- MENSAGENS CSS -------------------------- */
+  /* -------------------------- CSS メッセージ -------------------------- */
 
 export const CssMensagens = {
-  duplicatePropertySame: (prop: string) => `Propriedade duplicada com valor idêntico (${prop}): erro detectado.`,
-  duplicatePropertyDifferent: (prop: string, prev: string, curr: string) => `Propriedade duplicada (${prop}) com valores diferentes. Possível erro: "${prev}" vs "${curr}".`,
-  importantUsage: 'Uso de !important detectado; prefira especificidade adequada.',
-  httpImport: 'Importação via HTTP detectada; prefira HTTPS ou bundling local.',
-  httpUrl: 'Recurso externo via HTTP em url(); prefira HTTPS.',
-  unifySelectors: (selectors: string[], propsCount: number) => `Regras CSS idênticas (${propsCount} propriedades) em seletores (${selectors.slice(0, 6).join(', ')}). Considere unificar/centralizar em uma classe utilitária ou seletor compartilhado.`,
-  idSelectorPreferClass: (selector: string) => `Seletor por id (${selector}) detectado. Para reutilização e consistência, prefira classes quando possível.`,
-  invalidProperty: (prop: string) => `Propriedade CSS inválida ou desconhecida (${prop}). Verifique ortografia ou suporte do navegador.`,
-  malformedSelector: (selector: string) => `Seletor CSS malformado ou inválido (${selector}). Pode causar problemas de renderização.`,
-  emptyRule: 'Regra CSS vazia detectada. Remova regras sem declarações.',
-  vendorPrefixDeprecated: (prop: string) => `Prefixo vendor deprecated (${prop}). Use propriedades padrão quando suportadas.`,
-  cssHackDetected: (hack: string) => `Hack CSS detectado (${hack}). Considere abordagens modernas ou feature queries.`
+  duplicatePropertySame: (prop: string) => `同一の値を持つ重複プロパティ (${prop}): エラーを検出しました。`,
+  duplicatePropertyDifferent: (prop: string, prev: string, curr: string) => `異なる値を持つ重複プロパティ (${prop})。的可能性のあるエラー: "${prev}" vs "${curr}"。`,
+  importantUsage: '!importantの使用を検出; 適切な特異度を使用してください。',
+  httpImport: 'HTTPでのインポートを検出; HTTPSまたはローカルバンドリングを使用してください。',
+  httpUrl: 'url()でHTTP外部リソース; HTTPSを使用してください。',
+  unifySelectors: (selectors: string[], propsCount: number) => `同一のCSSルール (${propsCount}プロパティ) がセレクタ (${selectors.slice(0, 6).join(', ')}) にあります。ユーティリティクラスまたは共有セレクタに統合/集中することを検討してください。`,
+  idSelectorPreferClass: (selector: string) => `IDによるセレクタ (${selector}) を検出。再利用性と一貫性のために、可能であればクラスを使用してください。`,
+  invalidProperty: (prop: string) => `無効または不明なCSSプロパティ (${prop})。スペルまたはブラウザサポートを確認してください。`,
+  malformedSelector: (selector: string) => `不正または無効なCSSセレクタ (${selector})。レンダリングの問題を引き起こす可能性があります。`,
+  emptyRule: '空のCSSルールを検出。宣言のないルールを削除してください。',
+  vendorPrefixDeprecated: (prop: string) => `廃止されたベンダープレフィックス (${prop})。サポートされている場合は標準プロパティを使用してください。`,
+  cssHackDetected: (hack: string) => `CSSハックを検出 (${hack})。モダンなアプローチまたはフィーチャークエリを検討してください。`
 } as const;
 
-  /* -------------------------- MENSAGENS HTML -------------------------- */
+  /* -------------------------- HTML メッセージ -------------------------- */
 
 export const HtmlMensagens = {
-  // Estrutura
-  doctype: 'Documento sem <!DOCTYPE html> declarado.',
-  htmlLang: 'Elemento <html> sem atributo lang (acessibilidade).',
-  metaCharset: 'Falta <meta charset="utf-8"> no documento.',
-  viewport: 'Falta meta viewport para responsividade.',
-  title: 'Documento sem <title> definido.',
-  // Links
-  linkTargetBlank: 'Link com target="_blank" sem rel="noreferrer"/"noopener".',
-  linkNoHref: 'Link sem href válido ou sem handler (UX). Use <button> ou role="button".',
-  // Imagens
-  imgWithoutAlt: 'Imagem sem atributo alt ou acessibilidade (WCAG 2.1).',
-  imgWithoutLoading: 'Imagem sem atributo loading (performance). Considere loading="lazy".',
-  imgWithoutDimensions: 'Imagem sem width/height (layout shift). Defina dimensões para evitar CLS.',
-  // Formulários
-  formWithoutMethod: 'Formulário sem method especificado (GET/POST).',
-  formWithoutAction: 'Formulário sem action ou data-attribute para processamento.',
-  inputWithoutLabel: 'Input sem name, id ou aria-label (acessibilidade/usabilidade).',
-  passwordWithoutAutocomplete: 'Campo password sem autocomplete especificado (segurança).',
-  inputWithoutType: 'Input sem type especificado (assume text, mas seja explícito).',
-  // Handlers
-  inlineHandler: 'Handler inline detectado (on*). Prefira listeners externos ou data-attributes com JS.',
-  // Scripts/Styles
-  inlineScript: 'Script inline detectado. Prefira arquivos externos para melhor cache e CSP.',
-  inlineStyle: 'Style inline detectado. Prefira arquivos CSS externos para melhor cache.',
-  scriptWithoutDefer: 'Script sem defer/async. Pode bloquear renderização; considere defer.',
-  // Acessibilidade
-  headingSkipped: (current: number, expected: number) => `Cabeçalho pulado: h${current} sem h${expected} precedente (estrutura semântica).`,
-  buttonWithoutText: 'Botão sem texto ou aria-label (acessibilidade).',
-  tableWithoutCaption: 'Tabela sem <caption> ou aria-label (acessibilidade).',
-  iframeWithoutTitle: 'Iframe sem title (acessibilidade).',
-  // Performance
-  largeInlineScript: 'Script inline muito grande. Mova para arquivo externo.',
-  multipleH1: 'Múltiplos <h1> detectados. Use apenas um por página para SEO/acessibilidade.'
+  // 構造
+  doctype: '<!DOCTYPE html>が宣言されていません。',
+  htmlLang: '<html>要素にlang属性がありません（アクセシビリティ）。',
+  metaCharset: 'ドキュメントに<meta charset="utf-8">がありません。',
+  viewport: 'レスポンシブ用のmeta viewportがありません。',
+  title: '<title>が定義されていません。',
+  // リンク
+  linkTargetBlank: 'target="_blank"のLinkにrel="noreferrer"/"noopener"がありません。',
+  linkNoHref: '有効なhrefのないリンクまたはハンドラなし（UX）。<button>またはrole="buttonを使用してください。',
+  // 画像
+  imgWithoutAlt: 'alt属性のない画像またはアクセシビリティなし（WCAG 2.1）。',
+  imgWithoutLoading: 'loading属性のない画像（パフォーマンス）。loading="lazy"を検討してください。',
+  imgWithoutDimensions: 'width/heightのない画像（レイアウトシフト）。CLSを避けるために寸法を定義してください。',
+  // フォーム
+  formWithoutMethod: 'methodが指定されていないフォーム（GET/POST）。',
+  formWithoutAction: '処理用のactionまたはdata-attributeのないフォーム。',
+  inputWithoutLabel: 'name、id、またはaria-labelのない入力（アクセシビリティ/ユーザビリティ）。',
+  passwordWithoutAutocomplete: 'autocompleteが指定されていないパスワードフィールド（セキュリティ）。',
+  inputWithoutType: 'typeが指定されていない入力（textと仮定しますが、明示的にしてください）。',
+  // ハンドラ
+  inlineHandler: 'インラインハンドラを検出 (on*)。外部リスナーまたはdata-attributes with JSを検討してください。',
+  // スクリプト/スタイル
+  inlineScript: 'インラインスクリプトを検出。より良いキャッシュとCSPのために外部ファイルを検討してください。',
+  inlineStyle: 'インラインスタイルを検出。より良いキャッシュのために外部CSSファイルを検討してください。',
+  scriptWithoutDefer: 'defer/asyncのないスクリプト。レンダリングをブロックする可能性があります; deferを検討してください。',
+  // アクセシビリティ
+  headingSkipped: (current: number, expected: number) => `見出しスキップ: h${current}にh${expected}が先行していません（セマンティック構造）。`,
+  buttonWithoutText: 'テキストまたはaria-labelのないボタン（アクセシビリティ）。',
+  tableWithoutCaption: '<caption>またはaria-labelのないテーブル（アクセシビリティ）。',
+  iframeWithoutTitle: 'titleのないiframe（アクセシビリティ）。',
+  // パフォーマンス
+  largeInlineScript: '大きなインラインスクリプト。外部ファイルに移動してください。',
+  multipleH1: '複数の<h1>を検出。SEO/アクセシビリティのためにページごとに1つだけ使用してください。'
 } as const;
 
-  /* -------------------------- MENSAGENS XML -------------------------- */
+  /* -------------------------- XML メッセージ -------------------------- */
 
 export const XmlMensagens = {
-  xmlPrologAusente: 'XML sem declaração <?xml ...?> (opcional, mas melhora compatibilidade).',
-  doctypeDetectado: 'XML contém <!DOCTYPE>. Atenção a vetores de XXE (entidades externas).',
-  doctypeExternoDetectado: 'XML contém DOCTYPE com identificador externo (SYSTEM/PUBLIC). Risco elevado de XXE se parser não for seguro.',
-  entidadeDetectada: 'XML contém <!ENTITY>. Revise se há risco de expansão/XXE.',
-  entidadeExternaDetectada: 'XML contém entidade externa (SYSTEM/PUBLIC). Risco alto de XXE se parser não for seguro.',
-  entidadeParametroDetectada: 'XML contém entidade de parâmetro (<!ENTITY % ...>). Pode ser usada para XXE/DTD injection; revise com cuidado.',
-  xincludeDetectado: 'XML contém XInclude (<xi:include>). Pode carregar recursos externos; valide origem e parser.',
-  namespaceUndeclared: (prefix: string) => `Namespace prefix "${prefix}" usado sem declaração xmlns:${prefix}.`,
-  invalidXmlStructure: 'Estrutura XML inválida detectada (tags não fechadas ou mal aninhadas).',
-  encodingMismatch: (declared: string, detected: string) => `Encoding declarado (${declared}) não corresponde ao detectado (${detected}).`,
-  largeEntityExpansion: 'Possível entidade com expansão muito grande. Risco de Billion Laughs attack.',
-  cdataInAttribute: 'CDATA detectado em valor de atributo (inválido em XML).'
+  xmlPrologAusente: 'XMLに<?xml ...?>がありません（オプションですが互換性が向上します）。',
+  doctypeDetectado: 'XMLに<!DOCTYPE>が含まれています。XXE（外部エンティティ）ベクトルに注意してください。',
+  doctypeExternoDetectado: 'XMLに外部識別子を持つDOCTYPEが含まれています（SYSTEM/PUBLIC）。パースタが安全でない場合、XXEのリスクが高くなります。',
+  entidadeDetectada: 'XMLに<!ENTITY>が含まれています。展開/XXEのリスクがあるかどうかを確認してください。',
+  entidadeExternaDetectada: 'XMLに外部エンティティが含まれています（SYSTEM/PUBLIC）。パースタが安全でない場合、XXEのリスクが高いです。',
+  entidadeParametroDetectada: 'XMLにパラメータエンティティ（<!ENTITY % ...>）が含まれています。XXE/DTDインジェectionに使用される可能性があります; 注意して確認してください。',
+  xincludeDetectado: 'XMLにXInclude（<xi:include>）が含まれています。外部リソースを読み込む可能性があります; 起源とパースタを検証してください。',
+  namespaceUndeclared: (prefix: string) => `名前空間プレフィックス"${prefix}"がxmlns:${prefix}の宣言なしで使われています。`,
+  invalidXmlStructure: '無効なXML構造を検出（タグが閉じていないか正しくネストされていない）。',
+  encodingMismatch: (declared: string, detected: string) => `宣言されたエンコーディング (${declared}) が検出されたものと一致しません (${detected})。`,
+  largeEntityExpansion: '的可能性のある非常に大きな展開を持つエンティティ。Billion Laughs攻撃のリスク。',
+  cdataInAttribute: '属性値でCDATAを検出（XMLで無効）。'
 } as const;
 
-  /* -------------------------- MENSAGENS FORMATADOR (MIN) -------------------------- */
+  /* -------------------------- フォーマッタ（最小化）メッセージ -------------------------- */
 
 export const FormatadorMensagens = {
   naoFormatado: (parser: string, detalhes?: string) => {
-    const base = `Arquivo parece não estar formatado (parser: ${parser}). Considere normalizar com o formatador do Prometheus.`;
+    const base = `ファイルがフォーマットされていないようです（パーサー: ${parser}）。Prometheusのフォーマッタで正規化することを検討してください。`;
     if (!detalhes) return base;
     return `${base} (${detalhes})`;
   },
-  parseErro: (parser: string, err: string) => `Falha ao validar formatação interna (parser: ${parser}): ${err}`
+  parseErro: (parser: string, err: string) => `内部フォーマットの検証に失敗しました（パーサー: ${parser}）: ${err}`
 } as const;
 
-  /* -------------------------- MENSAGENS SVG (OTIMIZAÇÃO) -------------------------- */
+  /* -------------------------- SVG（最適化）メッセージ -------------------------- */
 
 export const SvgMensagens = {
-  naoPareceSvg: 'Arquivo .svg não contém uma tag <svg> válida.',
-  semViewBox: 'SVG sem viewBox detectado (pode prejudicar responsividade).',
-  scriptInline: 'SVG contém <script>. Risco de segurança: evite SVGs com script embutido.',
-  eventoInline: 'SVG contém handlers inline (on*). Evite eventos inline em assets.',
-  javascriptUrl: 'SVG contém javascript: em URL/href. Risco de segurança.',
-  podeOtimizar: (originalBytes: number, optimizedBytes: number, mudancas: string[]) => `SVG pode ser otimizado (${originalBytes}B → ${optimizedBytes}B). Mudanças: ${mudancas.join(', ')}.`
+  naoPareceSvg: '.svgファイルに有効な<svg>タグがありません。',
+  semViewBox: 'viewBoxのないSVGを検出（レスポンシブを損なう可能性があります）。',
+  scriptInline: 'SVGに<script>が含まれています。セキュリティリスク: スクリプト付きのSVGを避けてください。',
+  eventoInline: 'SVGにインラインハンドラ（on*）が含まれています。アセットでインラインイベントを避けてください。',
+  javascriptUrl: 'SVGにURL/hrefにjavascript:が含まれています。セキュリティリスク。',
+  podeOtimizar: (originalBytes: number, optimizedBytes: number, mudancas: string[]) => `SVGは最適化できます (${originalBytes}B → ${optimizedBytes}B)。変更: ${mudancas.join(', ')}。`
 } as const;
 
-  /* -------------------------- MENSAGENS CSS-IN-JS -------------------------- */
+  /* -------------------------- CSS-IN-JS メッセージ -------------------------- */
 
 export const CssInJsMensagens = {
-  detectedStyledComponents: 'Padrões de styled-components detectados (CSS-in-JS).',
-  detectedStyledJsx: 'Padrões de styled-jsx detectados (CSS-in-JS em React).',
-  globalStyles: (fonte: 'styled-components' | 'styled-jsx') => `Estilos globais detectados (${fonte}). Prefira escopo local quando possível.`,
-  importantUsage: 'Uso de !important em CSS-in-JS detectado; prefira especificidade adequada.',
-  httpUrl: 'Recurso externo via HTTP em url(); prefira HTTPS.'
+  detectedStyledComponents: 'styled-componentsのパターンを検出（CSS-in-JS）。',
+  detectedStyledJsx: 'styled-jsxのパターンを検出（ReactでのCSS-in-JS）。',
+  globalStyles: (fonte: 'styled-components' | 'styled-jsx') => `グローバルスタイルを検出 (${fonte})。可能な限りローカルスコープを検討してください。`,
+  importantUsage: 'CSS-in-JSで!importantの使用を検出; 適切な特異度を使用してください。',
+  httpUrl: 'url()でHTTP外部リソース; HTTPSを使用してください。'
 } as const;
 
-  /* -------------------------- MENSAGENS PYTHON -------------------------- */
+  /* -------------------------- PYTHON メッセージ -------------------------- */
 
 export const PythonMensagens = {
-  // Imports & Dependencies
-  missingTypeHints: 'Função sem type hints detectada; adicione type hints para melhor legibilidade.',
-  hardcodedString: (string: string) => `String hardcoded detectada (${string.slice(0, 30)}...); considere usar constantes.`,
-  httpWithoutVerify: 'Requisição HTTP sem verify=True detectada; valide certificados SSL.',
-  sqlInjection: 'Possível SQL injection detectada; use prepared statements.',
-  // Code Quality
-  broadExcept: 'Exceção genérica (except:) detectada; seja específico.',
-  bareRaise: 'raise sem contexto detectada; sempre passe a exceção para manter stack trace.',
-  passInExcept: 'pass em except block; implemente tratamento de erro apropriado.',
-  // Best Practices
-  printInsteadOfLog: 'print() detectado; prefira logging module para produção.',
-  evalUsage: 'eval() detectado; evite usar eval - vulnerabilidade de segurança.',
-  execUsage: 'exec() detectado; evite usar exec - vulnerabilidade de segurança.',
-  subprocessShellTrue: 'subprocess com shell=True detectado; risco de command injection. Prefira lista de args e shell=False.',
-  pickleUsage: 'pickle load(s) detectado; nunca desserialize dados não confiáveis (RCE). Prefira formatos seguros (JSON).',
-  yamlUnsafeLoad: 'yaml.load sem Loader seguro detectado; prefira yaml.safe_load (evita execução).',
-  globalKeyword: 'Uso de global keyword detectado; prefira passar como parâmetro.',
-  mutableDefault: 'Argumento com valor padrão mutável (list/dict) detectado; use None como padrão.',
-  // Performance
-  listComprehensionOpportunity: 'Loop que poderia ser list comprehension detectado.',
-  loopingOverDict: 'Iteração sobre dict sem .items(); considere usar .items().'
+  // インポートと依存関係
+  missingTypeHints: '型ヒントのない関数を検出; 可読性向上のために型ヒントを追加してください。',
+  hardcodedString: (string: string) => `ハードコードされた文字列を検出 (${string.slice(0, 30)}...); 定数の使用を検討してください。',
+  httpWithoutVerify: 'verify=TrueなしのHTTPリクエストを検出; SSL証明書を検証してください。',
+  sqlInjection: 'の可能性のあるSQLインジェクションを検出; プリペアードステートメントを使用してください。',
+  // コード品質
+  broadExcept: '汎用例外（except:）を検出; 具体的にしてください。',
+  bareRaise: 'コンテキストなしのraiseを検出; スタックトレースを維持するために常に例外を渡してください。',
+  passInExcept: 'pass exceptブロック; 適切なエラー処理を実装してください。',
+  // ベストプラクティス
+  printInsteadOfLog: 'print()を検出; 本番ではloggingモジュールを使用してください。',
+  evalUsage: 'eval()を検出; evalの使用を避けてください - セキュリティ脆弱性。',
+  execUsage: 'exec()を検出; execの使用を避けてください - セキュリティ脆弱性。',
+  subprocessShellTrue: 'shell=Trueのsubprocessを検出; コマンドインジェクションのリスク。引数リストとshell=Falseを使用してください。',
+  pickleUsage: 'pickle load(s)を検出; 信頼できないデータを逆シリアル化しないでください（RCE）。安全な形式（JSON）を使用してください。',
+  yamlUnsafeLoad: '安全なLoaderなしのyaml.loadを検出; yaml.safe_loadを使用してください（実行を回避）。',
+  globalKeyword: 'globalキーワードの使用を検出; パラメータとして渡すことが検討してください。',
+  mutableDefault: '可変デフォルト引数（list/dict）を検出; デフォルトとしてNoneを使用してください。',
+  // パフォーマンス
+  listComprehensionOpportunity: 'リスト内包表記にできるループを検出。',
+  loopingOverDict: '.items()なしでdictを反復; .items()の使用を検討してください。'
 } as const;
 
-  /* -------------------------- Nivéis de Severidade -------------------------- */
+  /* -------------------------- 重大度レベル -------------------------- */
 
 export const SeverityNiveis = {
-  error: 'erro',
-  warning: 'aviso',
-  info: 'info',
-  suggestion: 'sugestao'
+  error: 'エラー',
+  warning: '警告',
+  info: '情報',
+  suggestion: '提案'
 } as const;
 
-  /* -------------------------- Categorias/Tipos de Analistas -------------------------- */
+  /* -------------------------- アナリストタイプ/カテゴリ -------------------------- */
 
 export const AnalystTipos = {
-  react: 'react/regra',
-  reactHooks: 'react-hooks/regra',
-  tailwind: 'tailwindcss/regra',
-  css: 'css/regra',
-  html: 'html/regra',
-  python: 'python/regra',
-  xml: 'xml/regra',
-  formatador: 'formatador/regra',
-  svg: 'svg/regra',
-  cssInJs: 'css-in-js/regra'
+  react: 'react/ルール',
+  reactHooks: 'react-hooks/ルール',
+  tailwind: 'tailwindcss/ルール',
+  css: 'css/ルール',
+  html: 'html/ルール',
+  python: 'python/ルール',
+  xml: 'xml/ルール',
+  formatador: 'フォーマッタ/ルール',
+  svg: 'svg/ルール',
+  cssInJs: 'css-in-js/ルール'
 } as const;
 export const AnalystOrigens = {
-  react: 'analista-react',
-  reactHooks: 'analista-react-hooks',
-  tailwind: 'analista-tailwind',
-  css: 'analista-css',
-  html: 'analista-html',
-  python: 'analista-python',
-  xml: 'analista-xml',
-  formatador: 'analista-formatador',
-  svg: 'analista-svg',
-  cssInJs: 'analista-css-in-js'
+  react: 'アナリスト-react',
+  reactHooks: 'アナリスト-react-hooks',
+  tailwind: 'アナリスト-tailwind',
+  css: 'アナリスト-css',
+  html: 'アナリスト-html',
+  python: 'アナリスト-python',
+  xml: 'アナリスト-xml',
+  formatador: 'アナリスト-フォーマッタ',
+  svg: 'アナリスト-svg',
+  cssInJs: 'アナリスト-css-in-js'
 } as const;
