@@ -18,7 +18,7 @@ export const RelatorioMensagens = {
         arquivos: '已扫描文件',
         ocorrencias: '发现的问题',
         arquivoManifest: '清单文件',
-        noteManifest: '要查看完整报告，请下载/解压清单中列出的分片。'
+        notaManifest: '要查看完整报告，请下载/解压清单中列出的分片。'
       },
       guardian: {
         titulo: `${ICONES_DIAGNOSTICO.guardian} 完整性验证 (guardian)`,

@@ -108,7 +108,7 @@ export const LogMensagens = {
       sucesso_simples: `${ICONES_STATUS.ok} {arquivo}: {ocorrencias} 个问题`,
       // 大型项目的详细日志
       inicio_detalhado: `${ICONES_DIAGNOSTICO.inicio} 在 {arquivo} ({tamanho}kb) 上运行 '{analista}'`,
-      sucesso_detalhado: `${ICONES_STATUS.ok} '{analista}' 完成: {ocorrencias} 个出现项 (${tempo}ms)`,
+      sucesso_detalhado: `${ICONES_STATUS.ok} '{analista}' 完成: {ocorrencias} 个出现项 ({tempo}ms)`,
       timeout: `${ICONES_FEEDBACK.atencao} 分析员 '{analista}' 超时，已耗时 {tempo}ms`,
       erro: `${ICONES_STATUS.falha} 分析员 '{analista}' 出错: {erro}`,
       skip: `${ICONES_STATUS.pulado} 跳过 '{arquivo}' (被配置抑制)`
