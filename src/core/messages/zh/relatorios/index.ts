@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 /**
- * MD/JSON Report Messages
+ * MD/JSON 报告消息
  */
 
 export * from './json-messages.js';

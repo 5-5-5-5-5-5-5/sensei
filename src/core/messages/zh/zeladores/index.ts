@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 /**
- * Caretaker Messages
+ * 管理员消息
  */
 
 export * from './zelador-messages.js';

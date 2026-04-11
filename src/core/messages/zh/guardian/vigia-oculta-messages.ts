@@ -1,4 +1,4 @@
 export const VigiaOcultaMensagens = {
-  alteracoesDetectadas: '🔐 [VigiaOculta] Changes detected in {total} file(s):',
-  registrosRecalibrados: '🌀 Records automatically recalibrated by Vigia Oculta.\n',
+  alteracoesDetectadas: '🔐 [VigiaOculta] 检测到 {total} 个文件发生变更:',
+  registrosRecalibrados: '🌀 Vigia Oculta 已自动重新校准记录。\n',
 } as const;

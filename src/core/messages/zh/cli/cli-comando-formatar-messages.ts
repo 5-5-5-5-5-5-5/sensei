@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 
 export const CliFormatarExtraMensagens = {
-  titulo: '🧽 FORMAT',
-  scanOnlyAtivo: 'SCAN_ONLY active; the format command needs to read content.',
-  falhaFormatar: 'Failed to format {arquivo}: {erro}',
-  errosEncontrados: 'Errors: {total}',
-  precisaFormatacao: 'Found {total} file(s) that need formatting. Use --write to apply.',
-  tudoFormatado: 'All formatted.',
-  arquivosFormatados: 'Formatted {total} file(s).',
-  nenhumaMudanca: 'No changes needed.',
+  titulo: '🧽 格式化',
+  scanOnlyAtivo: 'SCAN_ONLY 模式已激活；格式化命令需要读取内容。',
+  falhaFormatar: '格式化 {arquivo} 失败：{erro}',
+  errosEncontrados: '错误：{total}',
+  precisaFormatacao: '发现 {total} 个文件需要格式化。使用 --write 应用更改。',
+  tudoFormatado: '全部已格式化。',
+  arquivosFormatados: '已格式化 {total} 个文件。',
+  nenhumaMudanca: '无需更改。',
 } as const;

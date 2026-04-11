@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mv *)",
+      "Bash(do *)",
+      "Bash(done)",
+      "Bash(debugchamado: *)",
+      "Bash(debugcontextual: *)",
+      "Bash(} *)",
+      "Bash(endoffile)"
+    ]
+  },
+  "$version": 3
+}

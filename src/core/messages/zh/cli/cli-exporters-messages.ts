@@ -2,26 +2,25 @@
 
 import { ICONES_ACAO, ICONES_RELATORIO } from '../../shared/icons.js';
 
-export const CliExportersMessages = {
+export const CliExportersMensagens = {
   poda: {
-    reportsExported: (dir: string) => `Pruning 报告s exported to: ${dir}`,
-    exportFailed: (erroMensagem: string) => `Failed to export pruning 报告s: ${erroMensagem}`
+    relatoriosExportados: (dir: string) => `清理报告已导出到：${dir}`,
+    falhaExportar: (erroMensagem: string) => `导出清理报告失败：${erroMensagem}`
   },
   guardian: {
-    reportsExportedTitle: `${ICONES_ACAO.export} ${ICONES_RELATORIO.detalhado} guardian reports exported:`,
-  markdownPath: (caminhoMd: string) => `   Markdown: ${caminhoMd}`,
-  jsonPath: (caminhoJson: string) => `   JSON: ${caminhoJson}`,
-  exportFailed: (erroMensagem: string) => `Failed to export guardian reports: ${erroMensagem}`
+    relatoriosExportadosTitulo: `${ICONES_ACAO.export} ${ICONES_RELATORIO.detalhado} Guardian 报告已导出：`,
+    caminhoMarkdown: (caminhoMd: string) => `   Markdown：${caminhoMd}`,
+    caminhoJson: (caminhoJson: string) => `   JSON：${caminhoJson}`,
+    falhaExportar: (erroMensagem: string) => `导出 Guardian 报告失败：${erroMensagem}`
   },
   fixTypes: {
-    reportsExportedTitle: `${ICONES_ACAO.export} ${ICONES_RELATORIO.detalhado} Fix-types 报告s exported:`,
-    markdownPath: (caminhoMd: string) => `   Markdown: ${caminhoMd}`,
-    jsonPath: (caminhoJson: string) => `   JSON: ${caminhoJson}`,
-    exportFailed: (erroMensagem: string) => `Failed to export fix-types 报告s: ${erroMensagem}`
+    relatoriosExportadosTitulo: `${ICONES_ACAO.export} ${ICONES_RELATORIO.detalhado} fix-types 报告已导出：`,
+    caminhoMarkdown: (caminhoMd: string) => `   Markdown：${caminhoMd}`,
+    caminhoJson: (caminhoJson: string) => `   JSON：${caminhoJson}`,
+    falhaExportar: (erroMensagem: string) => `导出 fix-types 报告失败：${erroMensagem}`
   },
   reestruturacao: {
-    reportsExported: (modoPrefixo: string, dir: string) => `Restructuring 报告s ${modoPrefixo}exported to: ${dir}`,
-    exportFailed: (modoPrefixo: string, erroMensagem: string) => `Failed to export ${modoPrefixo}restructuring 报告s: ${erroMensagem}`
+    relatoriosExportados: (modoPrefixo: string, dir: string) => `重构报告${modoPrefixo}已导出到：${dir}`,
+    falhaExportar: (modoPrefixo: string, erroMensagem: string) => `导出${modoPrefixo}重构报告失败：${erroMensagem}`
   }
 } as const;
-export const CliExportersMensagens = CliExportersMessages;
