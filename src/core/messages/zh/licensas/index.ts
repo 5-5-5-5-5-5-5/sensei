@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 /**
- * Licenses Messages
+ * 许可证消息
  */
 
 export * from './licensas-messages.js';

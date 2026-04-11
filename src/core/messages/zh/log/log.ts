@@ -166,7 +166,7 @@ function obterColunasTerm(): number | undefined {
     const out: tty.WriteStream | undefined = process.stdout && typeof (process.stdout as tty.WriteStream).columns !== 'undefined' ? process.stdout as tty.WriteStream : undefined;
     const cols = out?.columns;
     if (typeof cols === 'number' && cols > 0) return cols;
-  } catch {}
+  } catch { }
   // Allows explicit override via env and fallback of common variables
   const envOverride = Number(process.env.PROMETHEUS_FRAME_MAX_COLS || '0');
   if (Number.isFinite(envOverride) && envOverride > 0) return envOverride;

@@ -2,12 +2,11 @@
 
 import { ICONES_COMANDO } from '../../shared/icons.js';
 
-export const CliComandoPodarMessages = {
-  start: `\n${ICONES_COMANDO.podar} Starting pruning process...\n`,
-  noDebris: (iconeSucesso: string) => `${iconeSucesso} No debris 检测到. Clean repository!`,
-  orphansDetected: (qtd: number) => `\n${qtd} orphan files 检测到:`,
-  orphanFileLine: (arquivo: string) => `- ${arquivo}`,
-  confirmRemoval: 'Are you sure you want to remove these files? (y/N) ',
-  errorDuringPruning: (erroMensagem: string) => `[ERROR] 错误 during pruning: ${erroMensagem}`
+export const CliComandoPodarMensagens = {
+  inicio: `\n${ICONES_COMANDO.podar} 开始清理流程...\n`,
+  nenhumaSujeira: (iconeSucesso: string) => `${iconeSucesso} 未检测到垃圾。仓库是干净的！`,
+  orfaosDetectados: (qtd: number) => `\n检测到 ${qtd} 个孤立文件：`,
+  linhaArquivoOrfao: (arquivo: string) => `- ${arquivo}`,
+  confirmarRemocao: '确定要删除这些文件吗？(y/N) ',
+  erroDurantePoda: (erroMensagem: string) => `[错误] 清理过程出错：${erroMensagem}`
 } as const;
-export const CliComandoPodarMensagens = CliComandoPodarMessages;

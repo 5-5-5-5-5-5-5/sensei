@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 /**
- * Centralized settings for the intelligent report filter
- * Defines priorities, groupings and problem categorization
+ * 智能报告过滤器的集中化设置
+ * 定义优先级、分组和问题分类
  */
 
 import type { AgrupamentoConfig, ConfigPrioridade, PrioridadeNivel } from '@';
@@ -12,267 +12,267 @@ import {
   ICONES_FEEDBACK,
 } from '../../shared/icons.js';
 
-// Re-exports types for compatibility
+// 为兼容性重新导出类型
 export type { AgrupamentoConfig, ConfigPrioridade, PrioridadeNivel };
 
-  /* -------------------------- PRIORITIES BY PROBLEM TYPE -------------------------- */
+  /* -------------------------- 按问题类型划分优先级 -------------------------- */
 
 export const PRIORIDADES: Record<string, ConfigPrioridade> = {
-  // Critical - Security and data
+  // 严重 - 安全与数据
   PROBLEMA_SEGURANCA: {
     prioridade: 'critica',
     icone: '[LOCK]',
-    descricao: 'Security vulnerability detected',
+    descricao: '检测到安全漏洞',
   },
   VULNERABILIDADE_SEGURANCA: {
     prioridade: 'critica',
     icone: '[ERRO]',
-    descricao: 'Critical security flaw',
+    descricao: '严重安全缺陷',
   },
   CREDENCIAIS_EXPOSTAS: {
     prioridade: 'critica',
     icone: '[LOCK]',
-    descricao: 'Hardcoded or exposed credentials',
+    descricao: '硬编码或暴露的凭据',
   },
 
-  // High - Fragile code and bugs
+  // 高 - 脆弱代码与缺陷
   CODIGO_FRAGIL: {
     prioridade: 'alta',
     icone: '[AVISO]',
-    descricao: 'Code susceptible to failures',
+    descricao: '容易出错的代码',
   },
   'tipo-inseguro-any': {
     prioridade: 'alta',
     icone: '[HIGH]',
-    descricao: 'Use of any type that can be replaced',
+    descricao: '可被替换的 any 类型用法',
   },
   'tipo-inseguro-unknown': {
     prioridade: 'media',
     icone: '[WARN]',
-    descricao: 'Use of unknown type that can be made specific',
+    descricao: '可被具体化的 unknown 类型用法',
   },
   PROBLEMA_TESTE: {
     prioridade: 'alta',
     icone: '[TEST]',
-    descricao: 'Testing issues',
+    descricao: '测试问题',
   },
   'estrutura-suspeita': {
     prioridade: 'alta',
     icone: '[SCAN]',
-    descricao: 'Suspicious code structure',
+    descricao: '可疑的代码结构',
   },
   COMPLEXIDADE_ALTA: {
     prioridade: 'alta',
     icone: '[STATS]',
-    descricao: 'High cyclomatic complexity',
+    descricao: '圈复杂度过高',
   },
 
-  // Medium - Maintainability and patterns
+  // 中 - 可维护性与模式
   PROBLEMA_DOCUMENTACAO: {
     prioridade: 'media',
     icone: '[DOC]',
-    descricao: 'Missing or inadequate documentation',
+    descricao: '缺少或不充分的文档',
   },
   'padrao-ausente': {
     prioridade: 'media',
     icone: '[GOAL]',
-    descricao: 'Recommended pattern absent',
+    descricao: '缺少推荐模式',
   },
   'estrutura-config': {
     prioridade: 'media',
     icone: '[CONFIG]',
-    descricao: 'Configuration issues',
+    descricao: '配置问题',
   },
   'estrutura-entrypoints': {
     prioridade: 'media',
     icone: '[ENTRY]',
-    descricao: 'Poorly defined entrypoints',
+    descricao: '入口点定义不清',
   },
   ANALISE_ARQUITETURA: {
     prioridade: 'media',
     icone: '[BUILD]',
-    descricao: 'Architectural analysis',
+    descricao: '架构分析',
   },
 
-  // Low - Informational and improvements
+  // 低 - 信息性与改进
   CONSTRUCOES_SINTATICAS: {
     prioridade: 'baixa',
     icone: '[SYNTAX]',
-    descricao: 'Syntactic patterns detected',
+    descricao: '检测到语法模式',
   },
   CARACTERISTICAS_ARQUITETURA: {
     prioridade: 'baixa',
     icone: '[ARCH]',
-    descricao: 'Architectural characteristics',
+    descricao: '架构特征',
   },
   METRICAS_ARQUITETURA: {
     prioridade: 'baixa',
     icone: '[SIZE]',
-    descricao: 'Architectural metrics',
+    descricao: '架构指标',
   },
   TODO_PENDENTE: {
     prioridade: 'baixa',
     icone: ICONES_FEEDBACK.dica,
-    descricao: 'TODOs and pending tasks',
+    descricao: 'TODO 和待办事项',
   },
   IDENTIFICACAO_PROJETO: {
     prioridade: 'baixa',
     icone: '[TAG]',
-    descricao: 'Project type identification',
+    descricao: '项目类型识别',
   },
   SUGESTAO_MELHORIA: {
     prioridade: 'baixa',
     icone: '[DICA]',
-    descricao: 'Improvement suggestion',
+    descricao: '改进建议',
   },
   EVIDENCIA_CONTEXTO: {
     prioridade: 'baixa',
     icone: '[SCAN]',
-    descricao: 'Context evidence',
+    descricao: '上下文证据',
   },
   TECNOLOGIAS_ALTERNATIVAS: {
     prioridade: 'baixa',
     icone: '[ALT]',
-    descricao: 'Alternative technologies suggested',
+    descricao: '建议的替代技术',
   },
 };
 
-  /* -------------------------- INTELLIGENT GROUPINGS BY MESSAGE PATTERN -------------------------- */
+  /* -------------------------- 按消息模式的智能分组 -------------------------- */
 
 export const AGRUPAMENTOS_MENSAGEM: AgrupamentoConfig[] = [
-  // Critical Security
+  // 严重安全
   {
     padrao:
       /token hardcoded|senha hardcoded|chave hardcoded|api.*key.*hardcoded/i,
     categoria: 'SEGURANCA_HARDCODED',
-    titulo: 'Hardcoded Credentials Detected',
+    titulo: '检测到硬编码凭据',
     prioridade: 'critica',
     icone: ICONES_ARQUIVO.lock,
-    acaoSugerida: 'Move credentials to environment variables (.env)',
+    acaoSugerida: '将凭据移至环境变量 (.env)',
   },
   {
     padrao: /sql.*injection|xss|csrf|path.*traversal|command.*injection/i,
     categoria: 'VULNERABILIDADES_WEB',
-    titulo: 'Web Vulnerabilities Detected',
+    titulo: '检测到 Web 漏洞',
     prioridade: 'critica',
     icone: '[ERRO]',
-    acaoSugerida: 'Apply input sanitization and validation',
+    acaoSugerida: '应用输入清理和验证',
   },
 
-  // Fragile Code (High)
+  // 脆弱代码 (高)
   {
     padrao: /tipo.*inseguro.*any|any.*inseguro|unsafe.*any/i,
     categoria: 'TIPOS_ANY_INSEGUROS',
-    titulo: 'Unsafe Any Types Detected',
+    titulo: '检测到不安全的 Any 类型',
     prioridade: 'alta',
     icone: '[HIGH]',
     acaoSugerida:
-      'Replace any with specific types to improve type safety',
+      '将 any 替换为具体类型以提高类型安全性',
   },
   {
     padrao: /tipo.*inseguro.*unknown|unknown.*inseguro|unsafe.*unknown/i,
     categoria: 'TIPOS_UNKNOWN_GENERICOS',
-    titulo: 'Generic Unknown Types',
+    titulo: '泛型 Unknown 类型',
     prioridade: 'media',
     icone: '[WARN]',
-    acaoSugerida: 'Add type guards or replace with specific types',
+    acaoSugerida: '添加类型守卫或替换为具体类型',
   },
   {
     padrao: /missing-tests|missing tests|sem testes|no.*tests/i,
     categoria: 'TESTES_AUSENTES',
-    titulo: 'Files Without Tests',
+    titulo: '缺少测试的文件',
     prioridade: 'alta',
     icone: '[TEST]',
-    acaoSugerida: 'Implement unit tests to improve coverage',
+    acaoSugerida: '实现单元测试以提高覆盖率',
   },
   {
     padrao: /complexidade.*alta|complex.*high|cyclomatic.*complexity/i,
     categoria: 'COMPLEXIDADE_ALTA',
-    titulo: 'Code with High Complexity',
+    titulo: '高复杂度代码',
     prioridade: 'alta',
     icone: '[STATS]',
-    acaoSugerida: 'Refactor into smaller functions to improve readability',
+    acaoSugerida: '重构为更小的函数以提高可读性',
   },
   {
     padrao: /acoplamento.*alto|coupling.*high|tight.*coupling/i,
     categoria: 'ACOPLAMENTO_ALTO',
-    titulo: 'High Coupling Between Modules',
+    titulo: '模块间耦合度过高',
     prioridade: 'alta',
     icone: '[LINK]',
-    acaoSugerida: 'Review dependencies and apply decoupling patterns',
+    acaoSugerida: '审查依赖关系并应用解耦模式',
   },
 
-  // Maintainability (Medium)
+  // 可维护性 (中)
   {
     padrao:
       /missing-jsdoc|missing documentation|sem documentação|no.*documentation/i,
     categoria: 'DOCUMENTACAO_AUSENTE',
-    titulo: 'Missing Documentation',
+    titulo: '缺少文档',
     prioridade: 'media',
     icone: '[DOC]',
-    acaoSugerida: 'Add JSDoc/comments to improve maintainability',
+    acaoSugerida: '添加 JSDoc/注释以提高可维护性',
   },
   {
     padrao: /console\.log|console-log|debug.*statement/i,
     categoria: 'CONSOLE_LOGS',
-    titulo: 'Console.log in Production Code',
+    titulo: '生产代码中的 Console.log',
     prioridade: 'media',
     icone: '[LOG]',
-    acaoSugerida: 'Remove or replace with a proper logging system',
+    acaoSugerida: '移除或替换为适当的日志系统',
   },
   {
     padrao: /código.*duplicado|duplicate.*code|copy.*paste/i,
     categoria: 'DUPLICACAO_CODIGO',
-    titulo: 'Duplicated Code Detected',
+    titulo: '检测到重复代码',
     prioridade: 'media',
     icone: '[COPY]',
-    acaoSugerida: 'Extract into reusable functions/modules',
+    acaoSugerida: '提取为可复用的函数/模块',
   },
   {
     padrao: /função.*longa|long.*function|function.*too.*large/i,
     categoria: 'FUNCOES_LONGAS',
-    titulo: 'Very Long Functions',
+    titulo: '过长函数',
     prioridade: 'media',
     icone: '[SIZE]',
-    acaoSugerida: 'Split into smaller, more cohesive functions',
+    acaoSugerida: '拆分为更小、更内聚的函数',
   },
 
-  // Low priority
+  // 低优先级
   {
     padrao: /todo|fixme|hack|workaround/i,
     categoria: 'TAREFAS_PENDENTES',
-    titulo: 'Pending Tasks in Code',
+    titulo: '代码中的待办事项',
     prioridade: 'baixa',
     icone: ICONES_FEEDBACK.dica,
-    acaoSugerida: 'Review and resolve pending TODOs/FIXMEs',
+    acaoSugerida: '审查并解决待办的 TODO/FIXME',
   },
   {
     padrao: /magic.*number|número.*mágico/i,
     categoria: 'NUMEROS_MAGICOS',
-    titulo: 'Magic Numbers in Code',
+    titulo: '代码中的魔术数字',
     prioridade: 'baixa',
     icone: ICONES_DIAGNOSTICO.stats,
-    acaoSugerida: 'Replace with named constants',
+    acaoSugerida: '替换为命名常量',
   },
 ];
 
-  /* -------------------------- HELPERS -------------------------- */
+  /* -------------------------- 辅助函数 -------------------------- */
 
 /**
- * Gets the priority of a problem type
+ * 获取问题类型的优先级
  */
 export function getPrioridade(tipo: string): ConfigPrioridade {
   return (
     PRIORIDADES[tipo] || {
       prioridade: 'baixa',
       icone: ICONES_ARQUIVO.arquivo,
-      descricao: 'Uncategorized problem',
+      descricao: '未分类问题',
     }
   );
 }
 
 /**
- * Finds grouping by message
+ * 按消息查找分组
  */
 export function findAgrupamento(mensagem: string): AgrupamentoConfig | null {
   for (const grupo of AGRUPAMENTOS_MENSAGEM) {
@@ -284,7 +284,7 @@ export function findAgrupamento(mensagem: string): AgrupamentoConfig | null {
 }
 
 /**
- * Sorts problems by priority
+ * 按优先级排序问题
  */
 export function ordenarPorPrioridade<
   T extends { prioridade?: PrioridadeNivel },
@@ -304,7 +304,7 @@ export function ordenarPorPrioridade<
 }
 
 /**
- * Counts problems by priority
+ * 按优先级计数
  */
 export function contarPorPrioridade<T extends { prioridade?: PrioridadeNivel }>(
   problemas: T[],

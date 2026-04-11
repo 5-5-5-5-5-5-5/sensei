@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 /**
- * Shared Messages: Plugin Registry, Plugin Core
+ * 共享消息: 插件注册表、插件核心
  */
 
 export * from './plugin-core-messages.js';

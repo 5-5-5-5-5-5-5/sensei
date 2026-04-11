@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 /**
- * UI: Icons, Suggestions, Filters
+ * 用户界面: 图标、建议、过滤器
  */
 
 export * from '../../shared/icons.js';

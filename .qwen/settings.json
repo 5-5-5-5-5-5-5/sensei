@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mv *)",
+      "Bash(do *)",
+      "Bash(done)",
+      "Bash(debugchamado: *)",
+      "Bash(debugcontextual: *)",
+      "Bash(} *)",
+      "Bash(endoffile)",
+      "Read(//home/italo/**)",
+      "Bash(npx *)"
+    ]
+  },
+  "$version": 3
+}

@@ -2,190 +2,190 @@
 // @prometheus-disable tipo-literal-inline-complexo
 // Justification: inline types for suggestion system
 /**
- * Centralized Suggestion and Tips System
+ * 集中化建议与提示系统
  *
- * Centralizes ALL contextual suggestions from Prometheus:
- * - Command usage tips
- * - Context-based suggestions
- * - Quick help messages
- * - Call-to-action for different scenarios
+ * 集中化 Prometheus 的所有上下文建议:
+ * - 命令使用提示
+ * - 基于上下文的建议
+ * - 快速帮助消息
+ * - 不同场景的号召性用语
  */
 
 import { ICONES } from '../../shared/icons.js';
 
 /**
- * General command suggestions
+ * 通用命令建议
  */
 export const SUGESTOES_COMANDOS = {
-  usarFull: `${ICONES.feedback.dica} Use --full for a detailed 报告 with all information`,
-  usarJson: `${ICONES.feedback.dica} Use --json for structured JSON output`,
-  combinarJsonExport: `${ICONES.feedback.dica} Combine --json with --export to save the 报告`,
-  usarExport: `${ICONES.feedback.dica} Use --export <path> to save 报告 to file`,
-  usarInclude: `${ICONES.feedback.dica} Use --include <模式> to focus on specific files`,
-  usarExclude: `${ICONES.feedback.dica} Use --exclude <模式> to ignore files`,
-  usarDryRun: `${ICONES.feedback.dica} Use --dry-run to simulate without modifying 文件`,
-  removerDryRun: `${ICONES.feedback.dica} Remove --dry-run to apply fixes`,
-  usarInterativo: `${ICONES.feedback.dica} Use --interactive to confirm each fix`,
-  usarGuardian: `${ICONES.feedback.dica} Use --guardian to verify integrity`,
-  usarBaseline: `${ICONES.feedback.dica} Use --baseline to generate a reference baseline`,
-  usarAutoFix: `${ICONES.feedback.dica} Use --自动修复 to apply automatic fixes`,
+  usarFull: `${ICONES.feedback.dica} 使用 --full 获取包含所有信息的详细报告`,
+  usarJson: `${ICONES.feedback.dica} 使用 --json 获取结构化 JSON 输出`,
+  combinarJsonExport: `${ICONES.feedback.dica} 将 --json 与 --export 结合以保存报告`,
+  usarExport: `${ICONES.feedback.dica} 使用 --export <path> 将报告保存到文件`,
+  usarInclude: `${ICONES.feedback.dica} 使用 --include <模式> 聚焦特定文件`,
+  usarExclude: `${ICONES.feedback.dica} 使用 --exclude <模式> 忽略文件`,
+  usarDryRun: `${ICONES.feedback.dica} 使用 --dry-run 进行模拟而不修改文件`,
+  removerDryRun: `${ICONES.feedback.dica} 移除 --dry-run 以应用修复`,
+  usarInterativo: `${ICONES.feedback.dica} 使用 --interactive 确认每个修复`,
+  usarGuardian: `${ICONES.feedback.dica} 使用 --guardian 验证完整性`,
+  usarBaseline: `${ICONES.feedback.dica} 使用 --baseline 生成参考基线`,
+  usarAutoFix: `${ICONES.feedback.dica} 使用 --auto-fix 应用自动修复`,
 } as const;
 
 /**
- * Diagnostic suggestions
+ * 诊断建议
  */
 export const SUGESTOES_DIAGNOSTICO = {
-  modoExecutivo: `${ICONES.diagnostico.executive} Executive mode: showing only critical problems`,
+  modoExecutivo: `${ICONES.diagnostico.executive} 执行模式: 仅显示严重问题`,
   primeiraVez: [
-    `${ICONES.feedback.dica} First time? Start with: prometheus diagnosticar --full`,
-    `${ICONES.feedback.dica} Use --help to see all available 选项s`,
+    `${ICONES.feedback.dica} 第一次使用？从以下开始: prometheus diagnosticar --full`,
+    `${ICONES.feedback.dica} 使用 --help 查看所有可用选项`,
   ],
   projetoGrande: [
-    `${ICONES.feedback.dica} Large project detected - use --include for incremental 分析`,
-    `${ICONES.feedback.dica} Use --quick for a fast initial 分析`,
+    `${ICONES.feedback.dica} 检测到大型项目 - 使用 --include 进行增量分析`,
+    `${ICONES.feedback.dica} 使用 --quick 进行快速初始分析`,
   ],
-  poucoProblemas: `${ICONES.nivel.sucesso} Project in good shape! Only {count} minor problems found.`,
+  poucoProblemas: `${ICONES.nivel.sucesso} 项目状况良好！仅发现 {count} 个小问题。`,
   muitosProblemas: [
-    `${ICONES.feedback.atencao} Many problems found - prioritize critical ones first`,
-    `${ICONES.feedback.dica} Use --executive to focus only on the essentials`,
+    `${ICONES.feedback.atencao} 发现许多问题 - 请优先处理严重问题`,
+    `${ICONES.feedback.dica} 使用 --executive 仅关注必要内容`,
   ],
-  usarFiltros: `${ICONES.feedback.dica} Use --include/--exclude filters for focused 分析`,
+  usarFiltros: `${ICONES.feedback.dica} 使用 --include/--exclude 过滤器进行聚焦分析`,
 } as const;
 
 /**
- * Auto-fix suggestions
+ * 自动修复建议
  */
 export const SUGESTOES_AUTOFIX = {
-  autoFixDisponivel: `${ICONES.feedback.dica} Automatic fixes available - use --自动修复`,
-  autoFixAtivo: `${ICONES.feedback.atencao} 自动修复 active! Use --dry-run to simulate without modifying files`,
-  dryRunRecomendado: `${ICONES.feedback.dica} Recommended: test first with --dry-run`,
-  semMutateFS: `${ICONES.feedback.atencao} 自动修复 currently unavailable`,
+  autoFixDisponivel: `${ICONES.feedback.dica} 有自动修复可用 - 使用 --auto-fix`,
+  autoFixAtivo: `${ICONES.feedback.atencao} 自动修复已激活！使用 --dry-run 进行模拟而不修改文件`,
+  dryRunRecomendado: `${ICONES.feedback.dica} 建议: 先用 --dry-run 测试`,
+  semMutateFS: `${ICONES.feedback.atencao} 自动修复当前不可用`,
   validarDepois: [
-    `${ICONES.feedback.dica} Run npm run lint to verify the fixes`,
-    `${ICONES.feedback.dica} Run npm run build to check if the 代码 compiles`,
-    `${ICONES.feedback.dica} Run npm test to validate functionality`,
+    `${ICONES.feedback.dica} 运行 npm run lint 验证修复`,
+    `${ICONES.feedback.dica} 运行 npm run build 检查代码是否可编译`,
+    `${ICONES.feedback.dica} 运行 npm test 验证功能`,
   ],
 } as const;
 
 /**
- * Guardian suggestions
+ * Guardian 建议
  */
 export const SUGESTOES_GUARDIAN = {
-  guardianDesabilitado: `${ICONES.comando.guardian} guardian disabled. Use --guardian to verify integrity`,
+  guardianDesabilitado: `${ICONES.comando.guardian} guardian 已禁用。使用 --guardian 验证完整性`,
   primeiroBaseline: [
-    `${ICONES.feedback.dica} First run: generate a baseline with --baseline`,
-    `${ICONES.feedback.dica} The baseline serves as a reference for future changes`,
+    `${ICONES.feedback.dica} 首次运行: 使用 --baseline 生成基线`,
+    `${ICONES.feedback.dica} 基线可作为未来更改的参考`,
   ],
   driftDetectado: [
-    `${ICONES.feedback.atencao} Changes 检测到 compared to baseline`,
-    `${ICONES.feedback.dica} Review the changes before updating the baseline`,
-    `${ICONES.feedback.dica} Use --baseline to update reference`,
+    `${ICONES.feedback.atencao} 检测到与基线相比有更改`,
+    `${ICONES.feedback.dica} 在更新基线之前请审查这些更改`,
+    `${ICONES.feedback.dica} 使用 --baseline 更新参考`,
   ],
-  integridadeOK: `${ICONES.nivel.sucesso} Integrity verified - no unauthorized changes`,
+  integridadeOK: `${ICONES.nivel.sucesso} 完整性已验证 - 未检测到未经授权的更改`,
 } as const;
 
 /**
- * Type suggestions (fix-types)
+ * 类型建议 (fix-types)
  */
 export const SUGESTOES_TIPOS = {
   ajustarConfianca: (atual: number) =>
-    `${ICONES.feedback.dica} Use --confidence <num> to adjust the threshold (current: ${atual}%)`,
+    `${ICONES.feedback.dica} 使用 --confidence <num> 调整阈值 (当前: ${atual}%)`,
   revisar: (categoria: string) =>
-    `${ICONES.feedback.dica} Review ${categoria} cases manually`,
+    `${ICONES.feedback.dica} 手动审查 ${categoria} 案例`,
   anyEncontrado: [
-    `${ICONES.feedback.atencao} 'any' types 检测到 - they reduce code safety`,
-    `${ICONES.feedback.dica} Prioritize replacing 'as any' and explicit casts`,
+    `${ICONES.feedback.atencao} 检测到 'any' 类型 - 它们会降低代码安全性`,
+    `${ICONES.feedback.dica} 优先替换 'as any' 和显式转换`,
   ],
-  unknownLegitimo: `${ICONES.nivel.sucesso} Legitimate uses of 'unknown' identified`,
-  melhoravelDisponivel: `${ICONES.feedback.dica} Improvable cases found - review in future refactoring`,
+  unknownLegitimo: `${ICONES.nivel.sucesso} 已识别 'unknown' 的合法用法`,
+  melhoravelDisponivel: `${ICONES.feedback.dica} 发现可改进案例 - 请在未来重构期间审查`,
 } as const;
 
 /**
- * Archetype suggestions
+ * 原型建议
  */
 export const SUGESTOES_ARQUETIPOS = {
   monorepo: [
-    `${ICONES.feedback.dica} Monorepo 检测到: consider using workspace filters`,
-    `${ICONES.feedback.dica} Use --include packages/* to analyze specific workspaces`,
+    `${ICONES.feedback.dica} 检测到 Monorepo: 考虑使用工作区过滤器`,
+    `${ICONES.feedback.dica} 使用 --include packages/* 分析特定工作区`,
   ],
   biblioteca: [
-    `${ICONES.feedback.dica} Library 检测到: focus on public exports and documentation`,
-    `${ICONES.feedback.dica} Use --guardian to verify public API`,
+    `${ICONES.feedback.dica} 检测到库: 聚焦公共导出和文档`,
+    `${ICONES.feedback.dica} 使用 --guardian 验证公共 API`,
   ],
   cli: [
-    `${ICONES.feedback.dica} CLI 检测到: prioritize command and flag tests`,
-    `${ICONES.feedback.dica} Validate error handling in 命令s`,
+    `${ICONES.feedback.dica} 检测到 CLI: 优先测试命令和标志`,
+    `${ICONES.feedback.dica} 验证命令中的错误处理`,
   ],
   api: [
-    `${ICONES.feedback.dica} API 检测到: focus on endpoints and contracts`,
-    `${ICONES.feedback.dica} Consider integration tests for routes`,
-    `${ICONES.feedback.dica} Validate API documentation (OpenAPI/Swagger)`,
+    `${ICONES.feedback.dica} 检测到 API: 聚焦端点和契约`,
+    `${ICONES.feedback.dica} 考虑为路由集成测试`,
+    `${ICONES.feedback.dica} 验证 API 文档 (OpenAPI/Swagger)`,
   ],
   frontend: [
-    `${ICONES.feedback.dica} Frontend 检测到: prioritize components and state management`,
-    `${ICONES.feedback.dica} Validate accessibility and performance`,
+    `${ICONES.feedback.dica} 检测到前端: 优先组件和状态管理`,
+    `${ICONES.feedback.dica} 验证可访问性和性能`,
   ],
   confiancaBaixa: [
-    `${ICONES.feedback.atencao} Low confidence in detection: structure may be hybrid`,
-    `${ICONES.feedback.dica} Use --criar-arquetipo --salvar-arquetipo to customize`,
+    `${ICONES.feedback.atencao} 检测置信度较低: 结构可能是混合的`,
+    `${ICONES.feedback.dica} 使用 --criar-arquetipo --salvar-arquetipo 进行自定义`,
   ],
 } as const;
 
 /**
- * Restructuring suggestions
+ * 重构建议
  */
 export const SUGESTOES_REESTRUTURAR = {
   backupRecomendado: [
-    `${ICONES.feedback.importante} IMPORTANT: Make a backup before restructuring!`,
-    `${ICONES.feedback.dica} Use git to version before structural changes`,
+    `${ICONES.feedback.importante} 重要: 在重构之前请备份！`,
+    `${ICONES.feedback.dica} 使用 git 在结构更改之前进行版本控制`,
   ],
   validarDepois: [
-    `${ICONES.feedback.dica} Run tests after restructuring`,
-    `${ICONES.feedback.dica} Validate imports and references`,
+    `${ICONES.feedback.dica} 重构后运行测试`,
+    `${ICONES.feedback.dica} 验证导入和引用`,
   ],
-  usarDryRun: `${ICONES.feedback.dica} First time? Use --dry-run to see proposed changes`,
+  usarDryRun: `${ICONES.feedback.dica} 第一次使用？使用 --dry-run 查看建议的更改`,
 } as const;
 
 /**
- * Pruning suggestions
+ * 修剪建议
  */
 export const SUGESTOES_PODAR = {
   cuidado: [
-    `${ICONES.feedback.atencao} Pruning permanently removes 文件!`,
-    `${ICONES.feedback.importante} Make sure you have backup or version control`,
+    `${ICONES.feedback.atencao} 修剪会永久删除文件！`,
+    `${ICONES.feedback.importante} 请确保有备份或版本控制`,
   ],
-  revisar: `${ICONES.feedback.dica} Review the 文件 list before confirming`,
-  usarDryRun: `${ICONES.feedback.dica} Use --dry-run to simulate pruning without deleting`,
+  revisar: `${ICONES.feedback.dica} 在确认之前请审查文件列表`,
+  usarDryRun: `${ICONES.feedback.dica} 使用 --dry-run 模拟修剪而不删除`,
 } as const;
 
 /**
- * Metrics suggestions
+ * 指标建议
  */
 export const SUGESTOES_METRICAS = {
   baseline: [
-    `${ICONES.feedback.dica} Generate baseline for future comparisons`,
-    `${ICONES.feedback.dica} Use --json for CI/CD integration`,
+    `${ICONES.feedback.dica} 生成基线以用于未来比较`,
+    `${ICONES.feedback.dica} 使用 --json 集成 CI/CD`,
   ],
-  tendencias: `${ICONES.feedback.dica} Run regularly to track trends`,
-  comparacao: `${ICONES.feedback.dica} Compare with previous runs`,
+  tendencias: `${ICONES.feedback.dica} 定期运行以跟踪趋势`,
+  comparacao: `${ICONES.feedback.dica} 与之前的运行进行比较`,
 } as const;
 
 /**
- * Caretaker suggestions
+ * 管理员建议
  */
 export const SUGESTOES_ZELADOR = {
   imports: [
-    `${ICONES.feedback.dica} Import caretaker automatically fixes paths`,
-    `${ICONES.feedback.dica} Use --dry-run to see proposed fixes`,
+    `${ICONES.feedback.dica} 导入管理员自动修复路径`,
+    `${ICONES.feedback.dica} 使用 --dry-run 查看建议修复`,
   ],
   estrutura: [
-    `${ICONES.feedback.dica} Structure caretaker organizes files by 模式`,
-    `${ICONES.feedback.dica} Configure patterns in prometheus.config.json`,
+    `${ICONES.feedback.dica} 结构管理员按模式组织文件`,
+    `${ICONES.feedback.dica} 在 prometheus.config.json 中配置模式`,
   ],
 } as const;
 
 /**
- * Contextual suggestions - helper function
+ * 上下文建议 - 辅助函数
  */
 export function gerarSugestoesContextuais(contexto: {
   comando: string;
@@ -198,7 +198,7 @@ export function gerarSugestoesContextuais(contexto: {
 }): string[] {
   const sugestoes: string[] = [];
 
-  // Suggestions by command
+  // 按命令的建议
   switch (contexto.comando) {
     case 'diagnosticar':
       if (!contexto.temProblemas) {
@@ -248,7 +248,7 @@ export function gerarSugestoesContextuais(contexto: {
       break;
   }
 
-  // Suggestions by archetype
+  // 按原型的建议
   if (contexto.arquetipo) {
     switch (contexto.arquetipo) {
       case 'monorepo':
@@ -273,11 +273,11 @@ export function gerarSugestoesContextuais(contexto: {
 }
 
 /**
- * Formats suggestions for display
+ * 格式化建议以显示
  */
 export function formatarSugestoes(
   sugestoes: string[],
-  titulo = 'Suggestions',
+  titulo = '建议',
 ): string[] {
   if (sugestoes.length === 0) return [];
 
@@ -294,7 +294,7 @@ export function formatarSugestoes(
 }
 
 /**
- * Consolidated export
+ * 集中化导出
  */
 export const SUGESTOES = {
   comandos: SUGESTOES_COMANDOS,

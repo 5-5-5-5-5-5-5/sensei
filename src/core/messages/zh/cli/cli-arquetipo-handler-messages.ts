@@ -2,10 +2,9 @@
 
 import { ICONES_FEEDBACK } from '../../shared/icons.js';
 
-export const CliArquetipoHandlerMessages = {
-  timeoutDetection: `${ICONES_FEEDBACK.atencao} Archetype detection timed out`,
-  detectionError: (mensagem: string) => `错误 in archetype detection: ${mensagem}`,
-  devErrorPrefix: '[Archetype Handler] Error:',
-  saveFailure: (mensagem: string) => `Failed to save archetype: ${mensagem}`
+export const CliArquetipoHandlerMensagens = {
+  timeoutDeteccao: `${ICONES_FEEDBACK.atencao} 原型检测超时`,
+  erroDeteccao: (mensagem: string) => `原型检测错误：${mensagem}`,
+  devErroPrefixo: '[原型处理程序] 错误：',
+  falhaSalvar: (mensagem: string) => `保存原型失败：${mensagem}`
 } as const;
-export const CliArquetipoHandlerMensagens = CliArquetipoHandlerMessages;

@@ -1,16 +1,16 @@
 // SPDX-License-Identifier: MIT
 
 /**
- * @fileoverview Diagnostic messages for the syntactic constructions detector.
- * Provides text templates to report identified syntactic constructions
- * and errors during analysis.
+ * @fileoverview 语法结构检测器的诊断消息。
+ * 提供文本模板，用于报告已识别的语法结构
+ * 和分析期间的错误。
  */
 
 type ErroUnknown = unknown;
 function erroToMessage(erro: ErroUnknown): string {
-  return erro instanceof Error ? erro.message : 'Unknown error';
+  return erro instanceof Error ? erro.message : '未知错误';
 }
 export const DetectorConstrucoesSintaticasMensagens = {
-  identificadas: (mensagemFinal: string) => `Syntactic constructions identified: ${mensagemFinal}`,
-  erroAnalisar: (erro: ErroUnknown) => `分析错误 syntactic constructions: ${erroToMessage(erro)}`
+  identificadas: (mensagemFinal: string) => `已识别语法结构：${mensagemFinal}`,
+  erroAnalisar: (erro: ErroUnknown) => `分析语法结构时出错：${erroToMessage(erro)}`
 } as const;

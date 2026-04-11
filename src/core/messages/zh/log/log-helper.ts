@@ -2,9 +2,9 @@
 // @prometheus-disable tipo-literal-inline-complexo
 // Justification: inline types for logging system
 /**
- * Unified log helper system
- * Consolidation of log-helpers.ts and log-helpers-inteligente.ts
- * Removes duplication and centralizes logic via log-engine
+ * 统一日志辅助系统
+ * 整合 log-helpers.ts 和 log-helpers-inteligente.ts
+ * 消除重复并通过 log-engine 集中逻辑
  */
 
 import { config } from '@core/config/config.js';
@@ -14,31 +14,31 @@ import { logEngine } from './log-engine.js';
 import { LogMensagens } from './log-messages.js';
 
 /**
- * Logging system for analysts with unified spam control
+ * 具有统一垃圾控制的分析师日志系统
  */
 export const logAnalistas = {
   ultimoProgressoGlobal: 0,
   contadorArquivos: 0,
   totalArquivos: 0,
   ultimoEmitMs: 0,
-  /** Initializes analysis batch */
+  /** 初始化分析批次 */
   iniciarBatch(totalArquivos: number): void {
     this.totalArquivos = totalArquivos;
     this.contadorArquivos = 0;
     this.ultimoProgressoGlobal = 0;
     this.ultimoEmitMs = 0;
 
-    // Uses logEngine for consistent formatting only in complex/verbose mode
+    // 仅在复杂/详细模式下使用 logEngine 进行一致格式化
     if (logEngine.contexto === 'complexo' || config.VERBOSE) {
       logEngine.log('info', LogMensagens.analistas.execucao.inicio_detalhado, {
         totalArquivos: totalArquivos.toString()
       });
     }
-    // In simple mode, do not emit redundant message (progress already shows it)
+    // 在简单模式下，不发出冗余消息 (进度已显示)
   },
-  /** Analyst start log (now only registers) */
+  /** 分析师开始日志 (现在仅注册) */
   iniciandoAnalista(nomeAnalista: string, arquivo: string, tamanho: number): void {
-    // 🔕 ANTI-SPAM: Only logs individual analysts in specific contexts
+    // 🔕 反垃圾: 仅在特定上下文中记录单个分析师
     const deveLogarIndividual = logEngine.contexto === 'complexo' || config.DEV_MODE || process.env.VERBOSE === 'true';
     if (deveLogarIndividual) {
       logEngine.log('debug', LogMensagens.analistas.execucao.inicio_detalhado, {
@@ -48,14 +48,14 @@ export const logAnalistas = {
       });
     }
   },
-  /** Increments counter when file is processed */
+  /** 文件处理完毕时递增计数器 */
   arquivoProcessado(): void {
     this.contadorArquivos++;
     if (logEngine.contexto !== 'complexo' && !config.DEV_MODE) {
       this.logProgressoGrupado();
     }
   },
-  /** Analyst completion log */
+  /** 分析师完成日志 */
   concluido(nomeAnalista: string, arquivo: string, ocorrencias: number, duracao: number): void {
     const deveLogarIndividual = logEngine.contexto === 'complexo' || config.DEV_MODE || process.env.VERBOSE === 'true';
     if (deveLogarIndividual) {
@@ -66,20 +66,20 @@ export const logAnalistas = {
       });
     }
   },
-  /** Smart and grouped progress log */
+  /** 智能分组进度日志 */
   logProgressoGrupado(): void {
     const porcentagem = Math.round(this.contadorArquivos / this.totalArquivos * 100);
     const agora = Date.now();
 
-    // Adaptive density: 5% for small projects, 10% for large ones
+    // 自适应密度: 小型项目 5%，大型项目 10%
     const passo = this.totalArquivos < 200 ? 5 : 10;
-    // Frequency limit: at most 2 updates per second
+    // 频率限制: 每秒最多 2 次更新
     const minIntervalMs = 500;
 
-    // Updates progress at adaptive intervals with anti-spam
+    // 在自适应间隔更新进度，带反垃圾
     if (porcentagem - this.ultimoProgressoGlobal >= passo || this.contadorArquivos === this.totalArquivos) {
       if (agora - this.ultimoEmitMs >= minIntervalMs || this.contadorArquivos === this.totalArquivos) {
-        logEngine.log('info', `${ICONES_DIAGNOSTICO.progresso} Progress: {arquivosProcessados}/{totalArquivos} ({percentual}%)`, {
+        logEngine.log('info', `${ICONES_DIAGNOSTICO.progresso} 进度: {arquivosProcessados}/{totalArquivos} ({percentual}%)`, {
           arquivosProcessados: this.contadorArquivos.toString(),
           totalArquivos: this.totalArquivos.toString(),
           percentual: porcentagem.toString()
@@ -89,34 +89,34 @@ export const logAnalistas = {
       }
     }
   },
-  /** Finalizes analysis batch */
+  /** 完成分析批次 */
   finalizarBatch(totalOcorrencias: number, duracaoTotal: number): void {
     if (logEngine.contexto === 'simples') {
-      logEngine.log('info', `${ICONES_STATUS.ok} 分析 completed - {totalOcorrencias} problems found`, {
+      logEngine.log('info', `${ICONES_STATUS.ok} 分析已完成 - 发现 {totalOcorrencias} 个问题`, {
         totalOcorrencias: totalOcorrencias.toString()
       });
     } else {
-      logEngine.log('info', `${ICONES_STATUS.ok} Checks completed - {totalOcorrencias} problems 检测到 in {duracao}s`, {
+      logEngine.log('info', `${ICONES_STATUS.ok} 检查已完成 - 检测到 {totalOcorrencias} 个问题，耗时 {duracao}s`, {
         totalOcorrencias: totalOcorrencias.toString(),
         duracao: (duracaoTotal / 1000).toFixed(1)
       });
     }
   },
-  /** Timeout is always important - uses logEngine */
+  /** 超时始终重要 - 使用 logEngine */
   timeout(nomeAnalista: string, duracao: number): void {
     logEngine.log('aviso', LogMensagens.analistas.execucao.timeout, {
       analista: nomeAnalista,
       tempo: duracao.toString()
     });
   },
-  /** Errors are always important - uses logEngine */
+  /** 错误始终重要 - 使用 logEngine */
   erro(nomeAnalista: string, erro: string): void {
     logEngine.log('erro', LogMensagens.analistas.execucao.erro, {
       analista: nomeAnalista,
       erro
     });
   },
-  /** Performance for complex projects */
+  /** 复杂项目的性能 */
   performance(dados: {
     analistas: number;
     media: number;
@@ -435,8 +435,8 @@ export const logProjeto = {
     throughput?: number;
   }): void {
     if (logEngine.contexto === 'complexo' || config.DEV_MODE) {
-      const throughput = dados.throughput ? ` (${dados.throughput.toFixed(1)} 文件/s)` : '';
-      logEngine.log('info', `${ICONES_DIAGNOSTICO.stats} Performance: {analistas} analysts in {duracao}s{throughput}`, {
+      const throughput = dados.throughput ? ` (${dados.throughput.toFixed(1)} 文件/秒)` : '';
+      logEngine.log('info', `${ICONES_DIAGNOSTICO.stats} 性能: {analistas} 个分析员，耗时 {duracao}s{throughput}`, {
         analistas: dados.analistas.toString(),
         duracao: (dados.duracao / 1000).toFixed(1),
         throughput
@@ -470,10 +470,10 @@ export const logOcorrencias = {
  */
 export const logRelatorio = {
   gerado(caminho: string, formato: string): void {
-    logEngine.log('info', `${ICONES_ARQUIVO.arquivo} ${formato} report 已生成: ${caminho}`, {});
+    logEngine.log('info', `${ICONES_ARQUIVO.arquivo} ${formato} 报告已生成: ${caminho}`, {});
   },
   erro(erro: string): void {
-    logEngine.log('erro', `${ICONES_STATUS.falha} Error generating 报告: ${erro}`, {});
+    logEngine.log('erro', `${ICONES_STATUS.falha} 生成报告时出错: ${erro}`, {});
   },
   repositorioImpecavel(): void {
     logEngine.log('info', LogMensagens.relatorio.repositorio_impecavel, {});

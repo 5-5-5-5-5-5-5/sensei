@@ -1,21 +1,21 @@
 // SPDX-License-Identifier: MIT
 
 /**
- * @fileoverview Diagnostic messages for the CLI commands analyst.
- * Provides text templates to detect duplicate commands, anonymous handlers,
- * missing error handling, and other bad practices in CLI command files.
+ * @fileoverview CLI 命令分析器的诊断消息。
+ * 提供文本模板，用于检测重复命令、匿名处理程序、
+ * 缺少错误处理以及 CLI 命令文件中的其他不良实践。
  */
 
 function comandoLabel(comandoNome?: string): string {
   return comandoNome ? ` "${comandoNome}"` : "";
 }
 export const ComandosCliMensagens = {
-  padraoAusente: 'Possible command file without registration detected. If this file should contain commands, consider using patterns like "on命令", "register命令", or framework-specific methods (e.g., SlashCommandBuilder for Discord.js).',
-  comandosDuplicados: (duplicados: string[]) => `Duplicate commands 检测到: ${[...new Set(duplicados)].join(", ")}`,
-  handlerAnonimo: (comandoNome: string) => `Handler for 命令 "${comandoNome}" is an anonymous function. Prefer named functions to facilitate debugging and traceability.`,
-  handlerMuitosParametros: (comandoNome: string | undefined, paramContagem: number) => `Handler for 命令${comandoLabel(comandoNome)} has too many parameters (${paramContagem}). Consider simplifying the interface.`,
-  handlerMuitoLongo: (comandoNome: string | undefined, statements: number) => `Handler for 命令${comandoLabel(comandoNome)} is too long (${statements} statements). Consider extracting helper functions.`,
-  handlerSemTryCatch: (comandoNome: string | undefined) => `Handler for 命令${comandoLabel(comandoNome)} does not have a try/catch block. It is recommended to handle errors explicitly.`,
-  handlerSemFeedback: (comandoNome: string | undefined) => `Handler for 命令${comandoLabel(comandoNome)} does not log or respond to the user. Consider adding feedback/logging.`,
-  multiplosComandos: (count: number) => `Multiple 命令s registered in this file (${count}). Consider separating each 命令 into its own module for better maintainability.`
+  padraoAusente: '可能检测到未注册的命令文件。如果此文件应包含命令，请考虑使用 "onCommand"、"registerCommand" 或框架特定方法（如 Discord.js 的 SlashCommandBuilder）。',
+  comandosDuplicados: (duplicados: string[]) => `检测到重复命令：${[...new Set(duplicados)].join(", ")}`,
+  handlerAnonimo: (comandoNome: string) => `命令 "${comandoNome}" 的处理程序是匿名函数。建议使用命名函数以便于调试和追踪。`,
+  handlerMuitosParametros: (comandoNome: string | undefined, paramContagem: number) => `命令${comandoLabel(comandoNome)} 的处理程序参数过多（${paramContagem}个）。请考虑简化接口。`,
+  handlerMuitoLongo: (comandoNome: string | undefined, statements: number) => `命令${comandoLabel(comandoNome)} 的处理程序过长（${statements} 条语句）。请考虑提取辅助函数。`,
+  handlerSemTryCatch: (comandoNome: string | undefined) => `命令${comandoLabel(comandoNome)} 的处理程序缺少 try/catch 块。建议显式处理错误。`,
+  handlerSemFeedback: (comandoNome: string | undefined) => `命令${comandoLabel(comandoNome)} 的处理程序既没有日志记录也没有响应用户。请考虑添加反馈/日志。`,
+  multiplosComandos: (count: number) => `此文件中注册了多个命令（${count}个）。请考虑将每个命令拆分到独立模块中以便于维护。`
 } as const;

@@ -1,22 +1,22 @@
 // SPDX-License-Identifier: MIT
 
 /**
- * @fileoverview Messages for contextual suggestions in the user interface.
- * Provides text templates with icons for feedback on project identification,
- * dependency evidence, imports, code patterns,
- * directory structure and alternative technologies.
+ * @fileoverview 用户界面上下文提示消息。
+ * 提供带图标的文本模板，用于项目识别反馈、
+ * 依赖证据、导入、代码模式、
+ * 目录结构和替代技术。
  */
 
 import { ICONES_ACAO, ICONES_ARQUIVO, ICONES_FEEDBACK } from '../../shared/icons.js';
 
 export const SugestoesContextuaisMensagens = {
-  arquetipoNaoIdentificado: 'Could not identify a specific archetype. Consider adding more structure to the project.',
-  projetoIdentificado: (tecnologia: string | undefined, confiancaPercent: number) => `${ICONES_FEEDBACK.info} Project identified as: ${tecnologia} (confidence: ${confiancaPercent}%)`,
-  evidenciaDependencia: (dependencia: string, tecnologia: string | undefined) => `${ICONES_ARQUIVO.package} Dependency ${dependencia} confirms project ${tecnologia}`,
-  evidenciaImport: (valor: string, localizacao: string | undefined) => `${ICONES_ACAO.import} Import ${valor} 检测到 in ${localizacao}`,
-  evidenciaCodigo: (localizacao: string | undefined) => `${ICONES_ARQUIVO.codigo} Specific code pattern 检测到 in ${localizacao}`,
-  evidenciaEstrutura: (valor: string, tecnologia: string | undefined) => `${ICONES_ARQUIVO.diretorio} Structure ${valor} typical of ${tecnologia}`,
-  tecnologiasAlternativas: (alternativas: string) => `${ICONES_ACAO.analise} Other technologies 检测到: ${alternativas}`,
-  erroAnaliseContextual: (erro: string) => `Error in contextual 分析: ${erro}`,
-  erroDuranteAnalise: 'Error during intelligent contextual analysis'
+  arquetipoNaoIdentificado: '无法识别特定的原型。考虑为项目添加更多结构。',
+  projetoIdentificado: (tecnologia: string | undefined, confiancaPercent: number) => `${ICONES_FEEDBACK.info} 项目识别为: ${tecnologia} (置信度: ${confiancaPercent}%)`,
+  evidenciaDependencia: (dependencia: string, tecnologia: string | undefined) => `${ICONES_ARQUIVO.package} 依赖 ${dependencia} 确认项目 ${tecnologia}`,
+  evidenciaImport: (valor: string, localizacao: string | undefined) => `${ICONES_ACAO.import} 在 ${localizacao} 检测到导入 ${valor}`,
+  evidenciaCodigo: (localizacao: string | undefined) => `${ICONES_ARQUIVO.codigo} 在 ${localizacao} 检测到特定代码模式`,
+  evidenciaEstrutura: (valor: string, tecnologia: string | undefined) => `${ICONES_ARQUIVO.diretorio} 结构 ${valor} 是 ${tecnologia} 的典型特征`,
+  tecnologiasAlternativas: (alternativas: string) => `${ICONES_ACAO.analise} 检测到其他技术: ${alternativas}`,
+  erroAnaliseContextual: (erro: string) => `上下文分析出错: ${erro}`,
+  erroDuranteAnalise: '智能上下文分析期间发生错误'
 } as const;

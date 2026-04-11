@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 /**
- * Core Messages: Fixes, Diagnosis, Exceptions, Fix-Types, Inquisitor, Plugins
+ * 核心消息: 修复、诊断、异常、修复类型、审查器、插件
  */
 
 export * from './correcoes-messages.js';
