@@ -42,7 +42,7 @@ export const OperarioEstrutura = {
           {
             arquivos: fileEntriesComAst,
             baseDir,
-            ...(opcoes.preset ? { preset: opcoes.preset } : {}),
+            ...(opcoes.preset ? { preset: opcoes.preset } : undefined),
           } as {
             arquivos: typeof fileEntriesComAst;
             baseDir: string;

@@ -265,7 +265,8 @@
       "github-actions"
     ],
     "analystsExclude": [
-      "documentacao"
+      "documentacao",
+      "problema-documentacao"
     ],
     "conventions": {
       "typesDirectory": "src/types"

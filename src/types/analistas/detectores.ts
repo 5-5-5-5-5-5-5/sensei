@@ -141,6 +141,7 @@ export interface InterfaceInlineDetection {
  */
 export interface ProblemaWorkflow {
   tipo:
+  | string
   | 'action-desatualizada'
   | 'permissoes-excessivas'
   | 'secret-hardcoded'
@@ -152,8 +153,8 @@ export interface ProblemaWorkflow {
   | 'estrutura-workflow';
   descricao: string;
   severidade: 'baixa' | 'media' | 'alta' | 'critica';
-  linha: number;
-  sugestao: string;
+  linha?: number;
+  sugestao?: string;
 }
 
 /**

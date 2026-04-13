@@ -56,8 +56,8 @@ export function comandoDiagnosticar(aplicarFlagsGlobais: (opts: Record<string, u
       const parentObj = command.parent as unknown as {
         opts?: () => Record<string, unknown>;
       } | undefined;
-      const parentFlags = parentObj && typeof parentObj.opts === 'function' ? parentObj.opts() : {} as Record<string, never>;
-      const localFlags = typeof command.opts === 'function' ? command.opts() : {} as Record<string, never>;
+      const parentFlags: Record<string, unknown> = (parentObj && typeof parentObj.opts === 'function') ? parentObj.opts() : {};
+      const localFlags: Record<string, unknown> = (typeof command.opts === 'function') ? command.opts() : {};
       const merged = {
         ...(parentFlags || {}),
         ...(localFlags || {}),

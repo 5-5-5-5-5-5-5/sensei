@@ -121,6 +121,10 @@ Consulte o [INDICE.md completo](INDICE.md)
 - Sistema de erros
 - i18n (português, inglês, chinês, japonês)
 - Segurança
+- **Análise Inteligente**: Diagnóstico profundo de segurança, performance e arquitetura.
+- **Ecossistema GitHub**: Analista avançado de Actions com suporte a plugins e análise estruturada (v0.6.0).
+- **Dashboard Web**: Interface interativa premium para visualização de métricas e grafos de dependência.
+- **Extensível**: Sistema de plugins robusto para adicionar novas detecções sob medida.
 
 ### 👨‍💻 Desenvolvimento
 
