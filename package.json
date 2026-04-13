@@ -1,6 +1,6 @@
 {
   "name": "prometheus",
-  "version": "0.4.4",
+  "version": "0.6.0",
   "type": "module",
   "description": "C.L.I modular para análise, diagnóstico e manutenção de projetos JavaScript/TypeScript e multi-stack leve",
   "author": "5 5 5",
@@ -16,7 +16,7 @@
   },
   "scripts": {
     "prebuild": "rimraf dist bin",
-    "build": "tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
+    "build": "tsc -p tsconfig.json && tsc-alias -p tsconfig.json && mkdir -p dist/api/static && cp -r src/api/static/* dist/api/static/",
     "prepare": "npm run build",
     "start": "prometheus",
     "diagnosticar": "prometheus diagnosticar",
@@ -36,6 +36,7 @@
     "notices": "prometheus licencas notices generate",
     "verify": "prometheus licencas disclaimer verify",
     "guardian": "prometheus guardian",
+    "dashboard": "prometheus dashboard",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "eslint --ext .ts src",
     "test": "vitest run --passWithNoTests",
@@ -88,8 +89,9 @@
     "micromatch": "^4.0.8",
     "ora": "^9.3.0",
     "p-limit": "^7.3.0",
-    "prometheus": "file:prometheus-0.4.4.tgz",
-    "xxhashjs": "^0.2.2"
+    "prometheus": "file:prometheus-0.6.0.tgz",
+    "xxhashjs": "^0.2.2",
+    "yaml": "^2.7.0"
   },
   "devDependencies": {
     "@types/babel__generator": "^7.27.0",

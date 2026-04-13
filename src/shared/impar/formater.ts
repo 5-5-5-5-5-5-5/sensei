@@ -1421,17 +1421,16 @@ function formatarCssMinimo(code: string): FormatadorMinimoResult {
   const outLines: string[] = [];
   for (const block of blocks) {
     outLines.push(`${indentStr(0)}${block.selector} {`);
-    const realProps = block.props.filter(p => !p.isComment && p.value !== '');
-    if (realProps.length > 0) {
-      const maxPropLen = Math.max(...realProps.map(p => p.prop.length));
-      for (const p of realProps) {
-        const padded = p.prop.padEnd(maxPropLen);
-        outLines.push(`${indentStr(1)}${padded}: ${p.value};`);
+
+    // Processar propriedades e comentários na ordem original
+    for (const p of block.props) {
+      if (p.isComment) {
+        // Manter comentário na posição original
+        outLines.push(`${indentStr(1)}${p.commentText}`);
+      } else if (p.value !== '') {
+        // Formatar propriedade sem alinhamento forçado
+        outLines.push(`${indentStr(1)}${p.prop}: ${p.value};`);
       }
-    }
-    const comments = block.props.filter(p => p.isComment);
-    for (const c of comments) {
-      outLines.push(`${indentStr(1)}${c.commentText}`);
     }
     outLines.push('}');
     outLines.push('');
@@ -1458,17 +1457,12 @@ function formatarScssMinimo(code: string): FormatadorMinimoResult {
 
   const flushBlock = () => {
     if (currentBlockProps.length > 0) {
-      const realProps = currentBlockProps.filter(p => !p.isComment);
-      const comments = currentBlockProps.filter(p => p.isComment);
-      if (realProps.length > 0) {
-        const maxPropLen = Math.max(...realProps.map(p => p.prop.length));
-        for (const p of realProps) {
-          const padded = p.prop.padEnd(maxPropLen);
-          out.push(`${'  '.repeat(indent)}${padded}: ${p.value};`);
+      for (const p of currentBlockProps) {
+        if (p.isComment) {
+          out.push(`${'  '.repeat(indent)}${p.prop}`);
+        } else {
+          out.push(`${'  '.repeat(indent)}${p.prop}: ${p.value};`);
         }
-      }
-      for (const c of comments) {
-        out.push(`${'  '.repeat(indent)}${c.prop}`);
       }
       currentBlockProps = [];
     }

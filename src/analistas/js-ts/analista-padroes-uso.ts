@@ -8,18 +8,18 @@ import { messages } from '@core/messages/index.js';
 import { detectarContextoProjeto } from '@shared/contexto-projeto.js';
 import { garantirArray, incrementar } from '@shared/helpers/helpers-analistas.js';
 
-import type { ContextoExecucao, Estatisticas, Ocorrencia, TecnicaAplicarResultado } from '@';
+import type { ContextoExecucao, Estatisticas, Ocorrencia, TecnicaAplicarResultado, Contador } from '@';
 import { criarOcorrencia, ocorrenciaErroAnalista } from '@';
 
 // Estatísticas globais (mantidas)
 export const estatisticasUsoGlobal: Estatisticas = {
-  requires: {} as Record<string, number>,
-  consts: {} as Record<string, number>,
-  exports: {} as Record<string, number>,
-  vars: {} as Record<string, number>,
-  lets: {} as Record<string, number>,
-  evals: {} as Record<string, number>,
-  withs: {} as Record<string, number>
+  requires: {} as Contador,
+  consts: {} as Contador,
+  exports: {} as Contador,
+  vars: {} as Contador,
+  lets: {} as Contador,
+  evals: {} as Contador,
+  withs: {} as Contador
 };
 export const analistaPadroesUso = {
   nome: 'analista-padroes-uso',
@@ -78,9 +78,8 @@ export const analistaPadroesUso = {
       }) => f.relPath === relPath) || contexto.arquivos[0];
       astWrap = found?.ast as NodePath<Node> | Node | undefined | null || undefined;
     }
-    const hasNodeProp = (v: unknown): v is {
-      node?: Node;
-    } => typeof v === 'object' && v !== null && 'node' in (v as Record<string, unknown>);
+    const hasNodeProp = (v: unknown): v is { node?: Node } =>
+      typeof v === 'object' && v !== null && 'node' in (v as Record<string, unknown>);
     const ast: Node | undefined | null = (astWrap && (hasNodeProp(astWrap) ? astWrap.node : astWrap as Node)) as Node | undefined | null;
     if (!ast || typeof ast !== 'object') return null;
     const tipo = (ast as Node).type;

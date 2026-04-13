@@ -57,6 +57,12 @@
       "@zeladores/*": [
         "./src/zeladores/*"
       ],
+      "@api/*": [
+        "./src/api/*"
+      ],
+      "@sdk/*": [
+        "./src/sdk/*"
+      ],
       "@types/*": [
         "./src/types/*"
       ],

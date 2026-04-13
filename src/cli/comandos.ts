@@ -12,6 +12,8 @@ import {
   comandoPodar,
   comandoReestruturar,
   comandoRename,
+  comandoPlugins,
+  comandoDashboard,
   criarComandoFixTypes,
   registrarComandoReverter,
 } from '@cli/commands/index.js';
@@ -32,6 +34,8 @@ export function registrarComandos(
   program.addCommand(comandoMetricas());
   program.addCommand(criarComandoFixTypes());
   program.addCommand(comandoLicencas());
+  program.addCommand(comandoPlugins());
+  program.addCommand(comandoDashboard());
 
   // Comandos de manutenção de nomes
   program.addCommand(comandoNames(aplicarFlagsGlobais));
