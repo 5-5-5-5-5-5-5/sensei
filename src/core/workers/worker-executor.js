@@ -9,22 +9,6 @@ import { parentPort, workerData } from 'node:worker_threads';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
-// Importar tipos necessários (simplificados para worker)
-const tipos = {
-  Ocorrencia: class {
-    constructor(arquivo, linha, coluna, tipo, mensagem, severidade, tecnica, contexto) {
-      this.arquivo = arquivo;
-      this.linha = linha;
-      this.coluna = coluna;
-      this.tipo = tipo;
-      this.mensagem = mensagem;
-      this.severidade = severidade;
-      this.tecnica = tecnica;
-      this.contexto = contexto;
-    }
-  }
-};
-
 // Função para executar uma técnica em um arquivo
 
 async function executarTecnicaEmArquivo(tecnica, arquivo, contexto, timeoutMs) {
