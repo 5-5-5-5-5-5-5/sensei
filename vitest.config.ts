@@ -151,15 +151,6 @@ function resolveSrcPattern(rootAbs: string, source: string) {
   return null;
 }
 
-function createTransformPlugin(rootAbs: string) {
-  // Deprecated: kept for backward compat but split into two focused plugins below
-  return {
-    name: 'sensei-transform-tests-js-to-ts',
-    enforce: 'pre' as const,
-    transform: () => null,
-  };
-}
-
 function createTransformImportsPlugin(rootAbs: string) {
   return {
     name: 'sensei-transform-imports-js-to-ts',
