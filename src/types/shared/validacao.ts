@@ -260,19 +260,6 @@ export function isGlobalComVitest(obj: unknown): obj is GlobalComVitest {
   return typeof obj === 'object' && obj !== null && 'vi' in obj;
 }
 
-function isPendenciaProcessavel(
-  obj: unknown,
-): obj is PendenciaProcessavel {
-  return (
-    typeof obj === 'object' &&
-    obj !== null &&
-    'arquivo' in obj &&
-    'motivo' in obj &&
-    typeof (obj as PendenciaProcessavel).arquivo === 'string' &&
-    typeof (obj as PendenciaProcessavel).motivo === 'string'
-  );
-}
-
 export function isIntlComDisplayNames(
   obj: unknown,
 ): obj is IntlComDisplayNames {
