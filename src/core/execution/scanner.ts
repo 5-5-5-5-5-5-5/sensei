@@ -239,7 +239,7 @@ export async function scanRepository(baseDir: string, options: ScanOptions = {})
             throw new Error(messages.ExcecoesMensagens.statIndefinidoPara(fullCaminho));
           }
           let mtimeMs = 0;
-          if (typeof stat === 'object' && stat && 'mtimeMs' in (stat as Stats)) {
+          if (typeof stat === 'object' && 'mtimeMs' in (stat as Stats)) {
             const mm = (stat as Stats).mtimeMs;
             if (typeof mm === 'number') mtimeMs = mm;
           }
