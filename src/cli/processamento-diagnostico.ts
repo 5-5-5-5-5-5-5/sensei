@@ -1598,7 +1598,7 @@ export async function processarDiagnostico(opts: OpcoesProcessamentoDiagnostico)
         let sem_ext = 0;
         for (const f of fes || []) {
           const rel = f.relPath || f.fullCaminho || '';
-          const base = rel.split(/[\\/\\\\]/).pop() || '';
+          const base = rel.split(/[\\/]/).pop() || '';
           const idx = base.lastIndexOf('.');
           if (idx === -1) {
             sem_ext++;
