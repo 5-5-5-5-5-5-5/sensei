@@ -30,7 +30,7 @@ const { log } = getMessages();
 const LICENCA_PADROES: MarkdownLicensePatterns = {
   incompativeis: [/\bGPL\b/i, /\bAGPL\b/i, /\bLGPL\b/i, /Creative\s+Commons/i, /\bCC-BY\b/i, /All\s+rights\s+reserved/i],
   cessaoDireitos: [/cess(?:ã|a)o\s+de\s+direitos/i, /transfer(?:ê|e)ncia\s+de\s+direitos/i],
-  referenciasRisco: [/Stack\s*Overflow/i, /stackoverflow\.com/i, /\bassign\b/i, /\bcession\b/i]
+  referenciasRisco: [/Stack\s*Overflow/i, /\bstackoverflow\.com\b/i, /\bassign\b/i, /\bcession\b/i]
 };
 
 /**
@@ -131,7 +131,7 @@ function mergeWhitelist(base: MarkdownWhitelistConfig, override: Partial<Markdow
  */
 function isBenignProvenienciaOnly(content: string): boolean {
   const rxCessao = /cess(?:ã|a)o\s+de\s+direitos/i;
-  const rxOthers = new RegExp(['\\bGPL\\b', '\\bAGPL\\b', '\\bLGPL\\b', 'Creative\\s+Commons', '\\bCC-BY\\b', 'Stack\\s*Overflow', 'stackoverflow\\.com', 'All\\s+rights\\s+reserved', 'transfer(?:ê|e)ncia\\s+de\\s+direitos', '\\bassign\\b', '\\bcession\\b'].join('|'), 'i');
+  const rxOthers = new RegExp(['\\bGPL\\b', '\\bAGPL\\b', '\\bLGPL\\b', 'Creative\\s+Commons', '\\bCC-BY\\b', 'Stack\\s*Overflow', '(?:^|[^\\w.-])(?:[\\w-]+\\.)*stackoverflow\\.com(?:$|[^\\w.-])', 'All\\s+rights\\s+reserved', 'transfer(?:ê|e)ncia\\s+de\\s+direitos', '\\bassign\\b', '\\bcession\\b'].join('|'), 'i');
   const hasCessao = rxCessao.test(content);
   const hasOthers = rxOthers.test(content);
   const hasAviso = /Proveni[eê]ncia\s+e\s+Autoria/i.test(content);

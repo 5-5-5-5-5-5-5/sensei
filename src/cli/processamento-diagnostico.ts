@@ -160,11 +160,11 @@ export async function processarDiagnostico(opts: OpcoesProcessamentoDiagnostico)
     // Fase inicial do diagnóstico
     if (opts.json) {
       // Suprime cabeçalhos verbosos no modo JSON
-    } else if (!iniciouDiagnostico && !config.COMPACT_MODE) {
+    } else if (!config.COMPACT_MODE) {
       // Usa optional chaining para suportar mocks parciais do módulo de log nos testes
       (log as typeof log & LogExtensions).fase?.('Iniciando diagnóstico completo');
       iniciouDiagnostico = true;
-    } else if (config.COMPACT_MODE) {
+    } else {
       (log as typeof log & LogExtensions).fase?.('Diagnóstico (modo compacto)');
       iniciouDiagnostico = true;
     }
@@ -426,20 +426,15 @@ export async function processarDiagnostico(opts: OpcoesProcessamentoDiagnostico)
       try {
         // Heurística simples: se projeto tem tsconfig e tsc --noEmit não reporta erros, rebaixa severidades conhecidas
         const hasTs = fs.existsSync(path.join(baseDir, 'tsconfig.json'));
-        let tsOk = true;
-        if (hasTs) {
-          // Evitar spawn pesado: usar flag existente de sucesso da build no pipeline
-          // Caso não disponível, assume ok para reduzir ruído em modo confiança
-          tsOk = true;
-        }
-        if (tsOk) {
-          ocorrenciasFiltradas = ocorrenciasFiltradas.filter(o => {
-            const regra = o.tipo || '';
-            // regras que o compilador/ESLint normalmente cobrem
-            const cobertas = [/import.*nao.*usado/i, /tipo-inseguro.*unknown/i];
-            return !cobertas.some(r => r.test(regra));
-          });
-        }
+        // Evitar spawn pesado: usar flag existente de sucesso da build no pipeline
+        // Caso não disponível, assume ok para reduzir ruído em modo confiança
+        void hasTs;
+        ocorrenciasFiltradas = ocorrenciasFiltradas.filter(o => {
+          const regra = o.tipo || '';
+          // regras que o compilador/ESLint normalmente cobrem
+          const cobertas = [/import.*nao.*usado/i, /tipo-inseguro.*unknown/i];
+          return !cobertas.some(r => r.test(regra));
+        });
       } catch (err) {
         log.debug(`Erro em processarDiagnostico (trustCompiler): ${  err instanceof Error ? err.message : String(err)}`);
       }
@@ -1603,7 +1598,7 @@ export async function processarDiagnostico(opts: OpcoesProcessamentoDiagnostico)
         let sem_ext = 0;
         for (const f of fes || []) {
           const rel = f.relPath || f.fullCaminho || '';
-          const base = rel.split(/[\\/\\\\]/).pop() || '';
+          const base = rel.split(/[\\/]/).pop() || '';
           const idx = base.lastIndexOf('.');
           if (idx === -1) {
             sem_ext++;
@@ -1667,7 +1662,6 @@ export async function processarDiagnostico(opts: OpcoesProcessamentoDiagnostico)
         } catch (e) {
           console.error(messages.CliProcessamentoDiagnosticoMensagens.errorGeneratingJson, e);
           console.log(messages.CliProcessamentoDiagnosticoMensagens.fallbackJson, JSON.stringify(saidaJson));
-          _jsonEmitted = true;
         }
       }
       // Exit codes padronizados: 0=ok/avisos, 1=erros, 2=critico (parse erros fatais)
