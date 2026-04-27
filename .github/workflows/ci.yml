@@ -16,7 +16,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  NODE_VERSION: "24.14.1"
+  NODE_VERSION: "24.15.0"
   COVERAGE_GATE_LINES: 90
   COVERAGE_GATE_FUNCTIONS: 90
   COVERAGE_GATE_BRANCHES: 90

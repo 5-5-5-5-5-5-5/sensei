@@ -20,7 +20,7 @@ updates:
       - "dependencies"
       - "automated"
     reviewers:
-      - "md-555"
+      - "5-5-5-5-5-5-5"
     groups:
       # Group all development dependencies
       dev-dependencies:

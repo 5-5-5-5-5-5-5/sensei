@@ -21,7 +21,7 @@ on:
         default: false
 
 env:
-  NODE_VERSION: "24.14.1"
+  NODE_VERSION: "24.15.0"
 
 jobs:
   validate:
@@ -97,7 +97,7 @@ jobs:
         run: npm run build
 
       - name: Generate Notices
-        run: npm run licenses:notice
+        run: npm run licenses
 
       - name: Upload Release Artifacts
         uses: actions/upload-artifact@v7
@@ -134,8 +134,8 @@ jobs:
       - name: Create Release Archive
         run: |
           cd release
-          tar -czvf ../sensei-${{ needs.validate.outputs.version }}.tar.gz .
-          zip -r ../sensei-${{ needs.validate.outputs.version }}.zip .
+          tar -czvf ../prometheus-${{ needs.validate.outputs.version }}.tar.gz .
+          zip -r ../prometheus-${{ needs.validate.outputs.version }}.zip .
 
       - name: Extract Changelog Section
         id: changelog
@@ -155,12 +155,12 @@ jobs:
         uses: softprops/action-gh-release@v3
         with:
           tag_name: v${{ needs.validate.outputs.version }}
-          name: Sensei v${{ needs.validate.outputs.version }}
+          name: prometheus v${{ needs.validate.outputs.version }}
           body: ${{ steps.changelog.outputs.content }}
           draft: false
           prerelease: ${{ inputs.prerelease || false }}
           files: |
-            sensei-${{ needs.validate.outputs.version }}.tar.gz
-            sensei-${{ needs.validate.outputs.version }}.zip
+            prometheus-${{ needs.validate.outputs.version }}.tar.gz
+            prometheus-${{ needs.validate.outputs.version }}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
