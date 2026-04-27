@@ -320,7 +320,6 @@ export function formatarHtmlMinimo(code: string): FormatadorMinimoResult {
         outLines.push(indentStr(indent) + tok.value);
       }
 
-      _lastWasBlock = true;
       i++;
       continue;
     }
