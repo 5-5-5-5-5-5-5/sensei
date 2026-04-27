@@ -497,7 +497,6 @@ export function formatarHtmlMinimo(code: string): FormatadorMinimoResult {
       }
 
       indent++;
-      _lastWasBlock = true;
       i++;
       continue;
     }
