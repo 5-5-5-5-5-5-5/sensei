@@ -473,7 +473,6 @@ export function formatarHtmlMinimo(code: string): FormatadorMinimoResult {
         }
         indent++;
         i += 3;
-        _lastWasBlock = true;
         continue;
       }
     }
