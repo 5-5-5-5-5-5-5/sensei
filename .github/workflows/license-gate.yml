@@ -17,7 +17,7 @@ permissions:
   contents: read
 
 env:
-  NODE_VERSION: "24.14.1"
+  NODE_VERSION: "24.15.0"
 
 jobs:
   license-check:
@@ -48,14 +48,14 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Check License Compatibility
-        run: npm run licenses:auditar
+        run: npm run scan:root
 
       - name: Generate Third-Party Notices
-        run: npm run licenses:notice
+        run: npm run scan:root
         continue-on-error: true
 
       - name: Check for Problematic Licenses
-        id: license-scan
+        id: scan:root
         run: |
           # List all production dependencies and their licenses
           npx license-checker-rseidelsohn --production --json > /tmp/licenses.json

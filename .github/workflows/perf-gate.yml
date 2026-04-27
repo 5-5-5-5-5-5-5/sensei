@@ -13,7 +13,7 @@ permissions:
   contents: read
 
 env:
-  NODE_VERSION: "24.14.1"
+  NODE_VERSION: "24.15.0"
 
 jobs:
   performance:
@@ -104,9 +104,9 @@ jobs:
 
       - name: Run Diagnostic Benchmark
         run: |
-          echo "## Benchmark: sensei diagnosticar"
+          echo "## Benchmark: prometheus diagnosticar"
           time node dist/bin/index.js diagnosticar --json > /dev/null 2>&1 || true
 
           echo ""
-          echo "## Benchmark: sensei diagnosticar --fast"
+          echo "## Benchmark: prometheus diagnosticar --fast"
           time node dist/bin/index.js diagnosticar --fast --json > /dev/null 2>&1 || true
