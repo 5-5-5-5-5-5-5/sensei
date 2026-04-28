@@ -44,9 +44,7 @@ export function comandoNames(
       const SRC_DIR = path.resolve(RAIZ_DIR, 'src');
       const SAIDA_DIR = path.resolve(RAIZ_DIR, 'names');
 
-      if (!fs.existsSync(SAIDA_DIR)) {
-        fs.mkdirSync(SAIDA_DIR, { recursive: true });
-      }
+      fs.mkdirSync(SAIDA_DIR, { recursive: true });
 
       log.info(chalk.cyan(CliComandoNamesMensagens.iniciandoVarredura));
 
@@ -78,9 +76,7 @@ export function comandoNames(
             const outRelPath = relPath.replace(/\.(ts|js)$/i, '.txt');
             const outFile = path.join(SAIDA_DIR, outRelPath);
             const outDir = path.dirname(outFile);
-            if (!fs.existsSync(outDir)) {
-              fs.mkdirSync(outDir, { recursive: true });
-            }
+            fs.mkdirSync(outDir, { recursive: true });
             const sorted = Array.from(variableNomes).sort();
             const content = sorted.map((name) => `${name} = `).join('\n');
             fs.writeFileSync(outFile, content);

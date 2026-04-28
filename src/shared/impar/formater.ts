@@ -198,9 +198,12 @@ async function carregarPrettierDoProjeto(baseDir: string): Promise<PrettierApi |
     };
     try {
       const projectPkg = path.join(base, 'package.json');
-      if (fs.existsSync(projectPkg)) {
-        const api = await tryResolveFrom(createRequire(projectPkg));
+      try {
+        const require = createRequire(projectPkg);
+        const api = await tryResolveFrom(require);
         if (api) return api;
+      } catch {
+        // ignora - arquivo não existe ou erro ao carregar
       }
     } catch {
       // ignora
@@ -210,14 +213,19 @@ async function carregarPrettierDoProjeto(baseDir: string): Promise<PrettierApi |
       if (api) return api;
     }
     const feedbackDir = process.env.PROMETHEUS_PRETTIER_FEEDBACK_DIR || path.join(base, 'feedback', 'prettier');
-    const feedbackPkg = path.join(feedbackDir, 'package.json');
-    if (fs.existsSync(feedbackPkg)) {
+    try {
       const candidates = [path.join(feedbackDir, 'index.mjs'), path.join(feedbackDir, 'index.cjs')];
       for (const p of candidates) {
-        if (!fs.existsSync(p)) continue;
+        try {
+          fs.statSync(p);
+        } catch {
+          continue;
+        }
         const api = await tryImportPrettier(p);
         if (api) return api;
       }
+    } catch {
+      // feedback dir não existe
     }
     return null;
   })();

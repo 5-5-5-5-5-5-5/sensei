@@ -10,8 +10,12 @@ const DIRS_IGNORADOS = new Set(['node_modules', 'dist', 'names', '.git', '.prome
  */
 export function getSourceFiles(dir: string): string[] {
   const files: string[] = [];
-  if (!fs.existsSync(dir)) return files;
-  const items = fs.readdirSync(dir, { withFileTypes: true });
+  let items: fs.Dirent[];
+  try {
+    items = fs.readdirSync(dir, { withFileTypes: true });
+  } catch {
+    return files;
+  }
   for (const item of items) {
     if (item.isDirectory()) {
       if (DIRS_IGNORADOS.has(item.name)) continue;
@@ -28,8 +32,12 @@ export function getSourceFiles(dir: string): string[] {
  */
 export function getFilesWithExtension(dir: string, ext: string): string[] {
   const files: string[] = [];
-  if (!fs.existsSync(dir)) return files;
-  const items = fs.readdirSync(dir, { withFileTypes: true });
+  let items: fs.Dirent[];
+  try {
+    items = fs.readdirSync(dir, { withFileTypes: true });
+  } catch {
+    return files;
+  }
   for (const item of items) {
     if (item.isDirectory()) {
       files.push(...getFilesWithExtension(path.join(dir, item.name), ext));

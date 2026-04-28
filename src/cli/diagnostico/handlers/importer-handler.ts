@@ -62,9 +62,12 @@ export async function scanImports(options: ScanImportsOptions): Promise<Ocorrenc
   const ocorrencias: Ocorrencia[] = [];
 
   const tsconfigPath = path.resolve(baseDir, 'tsconfig.json');
-  if (!fs.existsSync(tsconfigPath)) return ocorrencias;
-
-  const tsconfig = JSON.parse(fs.readFileSync(tsconfigPath, 'utf-8'));
+  let tsconfig: { compilerOptions?: { paths?: Record<string, string[]> } };
+  try {
+    tsconfig = JSON.parse(fs.readFileSync(tsconfigPath, 'utf-8'));
+  } catch {
+    return ocorrencias;
+  }
   const paths: Record<string, string[]> = tsconfig.compilerOptions?.paths || {};
   const originalBases = getBaseAliases(paths);
 

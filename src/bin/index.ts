@@ -16,10 +16,13 @@ const __dirname = dirname(__filename);
 // No ambiente de desenvolvimento (src/), o loader está em src/node.loader.ts
 // No ambiente de build (dist/), o loader está em dist/node.loader.js
 const projetoRaiz = resolve(__dirname, '..', '..');
-let loaderCaminho = resolve(projetoRaiz, 'src', 'node.loader.ts');
+const distRaiz = resolve(projetoRaiz, 'dist');
 
-if (!fs.existsSync(loaderCaminho)) {
-  const distRaiz = resolve(__dirname, '..');
+let loaderCaminho: string;
+try {
+  loaderCaminho = resolve(projetoRaiz, 'src', 'node.loader.ts');
+  fs.statSync(loaderCaminho);
+} catch {
   loaderCaminho = resolve(distRaiz, 'node.loader.js');
 }
 

@@ -78,18 +78,23 @@ function scanBarrels(originalBases: { prefix: string; target: string }[], option
   const spinner = ora('Escaneando barrels...').start();
   const barrels: { alias: string; path: string }[] = [];
 
-  if (!fs.existsSync(TSCONFIG_PATH)) {
+  let tsconfig: { compilerOptions?: { paths?: Record<string, string[]> } };
+  try {
+    tsconfig = JSON.parse(fs.readFileSync(TSCONFIG_PATH, 'utf-8'));
+  } catch {
     spinner.fail('tsconfig.json não encontrado');
     return { barrels: [], changed: false };
   }
-
-  const tsconfig = JSON.parse(fs.readFileSync(TSCONFIG_PATH, 'utf-8'));
   const paths = tsconfig.compilerOptions?.paths || {};
 
   function walk(dir: string) {
-    if (!fs.existsSync(dir)) return;
+    let files: string[];
+    try {
+      files = fs.readdirSync(dir);
+    } catch {
+      return;
+    }
 
-    const files = fs.readdirSync(dir);
     for (const file of files) {
       const fullPath = path.join(dir, file);
       let stats: fs.Stats;
@@ -168,13 +173,10 @@ function scanBarrels(originalBases: { prefix: string; target: string }[], option
     try {
       fs.copyFileSync(TSCONFIG_PATH, backupPath);
       fs.writeFileSync(TSCONFIG_PATH, JSON.stringify(tsconfig, null, 2));
-      if (fs.existsSync(backupPath)) fs.unlinkSync(backupPath);
+      try { fs.unlinkSync(backupPath); } catch { /* ignora se não conseguir remover */ }
       spinner.succeed(`tsconfig.json atualizado: ${barrels.length} aliases adicionados${removeWildcards ? ' e wildcards removidos' : ''}.`);
     } catch (err) {
-      if (fs.existsSync(backupPath)) {
-        fs.copyFileSync(backupPath, TSCONFIG_PATH);
-        fs.unlinkSync(backupPath);
-      }
+      try { fs.copyFileSync(backupPath, TSCONFIG_PATH); fs.unlinkSync(backupPath); } catch { /* ignora */ }
       spinner.fail(`Erro ao salvar tsconfig.json: ${err instanceof Error ? err.message : String(err)}`);
       return { barrels: [], changed: false };
     }
@@ -190,12 +192,13 @@ function scanBarrels(originalBases: { prefix: string; target: string }[], option
 function replaceImports(originalBases: { prefix: string; target: string }[], options: ImporterOptions) {
   const spinner = ora('Substituindo imports...').start();
 
-  if (!fs.existsSync(TSCONFIG_PATH)) {
+  let tsconfig: { compilerOptions?: { paths?: Record<string, string[]> } };
+  try {
+    tsconfig = JSON.parse(fs.readFileSync(TSCONFIG_PATH, 'utf-8'));
+  } catch {
     spinner.fail('tsconfig.json não encontrado');
     return 0;
   }
-
-  const tsconfig = JSON.parse(fs.readFileSync(TSCONFIG_PATH, 'utf-8'));
   const paths: Record<string, string[]> = tsconfig.compilerOptions?.paths || {};
 
   const pathToAlias: Record<string, string> = {};
@@ -236,9 +239,13 @@ function replaceImports(originalBases: { prefix: string; target: string }[], opt
   const modifiedFiles: string[] = [];
 
   function walk(dir: string) {
-    if (!fs.existsSync(dir)) return;
+    let files: string[];
+    try {
+      files = fs.readdirSync(dir);
+    } catch {
+      return;
+    }
 
-    const files = fs.readdirSync(dir);
     for (const file of files) {
         const fullPath = path.join(dir, file);
         let stats: fs.Stats;
@@ -352,10 +359,24 @@ function replaceImports(originalBases: { prefix: string; target: string }[], opt
                         const fullTarget = path.resolve(process.cwd(), resolvedPath);
                         let finalPath = newRelativePath;
 
-                        if (fs.existsSync(fullTarget) && fs.statSync(fullTarget).isDirectory()) {
+                        // Verificação atomica usando lstat (evita TOCTOU)
+                        let targetStat: fs.Stats | null = null;
+                        try {
+                          targetStat = fs.lstatSync(fullTarget);
+                        } catch {}
+                        let tsStat: fs.Stats | null = null;
+                        try {
+                          tsStat = fs.lstatSync(`${fullTarget}.ts`);
+                        } catch {}
+                        let indexStat: fs.Stats | null = null;
+                        try {
+                          indexStat = fs.lstatSync(`${fullTarget}/index.ts`);
+                        } catch {}
+
+                        if (targetStat?.isDirectory()) {
                             finalPath = finalPath.endsWith('/') ? `${finalPath}index.js` : `${finalPath}/index.js`;
-                        } else if (fs.existsSync(`${fullTarget}.ts`) || fs.existsSync(`${fullTarget}/index.ts`)) {
-                             if (fs.existsSync(`${fullTarget}.ts`)) {
+                        } else if (tsStat || indexStat) {
+                             if (tsStat) {
                                  finalPath += '.js';
                              } else {
                                  finalPath = finalPath.endsWith('/') ? `${finalPath}index.js` : `${finalPath}/index.js`;
@@ -455,12 +476,13 @@ export function comandoImporter(
           return;
         }
 
-        if (!fs.existsSync(TSCONFIG_PATH)) {
+        let tsconfigData: { compilerOptions?: { paths?: Record<string, string[]> } };
+        try {
+          tsconfigData = JSON.parse(fs.readFileSync(TSCONFIG_PATH, 'utf-8'));
+        } catch {
           console.error(chalk.red('tsconfig.json não encontrado no diretório atual.'));
           process.exit(1);
         }
-
-        const tsconfigData = JSON.parse(fs.readFileSync(TSCONFIG_PATH, 'utf-8'));
         const originalBases = getBaseAliases(tsconfigData.compilerOptions?.paths || {}, options);
 
         if (opts.scan && opts.replace) {

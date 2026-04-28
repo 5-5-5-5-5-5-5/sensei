@@ -85,7 +85,10 @@ export async function scanIgnore(options: ScanIgnoreOptions): Promise<Ocorrencia
   const relativeFiles = entries.map(e => path.relative(baseDir, e));
   const tecnologias = detectarTecnologias(baseDir, relativeFiles);
 
-  if (!fs.existsSync(gitignorePath)) {
+  let content: string;
+  try {
+    content = fs.readFileSync(gitignorePath, 'utf-8');
+  } catch {
     ocorrencias.push({
       tipo: 'problema-gitignore',
       nivel: 'aviso',
@@ -98,7 +101,6 @@ export async function scanIgnore(options: ScanIgnoreOptions): Promise<Ocorrencia
     return ocorrencias;
   }
 
-  const content = fs.readFileSync(gitignorePath, 'utf-8');
   const linhasExistentes = content.split('\n').map(l => l.trim()).filter(Boolean);
 
   const faltam: string[] = [];
