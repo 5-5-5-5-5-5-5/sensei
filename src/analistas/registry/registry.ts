@@ -22,6 +22,7 @@ import { detectorTiposInseguros } from '../detectores/detector-tipos-inseguros.j
 import { analistaVazamentoMemoria } from '../detectores/detector-vazamentos-memoria.js';
 // Analistas contextuais inteligentes
 import { analistaSugestoesContextuais } from '../estrategistas/sugestoes-contextuais.js';
+import { detectorMarkdown } from '../formatters/detectores/detector-markdown.js';
 // Analistas de IA (v0.7.0 - AI-Powered Analysis)
 import { analistaComandosCli } from '../js-ts/analistas/analista-comandos-cli.js';
 import { analistaFuncoesLongas } from '../js-ts/analistas/analista-funcoes-longas.js';
@@ -29,7 +30,6 @@ import { analistaPadroesUso } from '../js-ts/analistas/analista-padroes-uso.js';
 import { analistaTodoComentarios } from '../js-ts/analistas/analista-todo-comments.js';
 // Plugins opcionais (movidos para @analistas/plugins/)
 import { analistaDocumentacao } from '../js-ts/detectores/detector-documentacao.js';
-import { detectorMarkdown } from '../formatters/detectores/detector-markdown.js';
 import { discoverAnalistasPlugins } from './autodiscovery.js';
 
 let analistaCorrecaoAutomatica: EntradaRegistry = undefined;

@@ -4,9 +4,9 @@ import { detectarContextoProjeto } from '@shared';
 import type { ArquetipoDeteccaoAnomalia, ArquetipoEstruturaDef, ResultadoDeteccaoArquetipo } from '@';
 
 import { ARQUETIPOS } from '../../estrategistas/arquetipos-defs.js';
-import { detectarArquetipoNode } from '../detectores/detector-node.js';
-import { detectarArquetipoXML } from '../../xml/detectores/detector-xml.js';
 import { pontuarTodos } from '../../pontuadores/pontuador.js';
+import { detectarArquetipoXML } from '../../xml/detectores/detector-xml.js';
+import { detectarArquetipoNode } from '../detectores/detector-node.js';
 
 // Evita warning de unused import - função usada em runtime
 void detectarContextoProjeto;
