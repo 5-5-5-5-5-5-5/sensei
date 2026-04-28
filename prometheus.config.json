@@ -255,21 +255,14 @@
     "excludeFromOrphanCheck": true,
     "allowAnyType": true
   },
-  "fastMode": {
-    "analystsInclude": [
-      "detector-dependencias",
-      "detector-estrutura",
-      "arquitetura",
-      "seguranca",
-      "detector-tipos-inseguros",
-      "detector-interfaces-inline",
-      "todo-comments",
-      "analista-padroes-uso",
-      "github-actions"
-    ],
-    "conventions": {
-      "typesDirectory": "src/types"
-    }
+  "analistaSeguranca": {
+    "checkVulnerabilidades": true,
+    "checkDependenciasDesatualizadas": true,
+    "checkSecretsHardcoded": true,
+    "checkCodigoInseguro": true,
+    "minScoreAceitavel": 70,
+    "vulnerabilidadesIgnoradas": [],
+    "dependenciasIgnoradas": []
   },
   "analistaGithubActions": {
     "checkActionsDesatualizadas": true,
@@ -357,20 +350,8 @@
   "FAIL_ON_WARNINGS": false,
   "FAIL_ON_ORPHAN_FILES": true,
   "CACHE_STRATEGY": "never",
-  "ia": {
-    "enabled": false,
-    "provider": "kyma",
-    "model": "qwen/qwen3.6-plus:free",
-    "apiKeyEnv": "KYMA_API_KEY",
-    "features": {
-      "sugestoes": true,
-      "padroesAvancados": true,
-      "refatoracao": true,
-      "segurancaIA": true
-    },
-    "cache": {
-      "enabled": true,
-      "ttl": 3600
-    }
+  "cache": {
+    "enabled": true,
+    "ttl": 3600
   }
 }

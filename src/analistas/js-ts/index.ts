@@ -1,6 +1,11 @@
-export * from './analista-comandos-cli.js';
-export * from './analista-funcoes-longas.js';
-export * from './analista-padroes-uso.js';
-export * from './analista-todo-comments.js';
-export * from './arquetipos-personalizados.js';
-export * from './orquestrador-arquetipos.js';
+// SPDX-License-Identifier: MIT
+/**
+ * Módulo JS/TS do Prometheus
+ *
+ * Re-exporta analistas, detectores e plugins específicos de JavaScript/TypeScript.
+ */
+
+export * from './analistas/index.js';
+export * from './detectores/detector-documentacao.js';
+export * from './detectores/detector-node.js';
+export * from './plugins/otimizacoes-performance.js';

@@ -3,10 +3,10 @@ import { detectarContextoProjeto } from '@shared';
 
 import type { ArquetipoDeteccaoAnomalia, ArquetipoEstruturaDef, ResultadoDeteccaoArquetipo } from '@';
 
-import { ARQUETIPOS } from '../estrategistas/arquetipos-defs.js';
-import { detectarArquetipoNode } from '../plugins/detector-node.js';
-import { detectarArquetipoXML } from '../plugins/detector-xml.js';
-import { pontuarTodos } from '../pontuadores/pontuador.js';
+import { ARQUETIPOS } from '../../estrategistas/arquetipos-defs.js';
+import { detectarArquetipoNode } from '../detectores/detector-node.js';
+import { detectarArquetipoXML } from '../../xml/detectores/detector-xml.js';
+import { pontuarTodos } from '../../pontuadores/pontuador.js';
 
 // Evita warning de unused import - função usada em runtime
 void detectarContextoProjeto;

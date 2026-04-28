@@ -20,7 +20,7 @@ import { lerEstado, salvarEstado } from '@shared/persistence';
 
 import type { ArquetipoEstruturaDef, ArquetipoPersonalizado } from '@';
 
-import { ARQUETIPOS } from '../estrategistas/arquetipos-defs.js';
+import { ARQUETIPOS } from '../../estrategistas/arquetipos-defs.js';
 
 const { log, ArquetiposExtraMensagens } = getMessages();
 

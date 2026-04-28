@@ -11,7 +11,7 @@ import type { ArquetipoDrift, ArquetipoEstruturaDef, ArquetipoPersonalizado, Con
 import { extrairSinaisAvancados } from '../arquitetos/sinais-projeto-avancados.js';
 import { ARQUETIPOS } from '../estrategistas/arquetipos-defs.js';
 import { OperarioEstrutura } from '../estrategistas/operario-estrutura.js';
-import { carregarArquetipoPersonalizado, integrarArquetipos, obterArquetipoOficial } from '../js-ts/arquetipos-personalizados.js';
+import { carregarArquetipoPersonalizado, integrarArquetipos, obterArquetipoOficial } from '../js-ts/analistas/arquetipos-personalizados.js';
 import { scoreArquetipoAvancado } from '../pontuadores/pontuador.js';
 
 const { DetectorArquetiposExtraMensagens } = getMessages();
