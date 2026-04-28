@@ -40,7 +40,7 @@ export * from '../tailwind/plugins/analista-tailwind.js';
 export * from '../xml/plugins/analista-xml.js';
 
 // Detectores especializados (movidos para pastas de linguagem)
-export * from '../js-ts/detectores/detector-documentacao.js';
 export * from '../formatters/detectores/detector-markdown.js';
+export * from '../js-ts/detectores/detector-documentacao.js';
 export * from '../js-ts/detectores/detector-node.js';
 export * from '../xml/detectores/detector-xml.js';
