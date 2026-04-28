@@ -11,7 +11,8 @@ function toPosix(p: string): string {
 }
 function exists(p: string): boolean {
   try {
-    return fsSync.existsSync(p);
+    fsSync.accessSync(p, fsSync.constants.R_OK);
+    return true;
   } catch {
     return false;
   }

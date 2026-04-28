@@ -508,15 +508,17 @@ export function inicializarConfigSync(): Record<string, DiffRegistro> {
   for (const nome of candidatos) {
     try {
       const caminho = path.join(process.cwd(), nome);
-      if (fs.existsSync(caminho)) {
+      try {
         const conteudo = fs.readFileSync(caminho, 'utf-8');
         const json = conteudo && conteudo.trim() ? JSON.parse(conteudo) : null;
         if (json) {
           const arquivo = converterConfigSimplificada(json);
           mesclarProfundo(config as unknown as Record<string, unknown>, arquivo as Record<string, unknown>, 'arquivo-sync', diffs);
         }
-        break;
+      } catch {
+        // Arquivo não existe ou não pode ser lido
       }
+      break;
     } catch {
       /* ignore sync errors */
     }

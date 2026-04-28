@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
 import fs from 'node:fs';
-import path from 'node:path';
 
 import { config , mesclarConfigExcludes } from '@core/config';
 
@@ -57,29 +56,32 @@ export function getDefaultExcludes(): string[] {
 // Função auxiliar para detectar o tipo de projeto (simplificada)
 
 function detectarTipoProjeto(): string {
+  const cwd = process.cwd();
+  let files: string[];
   try {
-    // Detecção básica baseada em arquivos presentes
-    const cwd = process.cwd();
-    if (fs.existsSync(path.join(cwd, 'package.json'))) {
-      // Evita leitura de JSON aqui (função síncrona); usar heurística por arquivos
-      // Heurística: presença de tsconfig.json indica TypeScript; caso contrário, Node.js
-      if (fs.existsSync(path.join(cwd, 'tsconfig.json'))) return 'typescript';
-      return 'nodejs';
-    }
-    if (fs.existsSync(path.join(cwd, 'requirements.txt')) || fs.existsSync(path.join(cwd, 'pyproject.toml'))) {
-      return 'python';
-    }
-    if (fs.existsSync(path.join(cwd, 'pom.xml')) || fs.existsSync(path.join(cwd, 'build.gradle'))) {
-      return 'java';
-    }
-    const files = fs.readdirSync(cwd);
-    if (files.some(file => file.endsWith('.csproj')) || files.some(file => file.endsWith('.sln'))) {
-      return 'dotnet';
-    }
-    return 'generico';
+    files = fs.readdirSync(cwd);
   } catch {
     return 'generico';
   }
+  const fileSet = new Set(files);
+
+  // Detecção básica baseada em arquivos presentes
+  if (fileSet.has('package.json')) {
+    // Evita leitura de JSON aqui (função síncrona); usar heurística por arquivos
+    // Heurística: presença de tsconfig.json indica TypeScript; caso contrário, Node.js
+    if (fileSet.has('tsconfig.json')) return 'typescript';
+    return 'nodejs';
+  }
+  if (fileSet.has('requirements.txt') || fileSet.has('pyproject.toml')) {
+    return 'python';
+  }
+  if (fileSet.has('pom.xml') || fileSet.has('build.gradle')) {
+    return 'java';
+  }
+  if (files.some(file => file.endsWith('.csproj')) || files.some(file => file.endsWith('.sln'))) {
+    return 'dotnet';
+  }
+  return 'generico';
 }
 // Função principal para configurar filtros CLI
 export function configurarFiltros(includeGroupsRaw: string[][], includeListFlat: string[], excludeList: string[], incluiNodeModules: boolean): void {

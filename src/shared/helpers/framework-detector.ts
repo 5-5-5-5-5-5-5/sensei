@@ -12,14 +12,15 @@ export type { FrameworkInfo };
  */
 export function detectarFrameworks(rootDir: string): FrameworkInfo[] {
   const frameworks: FrameworkInfo[] = [];
+  const packageJsonCaminho = path.join(rootDir, 'package.json');
+  let packageJson: { dependencies?: Record<string, string>; devDependencies?: Record<string, string> };
   try {
-    const packageJsonCaminho = path.join(rootDir, 'package.json');
-    if (!fs.existsSync(packageJsonCaminho)) {
-      return frameworks;
-    }
-    const packageJson = JSON.parse(fs.readFileSync(packageJsonCaminho, 'utf-8'));
-    const dependencies = packageJson.dependencies || {};
-    const devDependencies = packageJson.devDependencies || {};
+    packageJson = JSON.parse(fs.readFileSync(packageJsonCaminho, 'utf-8'));
+  } catch {
+    return frameworks;
+  }
+  const dependencies = packageJson.dependencies || {};
+  const devDependencies = packageJson.devDependencies || {};
 
     // Lista de frameworks conhecidos com seus identificadores
     const knownFrameworks = [{
@@ -88,15 +89,12 @@ export function detectarFrameworks(rootDir: string): FrameworkInfo[] {
       return acc;
     }, [] as FrameworkInfo[]);
     return unique;
-  } catch {
-    return frameworks;
   }
-}
 
-/**
- * Verifica se um framework específico está instalado
- */
-export function hasFramework(rootDir: string, frameworkName: string): boolean {
-  const frameworks = detectarFrameworks(rootDir);
-  return frameworks.some(f => f.name === frameworkName);
-}
+  /**
+   * Verifica se um framework específico está instalado
+   */
+  export function hasFramework(rootDir: string, frameworkName: string): boolean {
+    const frameworks = detectarFrameworks(rootDir);
+    return frameworks.some(f => f.name === frameworkName);
+  }

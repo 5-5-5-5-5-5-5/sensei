@@ -36,8 +36,21 @@ export async function createTypeDefinition(analysis: TypeAnalysis, sourceFilePat
   // Gerar conteúdo do arquivo
   const content = generateTypeFileContent(analysis, sourceFilePath);
 
-  // Escrever arquivo
-  await fs.writeFile(typeCaminho, content, 'utf-8');
+  // Escrever arquivo com flag 'wx' (cria apenas se não existir - evita TOCTOU)
+  try {
+    await fs.writeFile(typeCaminho, content, {
+      encoding: 'utf-8',
+      flag: 'wx'
+    });
+  } catch (err) {
+    const code = err && typeof err === 'object' && 'code' in err ? String((err as { code?: string }).code) : String(err);
+    if (code === 'EEXIST') {
+      // Arquivo já existe (criado por outro processo) - retornar sucesso
+      await addExportToIndex(domain, fileNome);
+      return `@types/types`;
+    }
+    throw err;
+  }
 
   // Adicionar export ao index.ts do domínio
   await addExportToIndex(domain, fileNome);
@@ -98,30 +111,53 @@ ${analysis.typeDefinition}
 async function addExportToIndex(domain: string, fileNome: string): Promise<void> {
   const indexCaminho = buildTypesFsPath(path.posix.join(domain, 'index.ts'));
   try {
-    // Verificar se arquivo index.ts existe
-    await fs.access(indexCaminho);
-
-    // Ler conteúdo atual
-    const content = await fs.readFile(indexCaminho, 'utf-8');
-
-    // Verificar se export já existe
-    const exportStatement = `export * from './${fileNome}.js';`;
-    if (content.includes(exportStatement)) {
-      return; // Já existe
+    // Tentar append com flag 'ax' (cria apenas se não existir - evita TOCTOU)
+    const exportStatement = `export * from './${fileNome}.js';\n`;
+    await fs.appendFile(indexCaminho, exportStatement, {
+      encoding: 'utf-8',
+      flag: 'ax'
+    });
+  } catch (err) {
+    const code = err && typeof err === 'object' && 'code' in err ? String((err as { code?: string }).code) : String(err);
+    if (code === 'EEXIST') {
+      // Arquivo já existe - verificar se export já foi adicionado (leitura atômica)
+      try {
+        const content = await fs.readFile(indexCaminho, 'utf-8');
+        const exportStatement = `export * from './${fileNome}.js';`;
+        if (content.includes(exportStatement)) {
+          return; // Já existe
+        }
+        // Export não existe, precisamos adicioná-lo (abrir com 'r+' para modificar)
+        const fd = await fs.open(indexCaminho, 'r+');
+        try {
+          const stat = await fd.stat();
+          const buffer = Buffer.alloc(stat.size);
+          await fd.read(buffer, 0, stat.size, 0);
+          const existingContent = buffer.toString('utf-8');
+          if (!existingContent.includes(exportStatement)) {
+            await fd.write(Buffer.from(`\n${exportStatement}`), 0, Buffer.byteLength(`\n${exportStatement}`), stat.size);
+          }
+        } finally {
+          await fd.close();
+        }
+      } catch {
+        // Ignorar erros de leitura - export provavelmente já existe
+      }
+      return;
     }
-
-    // Adicionar export
-    await fs.appendFile(indexCaminho, `${exportStatement}\n`, 'utf-8');
-  } catch {
-    // Criar index.ts se não existir
-    const header = `// SPDX-License-Identifier: MIT
+    if (code === 'ENOENT') {
+      // Criar index.ts se não existir
+      const header = `// SPDX-License-Identifier: MIT
 /**
  * Exports do domínio ${domain}
  */
 
 `;
-    const exportStatement = `export * from './${fileNome}.js';\n`;
-    await fs.writeFile(indexCaminho, header + exportStatement, 'utf-8');
+      const exportStatement = `export * from './${fileNome}.js';\n`;
+      await fs.writeFile(indexCaminho, header + exportStatement, 'utf-8');
+      return;
+    }
+    throw err;
   }
 }
 
