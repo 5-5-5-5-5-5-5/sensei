@@ -13,9 +13,8 @@ import path from 'node:path';
 
 import { getMessages } from '@core/messages';
 import type { AsyncAnalysisOptions, AsyncAnalysisReport, AsyncArquivoRanqueado, AsyncCategoria, AsyncCategoriaStats, AsyncIssuesArquivo } from '@projeto-types/relatorios';
+import type { Ocorrencia } from '@prometheus';
 import { salvarEstado } from '@shared/persistence';
-
-import type { Ocorrencia } from '@';
 
 const { log, MENSAGENS_RELATORIOS_ANALISE, RelatorioAsyncPatternsMensagens } = getMessages();
 

@@ -1,11 +1,10 @@
 // SPDX-License-Identifier: MIT
 import crypto from 'node:crypto';
 
+import type { ContextoExecucao, EstadoIncremental, FileEntryWithAst, GuardianResult, MetricaAnalista, MetricaExecucao, MetricasGlobais, Ocorrencia, ResultadoInquisicao, Tecnica } from '@prometheus';
+import { ocorrenciaErroAnalista } from '@prometheus';
 import { lerEstado, salvarEstado } from '@shared/persistence';
 import XXH from 'xxhashjs';
-
-import type { ContextoExecucao, EstadoIncremental, FileEntryWithAst, GuardianResult, MetricaAnalista, MetricaExecucao, MetricasGlobais, Ocorrencia, ResultadoInquisicao, Tecnica } from '@';
-import { ocorrenciaErroAnalista } from '@';
 
 import type { ExecutorEventEmitter } from '../../types/core/config/config.js';
 import { config } from '../config/config.js';

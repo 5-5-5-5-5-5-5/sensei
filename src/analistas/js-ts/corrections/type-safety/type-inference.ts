@@ -6,7 +6,7 @@
  * Infere tipos primitivos e cria interfaces para objetos complexos
  */
 
-import type { InferredInterface, PropertyUsage, TypeAnalysis, UsagePattern } from '@';
+import type { InferredInterface, PropertyUsage, TypeAnalysis, UsagePattern } from '@prometheus';
 
 import { toKebabCase } from './context-analyzer.js';
 

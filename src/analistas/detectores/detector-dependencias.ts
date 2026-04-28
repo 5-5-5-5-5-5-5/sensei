@@ -5,9 +5,8 @@ import type { NodePath } from '@babel/traverse';
 import type * as t from '@babel/types';
 import { config , traverse } from '@core/config';
 import { messages } from '@core/messages';
+import type { ContextoExecucao, Ocorrencia, TecnicaAplicarResultado } from '@prometheus';
 import { normalizarPosix, normalizePath,resolverModulo  } from '@shared/helpers';
-
-import type { ContextoExecucao, Ocorrencia, TecnicaAplicarResultado } from '@';
 
 export const grafoDependencias = new Map<string, Set<string>>();
 

@@ -8,7 +8,7 @@
  * e todos os desenvolvedores que usam essas APIs conhecem esses limites.
  */
 
-import type { MagicConstantRule } from '@';
+import type { MagicConstantRule } from '@prometheus';
 
 export type { MagicConstantRule };
 

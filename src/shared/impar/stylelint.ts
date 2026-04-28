@@ -6,14 +6,13 @@
  * A pasta implis serve apenas como referência/"inspiração" de regras.
  */
 
-import * as csstree from 'css-tree';
-
 import type {
   CssDuplicateContext,
   CssLintSeverity,
   CssLintWarning,
   CssTreeNode,
-} from '@';
+} from '@prometheus';
+import * as csstree from 'css-tree';
 
 // Re-export types for backward compatibility
 export type { CssDuplicateContext, CssLintSeverity, CssLintWarning };

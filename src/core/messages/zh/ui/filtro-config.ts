@@ -4,7 +4,7 @@
  * 定义优先级、分组和问题分类
  */
 
-import type { AgrupamentoConfig, ConfigPrioridade, PrioridadeNivel } from '@';
+import type { AgrupamentoConfig, ConfigPrioridade, PrioridadeNivel } from '@prometheus';
 
 import {
   ICONES_ARQUIVO,

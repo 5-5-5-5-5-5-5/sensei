@@ -8,8 +8,7 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
 import { buildTypesFsPath } from '@core/config';
-
-import type { ExistingType, TypeAnalysis } from '@';
+import type { ExistingType, TypeAnalysis } from '@prometheus';
 
 import { toKebabCase } from './context-analyzer.js';
 

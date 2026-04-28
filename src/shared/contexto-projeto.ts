@@ -5,7 +5,7 @@
  * Evita falsos positivos em analistas ao identificar o tipo de projeto e framework
  */
 
-import type { ContextoProjeto, DetectarContextoOpcoes } from '@';
+import type { ContextoProjeto, DetectarContextoOpcoes } from '@prometheus';
 
 // Re-exporta os tipos para compatibilidade
 export type { ContextoProjeto, DetectarContextoOpcoes };

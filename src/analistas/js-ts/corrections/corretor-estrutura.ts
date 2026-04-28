@@ -7,10 +7,9 @@ import path from 'node:path';
 import { config , resolverPluginSeguro } from '@core/config';
 import { getMessages } from '@core/messages';
 import { importarModuloSeguro } from '@core/utils';
+import type { ConfigPlugin, ErroComMensagem, FileEntryWithAst, ResultadoEstrutural } from '@prometheus';
 import { reescreverImports } from '@shared/helpers';
 import pLimit from 'p-limit';
-
-import type { ConfigPlugin, ErroComMensagem, FileEntryWithAst, ResultadoEstrutural } from '@';
 
 import { mapaReversao } from './mapa-reversao.js';
 

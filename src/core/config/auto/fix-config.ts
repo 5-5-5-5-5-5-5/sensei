@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
+import type { AutoFixConfig, PatternBasedQuickFix } from '@prometheus';
 import { otimizarSvgLikeSvgo, shouldSugerirOtimizacaoSvg } from '@shared/impar';
-
-import type { AutoFixConfig, PatternBasedQuickFix } from '@';
 
 import { hasMinimumConfidence, isCategoryAllowed, shouldExcludeFile } from './auto-fix-config.js';
 // Re-exporta os tipos para compatibilidade

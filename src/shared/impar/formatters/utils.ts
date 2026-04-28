@@ -2,9 +2,9 @@
 
 import { createRequire } from 'node:module';
 
-import type { MarkdownFenceMatch } from '@';
+import type { MarkdownFenceMatch } from '@prometheus';
 
-export type { FormatadorMinimoParser, FormatadorMinimoResult, MarkdownFenceMatch } from '@';
+export type { FormatadorMinimoParser, FormatadorMinimoResult, MarkdownFenceMatch } from '@prometheus';
 
 export function normalizarFimDeLinha(code: string): string {
   return code.replace(/\r\n?/g, '\n');

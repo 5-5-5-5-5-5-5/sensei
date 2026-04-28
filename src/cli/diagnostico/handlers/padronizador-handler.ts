@@ -5,8 +5,7 @@ import { traverse } from '@core/config';
 import { scanRepository } from '@core/execution';
 import { getMessages } from '@core/messages';
 import { decifrarSintaxe } from '@core/parsing';
-
-import type { Ocorrencia, ScanPadronizacaoOptions } from '@';
+import type { Ocorrencia, ScanPadronizacaoOptions } from '@prometheus';
 
 const { CliComandoPadronizadorMensagens: msgs } = getMessages();
 

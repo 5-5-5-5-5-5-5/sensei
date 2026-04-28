@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-import type { FiltrosConfig, Ocorrencia, OcorrenciaParseErro } from '@';
+import type { FiltrosConfig, Ocorrencia, OcorrenciaParseErro } from '@prometheus';
 
 // Re-exporta o tipo para compatibilidade
 export type { FiltrosConfig };

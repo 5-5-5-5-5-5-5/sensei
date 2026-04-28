@@ -5,10 +5,9 @@ import { iniciarInquisicao } from '@core/execution';
 import { getMessages } from '@core/messages';
 import { executarShellSeguro } from '@core/utils';
 import { scanSystemIntegrity } from '@guardian';
+import type { FileEntryWithAst, Tecnica } from '@prometheus';
+import { asTecnicas } from '@prometheus';
 import { Command } from 'commander';
-
-import type { FileEntryWithAst, Tecnica } from '@';
-import { asTecnicas } from '@';
 
 import { ICONES_STATUS } from '../../core/messages/shared/icons.js';
 import { ExitCode, sair } from '../helpers/exit-codes.js';

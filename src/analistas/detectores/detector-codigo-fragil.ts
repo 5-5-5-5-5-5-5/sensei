@@ -3,10 +3,9 @@ import type { NodePath, Visitor } from '@babel/traverse';
 import type { CatchClause, FunctionDeclaration, Node, NumericLiteral } from '@babel/types';
 import { config , LIMITES_PADRAO , traverse } from '@core/config';
 import { messages } from '@core/messages';
+import type { Analista, Fragilidade, Ocorrencia } from '@prometheus';
+import { criarOcorrencia } from '@prometheus';
 import { agruparPor , detectarComentariosPendentes, detectarFrameworks , detectarLogsDebug , filtrarOcorrenciasSuprimidas,isWhitelistedConstant , splitLines  } from '@shared/helpers';
-
-import type { Analista, Fragilidade, Ocorrencia } from '@';
-import { criarOcorrencia } from '@';
 
 // Cache de frameworks detectados (evita múltiplas leituras do package.json)
 let frameworksDetectados: string[] | null = null;

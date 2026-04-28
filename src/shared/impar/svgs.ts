@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
-import type { SvgoMinimoMudanca, SvgoMinimoResult } from '@';
+import type { SvgoMinimoMudanca, SvgoMinimoResult } from '@prometheus';
 // Re-exportar para compatibilidade com código existente
-export type { SvgoMinimoMudanca, SvgoMinimoResult } from '@';
+export type { SvgoMinimoMudanca, SvgoMinimoResult } from '@prometheus';
 // Limiar padrão para evitar ruído em galerias de ícones:
 // só sugerimos otimização quando a economia é relevante.
 export const SVG_OPT_MIN_BYTES_SALVO = 40;

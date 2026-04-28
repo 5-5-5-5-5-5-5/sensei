@@ -3,8 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 import { getMessages } from '@core/messages';
-
-import type { Ocorrencia, ScanImportsOptions } from '@';
+import type { Ocorrencia, ScanImportsOptions } from '@prometheus';
 
 const { CliImporterHandlerMensagens: msgs } = getMessages();
 

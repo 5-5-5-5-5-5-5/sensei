@@ -1,11 +1,10 @@
 // SPDX-License-Identifier: MIT
 import { promises as fs } from 'node:fs';
 
+import type { CacheValor, EstadoIncArquivo, FileEntry, FileEntryWithAst, InquisicaoOptions, MetricasGlobais, OcorrenciaParseErro, ResultadoInquisicaoCompleto, SimbolosLog, Tecnica } from '@prometheus';
+import { ocorrenciaParseErro } from '@prometheus';
 import { lerEstado } from '@shared/persistence';
 import * as path from 'path';
-
-import type { CacheValor, EstadoIncArquivo, FileEntry, FileEntryWithAst, InquisicaoOptions, MetricasGlobais, OcorrenciaParseErro, ResultadoInquisicaoCompleto, SimbolosLog, Tecnica } from '@';
-import { ocorrenciaParseErro } from '@';
 
 import { config } from '../config/config.js';
 import { isMetaPath } from '../config/paths.js';
@@ -363,7 +362,7 @@ tecnicas?: Tecnica[])
 
   // Agora fileEntries é FileEntryWithAst[]
   let totalArquivos = fileEntries.length;
-  let ocorrencias: Array<OcorrenciaParseErro | import('@').Ocorrencia> = [];
+  let ocorrencias: Array<OcorrenciaParseErro | import('@prometheus').Ocorrencia> = [];
   if (!skipExec) {
     // Inversão de Controle: tecnicas devem ser fornecidas pelo chamador sempre que skipExec=false.
     // Para compatibilidade retroativa, se não vierem definidas carregamos dinamicamente o registro.

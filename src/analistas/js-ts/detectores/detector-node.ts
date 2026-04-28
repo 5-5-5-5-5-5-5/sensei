@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-import type { ResultadoDeteccaoArquetipo } from '@';
+import type { ResultadoDeteccaoArquetipo } from '@prometheus';
 
 import { ARQUETIPOS } from '../../estrategistas/arquetipos-defs.js';
 import { scoreArquetipo } from '../../pontuadores/pontuador.js';

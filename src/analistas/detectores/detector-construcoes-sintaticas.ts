@@ -3,9 +3,8 @@ import type { NodePath } from '@babel/traverse';
 import type { ArrowFunctionExpression, ClassDeclaration, FunctionDeclaration, ImportDeclaration, NewExpression, Node, TSEnumDeclaration, TSInterfaceDeclaration, TSTypeAliasDeclaration, VariableDeclaration } from '@babel/types';
 import { traverse } from '@core/config';
 import { messages } from '@core/messages';
+import { type Analista, type ConstrucaoSintatica, criarOcorrencia, type Ocorrencia } from '@prometheus';
 import { criarErroAnalise } from '@shared/helpers';
-
-import { type Analista, type ConstrucaoSintatica, criarOcorrencia, type Ocorrencia } from '@';
 
 export const analistaConstrucoesSintaticas: Analista = {
   nome: 'construcoes-sintaticas',

@@ -11,7 +11,7 @@ import type {
   DadosRelatorioMarkdown,
   MarkdownExportOptions,
   Ocorrencia,
-} from '@';
+} from '@prometheus';
 
 import type { ArquetipoResult } from '../handlers/arquetipo-handler.js';
 import type { AutoFixResult } from '../handlers/auto-fix-handler.js';

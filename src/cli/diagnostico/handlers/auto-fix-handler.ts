@@ -8,8 +8,7 @@
  */
 
 import { messages } from '@core/messages';
-
-import type { AutoFixOptions, AutoFixResult, FileEntryWithAst } from '@';
+import type { AutoFixOptions, AutoFixResult, FileEntryWithAst } from '@prometheus';
 
 const { log, MENSAGENS_AUTOFIX, CliAutoFixHandlerMensagens } = messages;
 

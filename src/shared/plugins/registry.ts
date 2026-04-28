@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 import { messages } from '@core/messages';
-
-import type { GlobalComImport, ImportDinamico, LanguageSupport, ParserPlugin, PluginConfig } from '@';
+import type { GlobalComImport, ImportDinamico, LanguageSupport, ParserPlugin, PluginConfig } from '@prometheus';
 
 const { log, logCore } = messages;
 

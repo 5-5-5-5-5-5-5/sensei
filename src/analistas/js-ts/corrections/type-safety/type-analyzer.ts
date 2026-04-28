@@ -7,8 +7,7 @@
 import type { Node } from '@babel/types';
 import { getTypesDirectoryDisplay } from '@core/config';
 import { getMessages } from '@core/messages';
-
-import type { TypeAnalysis, TypeInferenceContext } from '@';
+import type { TypeAnalysis, TypeInferenceContext } from '@prometheus';
 
 import { extractVariableName, getDomainFromFilePath, isDefinitionFile, isLegacyOrVendorFile, isTypeScriptFile } from './context-analyzer.js';
 import { inferTypeFromUsage } from './type-inference.js';

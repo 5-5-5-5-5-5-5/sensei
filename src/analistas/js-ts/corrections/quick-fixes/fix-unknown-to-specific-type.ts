@@ -7,13 +7,9 @@
 import type { Node } from '@babel/types';
 import { buildTypesRelPathPosix, getTypesDirectoryDisplay } from '@core/config';
 import { getMessages } from '@core/messages';
+import type { QuickFix, QuickFixResult, TypeSafetyWarning } from '@prometheus';
 
-import type { QuickFix, QuickFixResult, TypeSafetyWarning } from '@';
-
-import { isInStringOrComment, isLegacyOrVendorFile, isUnknownInGenericContext } from '../type-safety/context-analyzer.js';
-import { analyzeUnknownUsage } from '../type-safety/type-analyzer.js';
-import { createTypeDefinition } from '../type-safety/type-creator.js';
-import { validateTypeReplacement } from '../type-safety/type-validator.js';
+import { analyzeUnknownUsage , createTypeDefinition , isInStringOrComment, isLegacyOrVendorFile, isUnknownInGenericContext , validateTypeReplacement } from '../type-safety/index.js';
 
 const { MENSAGENS_CORRECAO_TIPOS } = getMessages();
 

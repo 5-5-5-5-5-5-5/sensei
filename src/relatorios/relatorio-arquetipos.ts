@@ -2,9 +2,8 @@
 import path from 'node:path';
 
 import { messages } from '@core/messages';
+import type { ResultadoDeteccaoArquetipo } from '@prometheus';
 import { lerArquivoTexto, salvarEstado } from '@shared/persistence';
-
-import type { ResultadoDeteccaoArquetipo } from '@';
 
 const { RelatorioMensagens, log } = messages;
 

@@ -4,7 +4,7 @@
  * Defines explanatory texts, labels and metadata for JSON fields
  */
 
-import type { JsonComMetadados } from '@';
+import type { JsonComMetadados } from '@prometheus';
 
 export const JsonMensagens = {
   /* -------------------------- COMMON FIELDS -------------------------- */

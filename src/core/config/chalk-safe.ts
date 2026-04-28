@@ -5,9 +5,8 @@
 // - Suportar encadeamento básico usado no projeto (ex.: chalk.cyan.bold(...)).
 // - Em ambientes sem chalk, aplicar fallback de identidade (retorna a string sem cor/estilo).
 
+import type { ChalkLike, StyleFn, StyleName } from '@prometheus';
 import chalkDefault, * as chalkNs from 'chalk';
-
-import type { ChalkLike, StyleFn, StyleName } from '@';
 
 const ID = (s: string) => String(s);
 

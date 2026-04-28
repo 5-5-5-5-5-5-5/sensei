@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-import type { LocBabel, Ocorrencia } from '@';
+import type { LocBabel, Ocorrencia } from '@prometheus';
 
 /** Tipo intermediário para normalização com campos opcionais de localização */
 type OcorrenciaNormalizavel = Ocorrencia & {

@@ -9,8 +9,7 @@ import path from 'node:path';
 
 import { config } from '@core/config';
 import { messages } from '@core/messages';
-
-import type { GuardianBaseline, GuardianExportOptions, GuardianExportResult } from '@';
+import type { GuardianBaseline, GuardianExportOptions, GuardianExportResult } from '@prometheus';
 
 const log = messages.log;
 

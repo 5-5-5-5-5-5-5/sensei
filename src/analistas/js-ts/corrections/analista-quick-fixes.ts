@@ -2,9 +2,8 @@
 import type { NodePath } from '@babel/traverse';
 import type { Node } from '@babel/types';
 import { findQuickFixes, type PatternBasedQuickFix } from '@core/config/auto';
-
-import type { Analista, Ocorrencia } from '@';
-import { criarOcorrencia } from '@';
+import type { Analista, Ocorrencia } from '@prometheus';
+import { criarOcorrencia } from '@prometheus';
 
 export const analistaQuickFixes: Analista = {
   nome: 'quick-fixes',

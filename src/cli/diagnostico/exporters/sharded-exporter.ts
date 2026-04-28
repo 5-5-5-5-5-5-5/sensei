@@ -16,7 +16,7 @@ import type {
   ResultadoSharding,
   ShardInfo,
   ShardingOptions,
-} from '@';
+} from '@prometheus';
 
 // Re-export para compatibilidade
 export type { ResultadoSharding, ShardInfo, ShardingOptions };

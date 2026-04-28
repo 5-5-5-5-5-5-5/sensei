@@ -3,10 +3,9 @@ import type { NodePath } from '@babel/traverse';
 import type { Node } from '@babel/types';
 import { config , getAllExpectedDirNames, getDirVariantPattern, getNameConventions , isInsideSrc } from '@core/config';
 import { messages } from '@core/messages';
+import type { ContextoExecucao, Ocorrencia, SinaisProjeto, TecnicaAplicarResultado } from '@prometheus';
 import { detectarContextoProjeto } from '@shared';
 import micromatch from 'micromatch';
-
-import type { ContextoExecucao, Ocorrencia, SinaisProjeto, TecnicaAplicarResultado } from '@';
 
 import { grafoDependencias } from './detector-dependencias.js';
 

@@ -2,9 +2,8 @@
 import path from 'node:path';
 
 import { config } from '@core/config';
+import type { FileEntryWithAst, ResultadoEstrutural } from '@prometheus';
 import pLimit from 'p-limit';
-
-import type { FileEntryWithAst, ResultadoEstrutural } from '@';
 
 // Constantes para análise estrutural
 export const CONCORRENCIA = Number(config.STRUCTURE_CONCURRENCY ?? 5);

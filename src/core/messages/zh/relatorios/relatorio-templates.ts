@@ -4,7 +4,7 @@
  * Functions that generate complete MD sections with consistent formatting
  */
 
-import type { GuardianInfo, MetadadosRelatorioEstendido, ProblemaAgrupado } from '@';
+import type { GuardianInfo, MetadadosRelatorioEstendido, ProblemaAgrupado } from '@prometheus';
 
 import { formatMs } from '../../../config/format.js';
 import { RelatorioMensagens } from './relatorio-messages.js';

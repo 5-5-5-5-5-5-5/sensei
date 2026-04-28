@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: MIT
 import { messages } from '@core/messages';
+import { criarAnalista, criarOcorrencia } from '@prometheus';
 import { formatarPrettierMinimo } from '@shared/impar';
-
-import { criarAnalista, criarOcorrencia } from '@';
 
 const disableEnv = process.env.PROMETHEUS_DISABLE_PLUGIN_FORMATADOR === '1';
 type Msg = ReturnType<typeof criarOcorrencia>;

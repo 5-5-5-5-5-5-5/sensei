@@ -4,9 +4,8 @@
  * @fileoverview Analista de qualidade para workflows do GitHub Actions (v0.6.0)
  */
 
+import type { Analista, ContextoExecucao, Ocorrencia,ProblemaWorkflow } from '@prometheus';
 import { parseDocument } from 'yaml';
-
-import type { Analista, ContextoExecucao, Ocorrencia,ProblemaWorkflow } from '@';
 
 export interface DeteccaoCustom {
   nome: string;

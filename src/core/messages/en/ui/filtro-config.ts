@@ -4,7 +4,7 @@
  * Defines priorities, groupings and problem categorization
  */
 
-import type { AgrupamentoConfig, ConfigPrioridade, PrioridadeNivel } from '@';
+import type { AgrupamentoConfig, ConfigPrioridade, PrioridadeNivel } from '@prometheus';
 
 import {
   ICONES_ARQUIVO,

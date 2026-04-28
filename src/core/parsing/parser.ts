@@ -2,6 +2,7 @@
 import type { ParserOptions } from '@babel/parser';
 import { parse as babelParse } from '@babel/parser';
 import type { File as BabelFile } from '@babel/types';
+import type { DecifrarSintaxeOpts, ParserBabelFileExtra as BabelFileExtra, ParserFunc, ParserOptions as PluginParserOptions, ParserRawAst } from '@prometheus';
   /* -------------------------- SISTEMA DE PLUGINS - Novo sistema de parsers modular (Fase 1) -------------------------- */
 import { getGlobalRegistry,initializeDefaultPlugins } from '@shared/plugins';
 import * as csstree from 'css-tree';
@@ -9,8 +10,6 @@ import { XMLParser } from 'fast-xml-parser';
 // Parsers externos leves para outras linguagens
 import { parseDocument } from 'htmlparser2';
 import { createRequire } from 'module';
-
-import type { DecifrarSintaxeOpts, ParserBabelFileExtra as BabelFileExtra, ParserFunc, ParserOptions as PluginParserOptions, ParserRawAst } from '@';
 
 import { getMessages } from '../messages/index.js';
 

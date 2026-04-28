@@ -2,8 +2,7 @@
 import path from 'node:path';
 
 import { messages } from '@core/messages';
-
-import type { ErroValidacaoCombinacao } from '@';
+import type { ErroValidacaoCombinacao } from '@prometheus';
 
 // Re-exporta o tipo para compatibilidade
 export type { ErroValidacaoCombinacao };

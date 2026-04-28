@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: MIT
 import { getMessages } from '@core/messages';
+import type { OpcoesRelatorioPoda, Pendencia, PendenciaProcessavel } from '@prometheus';
 import { salvarEstado } from '@shared/persistence';
-
-import type { OpcoesRelatorioPoda, Pendencia, PendenciaProcessavel } from '@';
 
 const { RelatorioMensagens } = getMessages();
 

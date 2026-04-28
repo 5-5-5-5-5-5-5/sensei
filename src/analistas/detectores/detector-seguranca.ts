@@ -4,11 +4,10 @@ import type { NodePath } from '@babel/traverse';
 import type { CallExpression, NewExpression, Node } from '@babel/types';
 import { traverse } from '@core/config';
 import { messages } from '@core/messages';
+import type { Analista, Ocorrencia, ProblemaSeguranca } from '@prometheus';
+import { criarOcorrencia } from '@prometheus';
 import { detectarContextoProjeto } from '@shared';
 import { agruparPor , criarErroAnalise , detectarSegredosHardcoded , filtrarOcorrenciasSuprimidas,splitLines  } from '@shared/helpers';
-
-import type { Analista, Ocorrencia, ProblemaSeguranca } from '@';
-import { criarOcorrencia } from '@';
 
 export const analistaSeguranca: Analista = {
   nome: 'seguranca',

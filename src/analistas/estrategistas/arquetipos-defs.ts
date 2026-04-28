@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-import type { ArquetipoEstruturaDef } from '@';
+import type { ArquetipoEstruturaDef } from '@prometheus';
 
 export const ARQUETIPOS: ArquetipoEstruturaDef[] = [
   {

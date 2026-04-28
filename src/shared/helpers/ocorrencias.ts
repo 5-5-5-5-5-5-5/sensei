@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-import { criarOcorrencia, type Ocorrencia } from '@';
+import { criarOcorrencia, type Ocorrencia } from '@prometheus';
 
 /**
  * Cria uma ocorrência de erro de análise padronizada.

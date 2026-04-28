@@ -6,8 +6,8 @@
  * formatadas usando os templates de mensagens dos detectores correspondentes.
  */
 
-import type { Ocorrencia, ReportEvent } from '@';
-import { criarOcorrencia } from '@';
+import type { Ocorrencia, ReportEvent } from '@prometheus';
+import { criarOcorrencia } from '@prometheus';
 
 import { messages } from '../messages/index.js';
 

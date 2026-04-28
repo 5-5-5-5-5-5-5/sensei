@@ -10,7 +10,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-import type { JsonExportOptions, Ocorrencia, RelatorioJson } from '@';
+import type { JsonExportOptions, Ocorrencia, RelatorioJson } from '@prometheus';
 
 // Re-export para compatibilidade
 export type { JsonExportOptions, RelatorioJson };

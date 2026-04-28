@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
+import type { ConfiguracaoPontuacaoZelador, IntlComDisplayNames, ProblemaPontuacao } from '@prometheus';
 import { isInStringOrComment } from '@shared/helpers';
-
-import type { ConfiguracaoPontuacaoZelador, IntlComDisplayNames, ProblemaPontuacao } from '@';
 
 // Constantes de limites e valores de threshold
 export const LIMITES = {

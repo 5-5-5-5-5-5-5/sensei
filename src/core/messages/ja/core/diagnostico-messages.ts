@@ -7,7 +7,7 @@
  * リポジトリ診断に関連するすべてのメッセージを一元化します
  */
 
-import type { ModoOperacao } from '@';
+import type { ModoOperacao } from '@prometheus';
 
 /**
  * 診断アイコン

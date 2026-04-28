@@ -11,13 +11,12 @@
 
 import { messages } from '@core/messages';
 import { scanSystemIntegrity } from '@guardian';
-
 import type {
   FileEntry,
   GuardianOptions,
   GuardianResultadoProcessamento,
-} from '@';
-import { IntegridadeStatus } from '@';
+} from '@prometheus';
+import { IntegridadeStatus } from '@prometheus';
 
 // Re-export para compatibilidade (usando alias para nome antigo)
 export type { GuardianOptions };

@@ -12,7 +12,7 @@ export * from './stylelint.js';
 export * from './svgs.js';
 export * from './syntax-map.js';
 export { getSyntaxInfoForPath } from './syntax-map.js';
-export type { FormatadorMinimoParser, FormatadorMinimoResult, MarkdownFenceMatch } from '@';
+export type { FormatadorMinimoParser, FormatadorMinimoResult, MarkdownFenceMatch } from '@prometheus';
 
 export function formatarCodeMinimo(code: string, opts?: {
   normalizarSeparadoresDeSecao?: boolean;
@@ -25,7 +25,7 @@ export function formatarCodeMinimo(code: string, opts?: {
   );
   return {
     ok: true,
-    parser: (opts?.parser as import('@').FormatadorMinimoParser) ?? 'code',
+    parser: (opts?.parser as import('@prometheus').FormatadorMinimoParser) ?? 'code',
     formatted,
     changed: formatted !== normalizarNewlinesFinais(normalized),
   };

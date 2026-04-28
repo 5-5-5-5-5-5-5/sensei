@@ -11,7 +11,7 @@
 
 import path from 'node:path';
 
-import type { NomeacaoEstilo, OpcoesEstrategista, ParseNomeResultado } from '@';
+import type { NomeacaoEstilo, OpcoesEstrategista, ParseNomeResultado } from '@prometheus';
 
 import { lerEstado } from '../persistence/persistencia.js';
 import { normalizePath } from './path.js';

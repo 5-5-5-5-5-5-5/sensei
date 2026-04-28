@@ -4,7 +4,7 @@
  * 優先度、グループ化、問題のカテゴリ分けを定義
  */
 
-import type { AgrupamentoConfig, ConfigPrioridade, PrioridadeNivel } from '@';
+import type { AgrupamentoConfig, ConfigPrioridade, PrioridadeNivel } from '@prometheus';
 
 import {
   ICONES_ARQUIVO,

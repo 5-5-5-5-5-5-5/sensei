@@ -4,9 +4,8 @@
  * Suporta GitHub Actions, GitLab CI, CircleCI, Azure DevOps, Jenkins
  */
 
+import type { Ocorrencia } from '@prometheus';
 import { parseDocument } from 'yaml';
-
-import type { Ocorrencia } from '@';
 
 export type PlataformaCI = 'github-actions' | 'gitlab-ci' | 'circleci' | 'azure-devops' | 'jenkins';
 

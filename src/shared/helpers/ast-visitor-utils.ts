@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: MIT
 import type { Visitor } from '@babel/traverse';
 import { traverse } from '@core/config';
-
-import type { Ocorrencia } from '@';
+import type { Ocorrencia } from '@prometheus';
 
 /**
  * Utilitário centralizado para rodar Visitor de AST e coletar resultados sem duplicação

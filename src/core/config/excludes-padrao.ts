@@ -12,7 +12,7 @@
  * 4. Fallback hardcoded (mais baixa prioridade)
  */
 
-import type { ConfigExcludesPadrao } from '@';
+import type { ConfigExcludesPadrao } from '@prometheus';
 
 // Re-exporta o tipo para compatibilidade
 export type { ConfigExcludesPadrao };

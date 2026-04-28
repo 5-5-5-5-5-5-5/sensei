@@ -2,7 +2,7 @@
 import { promises as fs } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
-import type { Analista, EntradaRegistry, ModuloAnalista, Tecnica } from '@';
+import type { Analista, EntradaRegistry, ModuloAnalista, Tecnica } from '@prometheus';
 
 type Entry = Analista | Tecnica;
 

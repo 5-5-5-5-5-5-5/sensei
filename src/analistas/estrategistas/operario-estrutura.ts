@@ -3,7 +3,6 @@
 // Justificativa: tipos locais para operações de estrutura
 import { config } from '@core/config';
 import { getMessages } from '@core/messages';
-
 /**
  * Tipos de entrada para planejamento de operações de estrutura
  */
@@ -14,12 +13,12 @@ import type {
   PlanoMoverItem,
   PlanoSugestaoEstrutura,
   ResultadoPlanejamento,
-} from '@';
+} from '@prometheus';
 
 import { gerarPlanoEstrategico } from '../arquitetos/estrategista-estrutura.js';
 import { extrairSinaisAvancados } from '../arquitetos/sinais-projeto-avancados.js';
-import { corrigirEstrutura } from '../corrections/corretor-estrutura.js';
 import { detectarArquetipos } from '../detectores/detector-arquetipos.js';
+import { corrigirEstrutura } from '../js-ts/corrections/corretor-estrutura.js';
 
 const { log, MENSAGENS_ARQUETIPOS_HANDLER } = getMessages();
 

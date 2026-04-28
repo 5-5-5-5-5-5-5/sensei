@@ -3,10 +3,9 @@
 import type { NodePath } from '@babel/traverse';
 import type { Node } from '@babel/types';
 import { traverse } from '@core/config';
+import type { Analista, Ocorrencia } from '@prometheus';
+import { criarOcorrencia } from '@prometheus';
 import { filtrarOcorrenciasSuprimidas } from '@shared/helpers';
-
-import type { Analista, Ocorrencia } from '@';
-import { criarOcorrencia } from '@';
 
 export const analistaPadronizador: Analista = {
   nome: 'padronizador',

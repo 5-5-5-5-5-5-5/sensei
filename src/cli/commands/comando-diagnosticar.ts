@@ -2,11 +2,10 @@
 // @prometheus-disable tipo-literal-inline-complexo
 // Justificativa: tipos inline para opções de comando CLI são locais e não precisam de extração
 import { CABECALHOS, messages } from '@core/messages';
+import type { ParentWithOpts } from '@prometheus';
 import { ativarModoJson } from '@shared/helpers';
 import { Command } from 'commander';
 import ora from 'ora';
-
-import type { ParentWithOpts } from '@';
 
 import { optionsDiagnosticar } from '../options-diagnosticar.js';
 import { processarDiagnostico } from '../processamento-diagnostico.js';
@@ -240,7 +239,7 @@ export function comandoDiagnosticar(aplicarFlagsGlobais: (opts: Record<string, u
     }
     try {
       // Delegar todo o processamento para a função modularizada
-      await processarDiagnostico(opts as unknown as import('@').OpcoesProcessamentoDiagnostico);
+      await processarDiagnostico(opts as unknown as import('@prometheus').OpcoesProcessamentoDiagnostico);
       spinner.succeed(messages.CliComandoDiagnosticarMensagens.spinnerConcluido);
     } catch (err) {
       spinner.fail(messages.CliComandoDiagnosticarMensagens.spinnerFalhou);

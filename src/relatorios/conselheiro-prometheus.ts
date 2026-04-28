@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 import { getMessages } from '@core/messages';
-
-import type { ConselhoContextoPrometheus } from '@';
+import type { ConselhoContextoPrometheus } from '@prometheus';
 
 const { logConselheiro } = getMessages();
 

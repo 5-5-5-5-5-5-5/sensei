@@ -18,7 +18,7 @@
  * Categoriza uso de unknown com nível de confiança
  * Retorna: 'legitimo' | 'melhoravel' | 'corrigir' + confiança (0-100)
  */
-import type { CategorizacaoUnknown } from '@';
+import type { CategorizacaoUnknown } from '@prometheus';
 
 export { isInComment, isInString, isInStringOrComment } from '@shared/helpers';
 

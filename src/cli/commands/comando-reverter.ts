@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
+import { mapaReversao } from '@analistas/js-ts/corrections';
 import { messages } from '@core/messages';
 import { Command } from 'commander';
 
-import { mapaReversao } from '../../analistas/corrections/mapa-reversao.js';
 import { ExitCode, sair } from '../helpers/exit-codes.js';
 
 const { log, logAuto, logSistema } = messages;

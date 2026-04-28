@@ -9,9 +9,8 @@ import path from 'node:path';
 
 import { config } from '@core/config';
 import { messages } from '@core/messages';
+import type { MovimentoEstrutural, ReestruturacaoExportOptions, ReestruturacaoExportResult } from '@prometheus';
 import { gerarRelatorioReestruturarJson } from '@relatorios';
-
-import type { MovimentoEstrutural, ReestruturacaoExportOptions, ReestruturacaoExportResult } from '@';
 
 const log = messages.log;
 

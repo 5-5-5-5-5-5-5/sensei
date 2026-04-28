@@ -2,10 +2,9 @@
 import type { NodePath, Visitor } from '@babel/traverse';
 import type { CallExpression, ExpressionStatement, Node } from '@babel/types';
 import { traverse } from '@core/config';
+import type { Analista, Ocorrencia } from '@prometheus';
+import { criarOcorrencia } from '@prometheus';
 import { shouldSuppressOccurrence } from '@shared/helpers';
-
-import type { Analista, Ocorrencia } from '@';
-import { criarOcorrencia } from '@';
 
 type Msg = Ocorrencia;
 

@@ -4,12 +4,11 @@ import path from 'node:path';
 import { chalk } from '@core/config';
 import { scanRepository } from '@core/execution';
 import { getMessages } from '@core/messages';
+import type { OtimizarSvgOptions } from '@prometheus';
 import { otimizarSvgLikeSvgo } from '@shared/impar';
 import { salvarEstado } from '@shared/persistence';
 import { Command } from 'commander';
 import micromatch from 'micromatch';
-
-import type { OtimizarSvgOptions } from '@';
 
 import { ExitCode, sair } from '../helpers/exit-codes.js';
 import { processPatternList } from '../helpers/pattern-helpers.js';

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 import { createHash, getHashes } from 'node:crypto';
 
-import type { SnapshotArquivo } from '@';
+import type { SnapshotArquivo } from '@prometheus';
 
 import { ALGORITMO_HASH } from './constantes.js';
 

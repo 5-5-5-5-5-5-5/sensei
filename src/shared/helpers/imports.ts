@@ -7,7 +7,7 @@
  */
 import path from 'node:path';
 
-import type { ImportReescrito } from '@';
+import type { ImportReescrito } from '@prometheus';
 
 import { normalizePath } from './path.js';
 

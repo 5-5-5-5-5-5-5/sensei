@@ -15,9 +15,8 @@ import type { Node } from '@babel/types';
 import { getTypesDirectoryDisplay, isInsideTypesDirectory } from '@core/config';
 import { messages } from '@core/messages';
 import type { DuplicateEntry,InlineTypeOccurrence } from '@projeto-types/analistas';
+import type { Analista, InterfaceInlineDetection, Ocorrencia } from '@prometheus';
 import { isInStringOrComment } from '@shared/helpers';
-
-import type { Analista, InterfaceInlineDetection, Ocorrencia } from '@';
 
 const ANALISTA: Analista = {
   nome: 'detector-interfaces-inline',

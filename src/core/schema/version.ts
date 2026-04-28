@@ -6,7 +6,7 @@
  * garantindo compatibilidade futura e evolução controlada dos formatos.
  */
 
-import type { RelatorioComVersao, SchemaMetadata } from '@';
+import type { RelatorioComVersao, SchemaMetadata } from '@prometheus';
 
 import { messages } from '../messages/index.js';
 

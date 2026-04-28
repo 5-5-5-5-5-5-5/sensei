@@ -3,7 +3,7 @@
  * Assistente de IA para Análise de GitHub Actions
  */
 
-import type { Ocorrencia } from '@';
+import type { Ocorrencia } from '@prometheus';
 
 export interface SugestaoIA {
   tipo: string;

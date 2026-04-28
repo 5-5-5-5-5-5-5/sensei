@@ -5,10 +5,9 @@ import path from 'node:path';
 
 import { config , formatPct } from '@core/config';
 import { messages } from '@core/messages';
+import type { MetricaExecucaoLike, SnapshotPerf } from '@prometheus';
 import { lerEstado, salvarEstado } from '@shared/persistence';
 import { Command } from 'commander';
-
-import type { MetricaExecucaoLike, SnapshotPerf } from '@';
 
 import { ExitCode, sair } from '../helpers/exit-codes.js';
 

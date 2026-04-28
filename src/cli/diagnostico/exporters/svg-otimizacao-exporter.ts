@@ -2,9 +2,8 @@
 import path from 'node:path';
 
 import type { SvgExportParams } from '@projeto-types/relatorios';
+import type { SvgCandidate, SvgDirectoryStats, SvgExportResult } from '@prometheus';
 import { otimizarSvgLikeSvgo, shouldSugerirOtimizacaoSvg } from '@shared/impar';
-
-import type { SvgCandidate, SvgDirectoryStats, SvgExportResult } from '@';
 
 export type { SvgCandidate, SvgExportResult };
 function formatBytes(bytes: number): string {

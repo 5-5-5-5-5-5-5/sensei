@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: MIT
 import { getMessages } from '@core/messages';
+import type { MovimentoEstrutural, OpcoesRelatorioReestruturar } from '@prometheus';
 import { salvarEstado } from '@shared/persistence';
-
-import type { MovimentoEstrutural, OpcoesRelatorioReestruturar } from '@';
 
 const { RelatorioMensagens } = getMessages();
 

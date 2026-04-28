@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-import type { ArquetipoDeteccaoAnomalia, ArquetipoEstruturaDef, ResultadoDeteccaoArquetipo, SinaisProjetoAvancados } from '@';
+import type { ArquetipoDeteccaoAnomalia, ArquetipoEstruturaDef, ResultadoDeteccaoArquetipo, SinaisProjetoAvancados } from '@prometheus';
 
 import { grafoDependencias } from '../detectores/detector-dependencias.js';
 import { ARQUETIPOS, normalizarCaminho } from '../estrategistas/arquetipos-defs.js';

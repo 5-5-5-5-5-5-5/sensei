@@ -7,10 +7,9 @@
 import { config } from '@core/config';
 import { DICAS, formatarTipoInseguro, gerarResumoCategoria, getMessages,ICONES_FIX_TYPES as ICONES, MENSAGENS_AUTOFIX, MENSAGENS_CLI_CORRECAO_TIPOS, MENSAGENS_ERRO_FIX_TYPES as MENSAGENS_ERRO, MENSAGENS_INICIO_FIX_TYPES as MENSAGENS_INICIO, MENSAGENS_PROGRESSO_FIX_TYPES as MENSAGENS_PROGRESSO, MENSAGENS_RESUMO, MENSAGENS_SUCESSO_FIX_TYPES as MENSAGENS_SUCESSO, TEMPLATE_RESUMO_FINAL, TEXTOS_CATEGORIZACAO_CORRECAO_TIPOS  } from '@core/messages';
 import { PROJETO_RAIZ } from '@core/registry';
+import type { FixTypesOptions, Ocorrencia } from '@prometheus';
+import { asTecnicas, extrairMensagemErro } from '@prometheus';
 import { Command } from 'commander';
-
-import type { FixTypesOptions, Ocorrencia } from '@';
-import { asTecnicas, extrairMensagemErro } from '@';
 
 import { type CasoTipoInseguro, exportarRelatoriosFixTypes } from '../handlers/fix-types-exporter.js';
 import { ExitCode, sair } from '../helpers/exit-codes.js';
@@ -62,8 +61,8 @@ async function executarFixTypes(options: FixTypesOptions): Promise<void> {
   if (excludeList.length) config.CLI_EXCLUDE_PATTERNS = excludeList;
 
   // Importações dinâmicas para evitar dependências circulares (try/catch para detector unhandled-async)
-  let iniciarInquisicao: (baseDir: string, opts?: import('@').InquisicaoOptions, tecnicas?: import('@').Tecnica[]) => Promise<import('@').ResultadoInquisicaoCompleto>;
-  let registroAnalistas: (import('@').Analista | import('@').Tecnica)[];
+  let iniciarInquisicao: (baseDir: string, opts?: import('@prometheus').InquisicaoOptions, tecnicas?: import('@prometheus').Tecnica[]) => Promise<import('@prometheus').ResultadoInquisicaoCompleto>;
+  let registroAnalistas: (import('@prometheus').Analista | import('@prometheus').Tecnica)[];
   try {
     const modInq = await import('@core/execution');
     const modReg = await import('@analistas/registry');
@@ -91,7 +90,7 @@ async function executarFixTypes(options: FixTypesOptions): Promise<void> {
   // Executar análise com todos os analistas mas vamos filtrar depois
   let resultado;
   try {
-    const tecnicasParaExec = asTecnicas(registroAnalistas as import('@').Tecnica[]);
+    const tecnicasParaExec = asTecnicas(registroAnalistas as import('@prometheus').Tecnica[]);
     resultado = await iniciarInquisicao(process.cwd(), {
       includeContent: true,
       incluirMetadados: false,
@@ -159,10 +158,10 @@ async function executarFixTypes(options: FixTypesOptions): Promise<void> {
   // Importar quick fixes (exportações nomeadas)
   const {
     fixAnyToProperTipo
-  } = await import('@analistas/corrections/quick-fixes');
+  } = await import('@analistas/js-ts/corrections/quick-fixes');
   const {
     fixUnknownToSpecificTipo
-  } = await import('@analistas/corrections/quick-fixes');
+  } = await import('@analistas/js-ts/corrections/quick-fixes');
   if (!fixAnyToProperTipo || !fixUnknownToSpecificTipo) {
     log.erro(MENSAGENS_ERRO.modulosNaoEncontrados);
     sair(ExitCode.Failure);
@@ -184,10 +183,10 @@ async function executarFixTypes(options: FixTypesOptions): Promise<void> {
   const {
     categorizarUnknown,
     extractLineContext
-  } = await import('@analistas/corrections/type-safety');
+  } = await import('@analistas/js-ts/corrections/type-safety');
 
   // Estatísticas de categorização
-  const stats = {
+  const stats: Record<'legitimo' | 'melhoravel' | 'corrigir' | 'totalConfianca', number> = {
     legitimo: 0,
     melhoravel: 0,
     corrigir: 0,
@@ -279,15 +278,16 @@ async function executarFixTypes(options: FixTypesOptions): Promise<void> {
             ocorrencia,
             ...categorizacao
           });
-          stats[categorizacao.categoria]++;
+          const cat = categorizacao.categoria as keyof typeof stats;
+          stats[cat]++;
           stats.totalConfianca += categorizacao.confianca;
           if (verbose) {
-            const prefixos = {
+            const prefixos: Record<string, string> = {
               legitimo: '[SUCESSO]',
               melhoravel: '[AVISO]',
               corrigir: '[ERRO]'
             };
-            const prefixo = prefixos[categorizacao.categoria];
+            const prefixo = prefixos[categorizacao.categoria] || '[INFO]';
             log.info(MENSAGENS_CLI_CORRECAO_TIPOS.verboseUnknownCategoria(prefixo, arquivo, String(ocorrencia.linha || '?'), categorizacao.categoria, categorizacao.confianca));
             log.info(MENSAGENS_CLI_CORRECAO_TIPOS.verboseMotivo(categorizacao.motivo));
             if (categorizacao.sugestao) {
@@ -297,7 +297,7 @@ async function executarFixTypes(options: FixTypesOptions): Promise<void> {
             // Mostrar variantes quando análise é incerta (confiança < 80%)
             if (categorizacao.variantes && categorizacao.confianca < 80) {
               log.info(MENSAGENS_CLI_CORRECAO_TIPOS.verboseVariantesTitulo);
-              categorizacao.variantes.forEach((variante, idx) => {
+              categorizacao.variantes.forEach((variante: string, idx: number) => {
                 log.info(MENSAGENS_CLI_CORRECAO_TIPOS.verboseVarianteItem(idx + 1, variante));
               });
             }
@@ -423,7 +423,7 @@ async function executarFixTypes(options: FixTypesOptions): Promise<void> {
     try {
       const {
         aplicarCorrecoesEmLote
-      } = await import('../../analistas/corrections/auto-fix-engine.js');
+      } = await import('@analistas/js-ts/corrections');
 
       // Agrupar ocorrências por arquivo
       const porArquivo: Record<string, Array<{

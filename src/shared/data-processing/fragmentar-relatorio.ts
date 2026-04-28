@@ -2,8 +2,7 @@
 import path from 'node:path';
 
 import { config } from '@core/config';
-
-import type { FileEntryFragmentacao, FragmentOptions, Manifest, ManifestPartFragmentacao, Ocorrencia, RelatorioCompletoFragmentacao } from '@';
+import type { FileEntryFragmentacao, FragmentOptions, Manifest, ManifestPartFragmentacao, Ocorrencia, RelatorioCompletoFragmentacao } from '@prometheus';
 
 import { salvarEstado } from '../persistence/persistencia.js';
 

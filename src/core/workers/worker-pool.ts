@@ -16,8 +16,8 @@ import * as path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Worker } from 'node:worker_threads';
 
-import type { ContextoExecucao, FileEntryWithAst, MetricaAnalista, Ocorrencia, ProcessFilesResult, Tecnica, WorkerPoolOptions, WorkerResult, WorkerTask } from '@';
-import { ocorrenciaErroAnalista } from '@';
+import type { ContextoExecucao, FileEntryWithAst, MetricaAnalista, Ocorrencia, ProcessFilesResult, Tecnica, WorkerPoolOptions, WorkerResult, WorkerTask } from '@prometheus';
+import { ocorrenciaErroAnalista } from '@prometheus';
 
 import { config } from '../config/config.js';
 import { log } from '../messages/index.js';

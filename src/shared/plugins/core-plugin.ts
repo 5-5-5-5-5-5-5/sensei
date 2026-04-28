@@ -4,12 +4,11 @@ import { parse as babelParse } from '@babel/parser';
 import type { File as BabelFile } from '@babel/types';
 import { getMessages , PluginCoreMensagens } from '@core/messages';
 import { getCurrentParsingFile } from '@core/parsing';
+import type { BabelFileExtra, ParserOptions, ParserPlugin, RawAst } from '@prometheus';
 import * as csstree from 'css-tree';
 import { XMLParser, XMLValidator } from 'fast-xml-parser';
 import { parseDocument } from 'htmlparser2';
 import { createRequire } from 'module';
-
-import type { BabelFileExtra, ParserOptions, ParserPlugin, RawAst } from '@';
 
 const { log, logCore } = getMessages();
 

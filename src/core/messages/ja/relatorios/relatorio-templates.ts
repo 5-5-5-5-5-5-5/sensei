@@ -4,7 +4,7 @@
  * 一貫したフォーマットで完全なMDセクションを生成する関数
  */
 
-import type { GuardianInfo, MetadadosRelatorioEstendido, ProblemaAgrupado } from '@';
+import type { GuardianInfo, MetadadosRelatorioEstendido, ProblemaAgrupado } from '@prometheus';
 
 import { formatMs } from '../../../config/format.js';
 import { RelatorioMensagens } from './relatorio-messages.js';

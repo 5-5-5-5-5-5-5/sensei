@@ -11,7 +11,19 @@ import { scanImports } from '../diagnostico/handlers/importer-handler.js';
 const TSCONFIG_PATH = path.resolve(process.cwd(), 'tsconfig.json');
 const SRC_DIR = path.resolve(process.cwd(), 'src');
 
-function getBaseAliases(paths: Record<string, string[]>) {
+
+interface ImporterOptions {
+  verbose?: boolean;
+  dryRun?: boolean;
+}
+
+function verboseLog(msg: string, options: ImporterOptions) {
+  if (options.verbose) {
+    console.log(chalk.gray(`  → ${msg}`));
+  }
+}
+
+function getBaseAliases(paths: Record<string, string[]>, options: ImporterOptions = {}) {
   const bases: { prefix: string; target: string }[] = [];
 
   for (const [key, values] of Object.entries(paths)) {
@@ -20,16 +32,24 @@ function getBaseAliases(paths: Record<string, string[]>) {
         prefix: key.slice(0, -2),
         target: values[0].slice(0, -2),
       });
+      verboseLog(`Found wildcard base: ${key} → ${values[0]}`, options);
     }
   }
 
   try {
-    const folders = fs.readdirSync(SRC_DIR).filter(f => fs.statSync(path.join(SRC_DIR, f)).isDirectory());
+    const folders = fs.readdirSync(SRC_DIR).filter(f => {
+      try {
+        return fs.statSync(path.join(SRC_DIR, f)).isDirectory();
+      } catch {
+        return false;
+      }
+    });
     for (const folder of folders) {
       const prefix = `@${folder}`;
       const target = `./src/${folder}`;
       if (!bases.some(b => b.prefix === prefix)) {
         bases.push({ prefix, target });
+        verboseLog(`Added folder alias: ${prefix} → ${target}`, options);
       }
     }
   } catch {}
@@ -41,18 +61,43 @@ function getBaseAliases(paths: Record<string, string[]>) {
   return bases.sort((a, b) => b.target.length - a.target.length);
 }
 
-function scanBarrels(originalBases: { prefix: string; target: string }[], removeWildcards = false) {
+function normalizeAlias(alias: string): string {
+  const normalized = alias
+    .replace(/\/index$/, '')
+    .replace(/\.(js|ts)$/, '');
+  return normalized;
+}
+
+function normalizeTarget(target: string): string {
+  return target
+    .replace(/\/index$/, '')
+    .replace(/\.(js|ts)$/, '');
+}
+
+function scanBarrels(originalBases: { prefix: string; target: string }[], options: ImporterOptions, removeWildcards = false) {
   const spinner = ora('Escaneando barrels...').start();
   const barrels: { alias: string; path: string }[] = [];
 
+  if (!fs.existsSync(TSCONFIG_PATH)) {
+    spinner.fail('tsconfig.json não encontrado');
+    return { barrels: [], changed: false };
+  }
+
   const tsconfig = JSON.parse(fs.readFileSync(TSCONFIG_PATH, 'utf-8'));
-  const paths = tsconfig.compilerOptions.paths || {};
+  const paths = tsconfig.compilerOptions?.paths || {};
 
   function walk(dir: string) {
+    if (!fs.existsSync(dir)) return;
+
     const files = fs.readdirSync(dir);
     for (const file of files) {
       const fullPath = path.join(dir, file);
-      const stats = fs.statSync(fullPath);
+      let stats: fs.Stats;
+      try {
+        stats = fs.statSync(fullPath);
+      } catch {
+        continue;
+      }
 
       if (stats.isDirectory()) {
         if (file === 'node_modules' || file === 'dist' || file.startsWith('.')) continue;
@@ -72,19 +117,26 @@ function scanBarrels(originalBases: { prefix: string; target: string }[], remove
           const subFolder = folderPath.slice(base.target.length);
           let alias = base.prefix + (subFolder.startsWith('/') ? subFolder : (subFolder ? `/${subFolder}` : ''));
 
+          alias = normalizeAlias(alias);
+
           if (alias.startsWith('@types')) {
              alias = alias.replace(/^@types/, '@projeto-types');
           }
 
-          if (!paths[alias]) {
+          if (!paths[`${alias  }/*`] && !paths[alias]) {
             barrels.push({ alias, path: relativePath });
+            verboseLog(`Found barrel: ${alias} → ${relativePath}`, options);
           }
         }
       }
     }
   }
 
-  walk(SRC_DIR);
+  try {
+    walk(SRC_DIR);
+  } catch (err) {
+    spinner.warn(`Erro ao escanear diretórios: ${err instanceof Error ? err.message : String(err)}`);
+  }
 
   let changed = barrels.length > 0;
   if (removeWildcards) {
@@ -92,11 +144,12 @@ function scanBarrels(originalBases: { prefix: string; target: string }[], remove
       if (key.endsWith('/*')) {
         delete paths[key];
         changed = true;
+        verboseLog(`Removed wildcard: ${key}`, options);
       }
     }
   }
 
-  if (changed) {
+  if (changed && !options.dryRun) {
     for (const barrel of barrels) {
       paths[barrel.alias] = [barrel.path];
     }
@@ -106,30 +159,57 @@ function scanBarrels(originalBases: { prefix: string; target: string }[], remove
       sortedPaths[key] = paths[key];
     });
 
+    if (!tsconfig.compilerOptions) {
+      tsconfig.compilerOptions = {};
+    }
     tsconfig.compilerOptions.paths = sortedPaths;
-    fs.writeFileSync(TSCONFIG_PATH, JSON.stringify(tsconfig, null, 2));
-    spinner.succeed(`tsconfig.json atualizado: ${barrels.length} aliases adicionados${removeWildcards ? ' e wildcards removidos' : ''}.`);
+
+    const backupPath = `${TSCONFIG_PATH  }.backup`;
+    try {
+      fs.copyFileSync(TSCONFIG_PATH, backupPath);
+      fs.writeFileSync(TSCONFIG_PATH, JSON.stringify(tsconfig, null, 2));
+      if (fs.existsSync(backupPath)) fs.unlinkSync(backupPath);
+      spinner.succeed(`tsconfig.json atualizado: ${barrels.length} aliases adicionados${removeWildcards ? ' e wildcards removidos' : ''}.`);
+    } catch (err) {
+      if (fs.existsSync(backupPath)) {
+        fs.copyFileSync(backupPath, TSCONFIG_PATH);
+        fs.unlinkSync(backupPath);
+      }
+      spinner.fail(`Erro ao salvar tsconfig.json: ${err instanceof Error ? err.message : String(err)}`);
+      return { barrels: [], changed: false };
+    }
+  } else if (options.dryRun) {
+    spinner.info(`Dry-run: ${barrels.length} barrels encontrados (sem alterações)`);
   } else {
     spinner.info('Nenhum novo barrel encontrado.');
   }
+
+  return { barrels, changed };
 }
 
-function replaceImports(originalBases: { prefix: string; target: string }[]) {
+function replaceImports(originalBases: { prefix: string; target: string }[], options: ImporterOptions) {
   const spinner = ora('Substituindo imports...').start();
+
+  if (!fs.existsSync(TSCONFIG_PATH)) {
+    spinner.fail('tsconfig.json não encontrado');
+    return 0;
+  }
+
   const tsconfig = JSON.parse(fs.readFileSync(TSCONFIG_PATH, 'utf-8'));
-  const paths: Record<string, string[]> = tsconfig.compilerOptions.paths || {};
+  const paths: Record<string, string[]> = tsconfig.compilerOptions?.paths || {};
 
   const pathToAlias: Record<string, string> = {};
 
   function addAlias(target: string, alias: string) {
     const normTarget = target.startsWith('./') ? target : `./${target}`;
-    const existing = pathToAlias[normTarget];
+    const cleanTarget = normalizeTarget(normTarget);
+    const existing = pathToAlias[cleanTarget];
     if (!existing) {
-        pathToAlias[normTarget] = alias;
+        pathToAlias[cleanTarget] = normalizeAlias(alias);
         return;
     }
     if (alias.length < existing.length) {
-        pathToAlias[normTarget] = alias;
+        pathToAlias[cleanTarget] = normalizeAlias(alias);
     }
   }
 
@@ -137,28 +217,47 @@ function replaceImports(originalBases: { prefix: string; target: string }[]) {
     if (alias.includes('*')) continue;
     const target = targets[0];
     if (target) {
-      const cleanTarget = target.replace(/\.(js|ts)$/, '');
       addAlias(target, alias);
-      addAlias(cleanTarget, alias);
-      if (target.endsWith('/index.ts')) {
-        addAlias(target.slice(0, -9), alias);
+      if (target.endsWith('/index.ts') || target.endsWith('/index.js')) {
+        const dirTarget = target.replace(/\/index\.(js|ts)$/, '');
+        addAlias(dirTarget, alias);
       }
     }
   }
 
+  if (options.verbose) {
+    console.log(chalk.gray('\nAliases configurados:'));
+    for (const [target, alias] of Object.entries(pathToAlias)) {
+      console.log(chalk.gray(`  ${target} → ${alias}`));
+    }
+  }
+
   let modifiedFilesCount = 0;
+  const modifiedFiles: string[] = [];
 
   function walk(dir: string) {
+    if (!fs.existsSync(dir)) return;
+
     const files = fs.readdirSync(dir);
     for (const file of files) {
         const fullPath = path.join(dir, file);
-        const stats = fs.statSync(fullPath);
+        let stats: fs.Stats;
+        try {
+          stats = fs.statSync(fullPath);
+        } catch {
+          continue;
+        }
 
         if (stats.isDirectory()) {
             if (file === 'node_modules' || file === 'dist' || file.startsWith('.')) continue;
             walk(fullPath);
         } else if (file.endsWith('.ts') || file.endsWith('.js')) {
-            let content = fs.readFileSync(fullPath, 'utf-8');
+            let content: string;
+            try {
+              content = fs.readFileSync(fullPath, 'utf-8');
+            } catch {
+              continue;
+            }
             let modified = false;
 
             const importExportRegex = /((?:import|export)\s+(?:[\s\S]*?from\s+)?['"]([^'"]+)['"])|(import\(['"]([^'"]+)['"]\))/g;
@@ -200,16 +299,18 @@ function replaceImports(originalBases: { prefix: string; target: string }[]) {
                         }
                     }
 
-                    const cleanNormalized = normalizedResolved.replace(/\.(js|ts)$/, '');
+                    const cleanNormalized = normalizeTarget(normalizedResolved);
                     const dirNormalized = path.dirname(normalizedResolved);
 
                     const candidates = [
-                        `${normalizedResolved}.ts`,
-                        `${normalizedResolved}/index.ts`,
-                        normalizedResolved,
+                        `${cleanNormalized}.ts`,
+                        `${cleanNormalized}.js`,
+                        `${cleanNormalized}/index.ts`,
+                        `${cleanNormalized}/index.js`,
                         cleanNormalized,
                         dirNormalized,
                         `${dirNormalized}/index.ts`,
+                        `${dirNormalized}/index.js`,
                     ];
 
                     let matchedAlias = '';
@@ -240,6 +341,7 @@ function replaceImports(originalBases: { prefix: string; target: string }[]) {
                     if (matchedAlias) {
                         if (matchedAlias !== importPath) {
                             modified = true;
+                            verboseLog(`  ${importPath} → ${matchedAlias} in ${fullPath}`, options);
                             return match.replace(importPath, matchedAlias);
                         }
                     } else {
@@ -275,15 +377,40 @@ function replaceImports(originalBases: { prefix: string; target: string }[]) {
             });
 
             if (modified) {
-                fs.writeFileSync(fullPath, content);
+              if (!options.dryRun) {
+                try {
+                  fs.writeFileSync(fullPath, content);
+                  modifiedFilesCount++;
+                  modifiedFiles.push(fullPath);
+                } catch (err) {
+                  spinner.warn(`Erro ao modificar ${fullPath}: ${err instanceof Error ? err.message : String(err)}`);
+                }
+              } else {
                 modifiedFilesCount++;
+                modifiedFiles.push(fullPath);
+              }
             }
         }
     }
   }
 
-  walk(SRC_DIR);
-  spinner.succeed(`Processo concluído. ${modifiedFilesCount} arquivos atualizados.`);
+  try {
+    walk(SRC_DIR);
+  } catch (err) {
+    spinner.warn(`Erro ao processar arquivos: ${err instanceof Error ? err.message : String(err)}`);
+  }
+
+  if (options.dryRun) {
+    spinner.info(`Dry-run: ${modifiedFilesCount} arquivos seriam modificados.`);
+    if (options.verbose) {
+      console.log(chalk.gray('\nArquivos que seriam modificados:'));
+      modifiedFiles.forEach(f => console.log(chalk.gray(`  ${f}`)));
+    }
+  } else {
+    spinner.succeed(`Processo concluído. ${modifiedFilesCount} arquivos atualizados.`);
+  }
+
+  return modifiedFilesCount;
 }
 
 export function comandoImporter(
@@ -293,13 +420,24 @@ export function comandoImporter(
     .description('Gerencia aliases de barrels no tsconfig e atualiza imports no projeto')
     .option('--scan', 'Faz a varredura no projeto e atualiza o tsconfig.json')
     .option('--replace', 'Substitui os imports no projeto para usar os novos aliases')
-    .action(async function (this: Command, opts: { scan?: boolean; replace?: boolean }) {
+    .option('--dry-run', 'Executa sem fazer alterações, apenas mostra o que seria feito', false)
+    .option('--verbose', 'Mostra logs detalhados do processo', false)
+    .action(async function (this: Command, opts: { scan?: boolean; replace?: boolean; dryRun?: boolean; verbose?: boolean }) {
+      const options: ImporterOptions = {
+        dryRun: opts.dryRun,
+        verbose: opts.verbose,
+      };
+
       try {
         await aplicarFlagsGlobais(
           this.parent && typeof this.parent.opts === 'function'
             ? this.parent.opts()
             : {},
         );
+
+        if (options.dryRun) {
+          console.log(chalk.yellow('⚠ Modo dry-run: nenhuma alteração será feita\n'));
+        }
 
         if (!opts.scan && !opts.replace) {
           const baseDir = process.cwd();
@@ -317,20 +455,28 @@ export function comandoImporter(
           return;
         }
 
+        if (!fs.existsSync(TSCONFIG_PATH)) {
+          console.error(chalk.red('tsconfig.json não encontrado no diretório atual.'));
+          process.exit(1);
+        }
+
         const tsconfigData = JSON.parse(fs.readFileSync(TSCONFIG_PATH, 'utf-8'));
-        const originalBases = getBaseAliases(tsconfigData.compilerOptions.paths || {});
+        const originalBases = getBaseAliases(tsconfigData.compilerOptions?.paths || {}, options);
 
         if (opts.scan && opts.replace) {
-          scanBarrels(originalBases, false);
-          replaceImports(originalBases);
-          scanBarrels(originalBases, true);
+          scanBarrels(originalBases, options, false);
+          replaceImports(originalBases, options);
+          scanBarrels(originalBases, options, true);
         } else if (opts.scan) {
-          scanBarrels(originalBases, true);
+          scanBarrels(originalBases, options, true);
         } else if (opts.replace) {
-          replaceImports(originalBases);
+          replaceImports(originalBases, options);
         }
       } catch (error) {
         console.error(chalk.red(`Erro fatal no importer: ${error instanceof Error ? error.message : String(error)}`));
+        if (options.verbose) {
+          console.error(error instanceof Error ? error.stack : String(error));
+        }
         process.exit(1);
       }
     });

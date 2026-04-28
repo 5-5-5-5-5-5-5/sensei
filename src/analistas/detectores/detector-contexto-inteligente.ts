@@ -14,8 +14,7 @@ import type { NodePath } from '@babel/traverse';
 import type { ExportDeclaration, ImportDeclaration, Program } from '@babel/types';
 import { config , traverse } from '@core/config';
 import { getMessages } from '@core/messages';
-
-import type { EvidenciaContexto, FileEntryWithAst, PackageJson, ResultadoDeteccaoContextual } from '@';
+import type { EvidenciaContexto, FileEntryWithAst, PackageJson, ResultadoDeteccaoContextual } from '@prometheus';
 
 const { DetectorContextoExtraMensagens } = getMessages();
 
