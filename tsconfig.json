@@ -57,6 +57,42 @@
       "@analistas/js-ts": [
         "./src/analistas/js-ts/index.ts"
       ],
+      "@analistas/html": [
+        "./src/analistas/html/index.ts"
+      ],
+      "@analistas/css": [
+        "./src/analistas/css/index.ts"
+      ],
+      "@analistas/css-in-js": [
+        "./src/analistas/css-in-js/index.ts"
+      ],
+      "@analistas/tailwind": [
+        "./src/analistas/tailwind/index.ts"
+      ],
+      "@analistas/react": [
+        "./src/analistas/react/index.ts"
+      ],
+      "@analistas/python": [
+        "./src/analistas/python/index.ts"
+      ],
+      "@analistas/xml": [
+        "./src/analistas/xml/index.ts"
+      ],
+      "@analistas/svg": [
+        "./src/analistas/svg/index.ts"
+      ],
+      "@analistas/sql": [
+        "./src/analistas/sql/index.ts"
+      ],
+      "@analistas/shell": [
+        "./src/analistas/shell/index.ts"
+      ],
+      "@analistas/github-actions": [
+        "./src/analistas/github-actions/index.ts"
+      ],
+      "@analistas/formatters": [
+        "./src/analistas/formatters/index.ts"
+      ],
       "@analistas/plugins": [
         "./src/analistas/plugins/index.ts"
       ],

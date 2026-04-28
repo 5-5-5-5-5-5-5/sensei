@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 import type { ResultadoDeteccaoArquetipo } from '@';
 
-import { ARQUETIPOS } from '../estrategistas/arquetipos-defs.js';
-import { scoreArquetipo } from '../pontuadores/pontuador.js';
+import { ARQUETIPOS } from '../../estrategistas/arquetipos-defs.js';
+import { scoreArquetipo } from '../../pontuadores/pontuador.js';
 
 /**
  * Detector especializado para projetos Node.js/TypeScript
