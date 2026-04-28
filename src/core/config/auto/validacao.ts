@@ -4,7 +4,7 @@
  * Integra com o sistema existente de detectores do Prometheus
  */
 
-import type { ValidationResult } from '@';
+import type { ValidationResult } from '@prometheus';
 
 import { getMessages } from '../../messages/index.js';
 

@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: MIT
 
+import type { FormatadorMinimoResult } from '@prometheus';
 import { XMLValidator } from 'fast-xml-parser';
-
-import type { FormatadorMinimoResult } from '@';
 
 import { normalizarFimDeLinha, normalizarNewlinesFinais, removerBom, removerEspacosFinaisPorLinha } from './utils.js';
 

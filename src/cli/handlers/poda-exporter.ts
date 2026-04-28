@@ -9,9 +9,8 @@ import path from 'node:path';
 
 import { config } from '@core/config';
 import { messages } from '@core/messages';
+import type { PodaExportOptions, PodaExportResult } from '@prometheus';
 import { gerarRelatorioPodaJson } from '@relatorios';
-
-import type { PodaExportOptions, PodaExportResult } from '@';
 
 const log = messages.log;
 

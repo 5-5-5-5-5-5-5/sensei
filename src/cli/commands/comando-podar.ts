@@ -1,15 +1,14 @@
 // SPDX-License-Identifier: MIT
 
+import { removerArquivosOrfaos } from '@analistas/js-ts/corrections';
 import { registroAnalistas } from '@analistas/registry';
 import { chalk , config } from '@core/config';
 import { iniciarInquisicao } from '@core/execution';
 import { messages } from '@core/messages';
+import type { ArquivoFantasma, ResultadoPoda, Tecnica } from '@prometheus';
+import { asTecnicas } from '@prometheus';
 import { Command } from 'commander';
 
-import type { ArquivoFantasma, ResultadoPoda, Tecnica } from '@';
-import { asTecnicas } from '@';
-
-import { removerArquivosOrfaos } from '../../analistas/corrections/poda.js';
 import { exportarRelatoriosPoda } from '../handlers/poda-exporter.js';
 import { ExitCode, sair } from '../helpers/exit-codes.js';
 import { expandIncludePatterns, processPatternList } from '../helpers/pattern-helpers.js';

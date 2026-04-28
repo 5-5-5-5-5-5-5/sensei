@@ -4,7 +4,7 @@
  * Valores ajustáveis para otimizar detecção e resiliência
  */
 
-import type { ConfiguracaoPontuacao } from '@';
+import type { ConfiguracaoPontuacao } from '@prometheus';
 
 // Re-exporta o tipo para compatibilidade
 export type { ConfiguracaoPontuacao };

@@ -12,8 +12,7 @@
 import { detectarArquetipos } from '@analistas/detectores';
 import { config } from '@core/config';
 import { messages } from '@core/messages';
-
-import type { ArquetipoOptions, ArquetipoResult, FileEntryWithAst } from '@';
+import type { ArquetipoOptions, ArquetipoResult, FileEntryWithAst } from '@prometheus';
 
 const log = messages.log;
 

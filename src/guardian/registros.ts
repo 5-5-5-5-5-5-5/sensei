@@ -3,10 +3,9 @@ import path from 'node:path';
 
 import { config } from '@core/config';
 import { getMessages } from '@core/messages';
+import type { FileEntry, RegistroIntegridade } from '@prometheus';
 import { ensureDir } from '@shared/helpers';
 import { lerEstado, salvarEstado } from '@shared/persistence';
-
-import type { FileEntry, RegistroIntegridade } from '@';
 
 import { gerarSnapshotDoConteudo } from './hash.js';
 

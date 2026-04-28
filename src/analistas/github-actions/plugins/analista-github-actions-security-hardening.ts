@@ -8,7 +8,7 @@ registrarDetectorGithubActions({
   descricao: 'Regras adicionais de segurança para workflows',
   severidade: 'alta',
   testar: (workflow: unknown) => {
-    const problemas: import('@').ProblemaWorkflow[] = [];
+    const problemas: import('@prometheus').ProblemaWorkflow[] = [];
     const wf = workflow as { jobs?: Record<string, { permissions?: unknown }>, permissions?: unknown } | null | undefined;
     if (!wf || !wf.jobs) return problemas;
 

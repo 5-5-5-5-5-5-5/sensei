@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: MIT
 // import path from 'node:path'; // Removido: não utilizado
 import type { ClassDeclaration, ImportDeclaration, Program, Statement, TSEnumDeclaration, TSInterfaceDeclaration, TSTypeAliasDeclaration, VariableDeclaration } from '@babel/types';
-
-import type { FileEntryWithAst, PackageJson, SinaisProjetoAvancados } from '@';
+import type { FileEntryWithAst, PackageJson, SinaisProjetoAvancados } from '@prometheus';
 
 export function extrairSinaisProjeto(fileEntries: FileEntryWithAst[], packageJson?: PackageJson): SinaisProjetoAvancados {
   // Auxiliar para checar se o nó possui id.name string

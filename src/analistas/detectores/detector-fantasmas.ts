@@ -4,9 +4,8 @@ import path from 'node:path';
 
 import { config , isInsideSrc,LIMITES_PADRAO  } from '@core/config';
 import { scanRepository } from '@core/execution';
+import type { ArquivoFantasma, FileMap } from '@prometheus';
 import { isTestArquivo,normalizePath  } from '@shared/helpers';
-
-import type { ArquivoFantasma, FileMap } from '@';
 
 import { grafoDependencias } from './detector-dependencias.js';
 

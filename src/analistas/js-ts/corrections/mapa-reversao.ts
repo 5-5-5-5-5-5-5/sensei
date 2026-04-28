@@ -4,9 +4,8 @@ import path from 'node:path';
 
 import { messages } from '@core/messages';
 import { PROMETHEUS_ARQUIVOS } from '@core/registry';
+import type { MapaReversao, MoveReversao } from '@prometheus';
 import { lerEstado, salvarEstado } from '@shared/persistence';
-
-import type { MapaReversao, MoveReversao } from '@';
 
 const { log, logAuto, MapaReversaoExtraMensagens } = messages;
 

@@ -3,9 +3,8 @@
 // Resolve analistas de correção automática dinamicamente para compatibilidade com múltiplas formas de export
 // analistaFantasma not exported from js-ts/fantasma; that module provides detectarFantasmas used by zeladores
 // Analistas especializados complementares
+import type { Analista, EntradaRegistry, InfoAnalista, ModuloAnalista, Tecnica } from '@prometheus';
 import { comSupressaoInline } from '@shared/helpers';
-
-import type { Analista, EntradaRegistry, InfoAnalista, ModuloAnalista, Tecnica } from '@';
 
 import { analistaAntiPadroesAsync } from '../detectores/detector-anti-padroes-async.js';
 import { analistaArquitetura } from '../detectores/detector-arquitetura.js';
@@ -34,7 +33,7 @@ import { discoverAnalistasPlugins } from './autodiscovery.js';
 
 let analistaCorrecaoAutomatica: EntradaRegistry = undefined;
 try {
-  const mod = await import('../corrections/analista-pontuacao.js');
+  const mod = await import('../js-ts/corrections/analista-pontuacao.js');
   // conservatively treat dynamic module shapes as unknown, avoid `any`
   const dynamicMod = mod as ModuloAnalista;
   analistaCorrecaoAutomatica = dynamicMod.analistaCorrecaoAutomatica ?? dynamicMod.analistas?.[0] ?? dynamicMod.default as EntradaRegistry ?? undefined;

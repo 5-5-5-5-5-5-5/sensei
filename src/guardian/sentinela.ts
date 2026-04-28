@@ -2,11 +2,10 @@
 
 import { config } from '@core/config';
 import { getMessages } from '@core/messages';
+import type { FileEntry } from '@prometheus';
+import { GuardianError, IntegridadeStatus } from '@prometheus';
 import { ensureDir , normalizePath } from '@shared/helpers';
 import micromatch from 'micromatch';
-
-import type { FileEntry } from '@';
-import { GuardianError, IntegridadeStatus } from '@';
 
 import { carregarBaseline, salvarBaseline } from './baseline.js';
 import { LINHA_BASE_CAMINHO } from './constantes.js';
@@ -120,7 +119,7 @@ export async function scanSystemIntegrity(fileEntries: FileEntry[], options?: {
   }
   if (erros.length) {
     // Converter strings para GuardianErrorDetails
-    const errorDetails: import('@').GuardianErrorDetails[] = erros.map(erro => ({
+    const errorDetails: import('@prometheus').GuardianErrorDetails[] = erros.map(erro => ({
       tipo: 'integridade',
       mensagem: erro
     }));

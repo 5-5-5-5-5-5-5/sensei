@@ -4,7 +4,7 @@
 // Merged auto-fix configuration: keep compatibility with both older
 // AUTO_FIX_CONFIG_DEFAULTS and the newer DEFAULT_AUTO_FIX_CONFIG surface.
 
-import type { AutoFixConfig } from '@';
+import type { AutoFixConfig } from '@prometheus';
 
 import { LIMITES_PADRAO } from '../limites.js';
 

@@ -16,9 +16,8 @@ import path from 'node:path';
 // import { parseFileAST } from '@core/parsing';
 import { getMessages } from '@core/messages';
 import { PROMETHEUS_ARQUIVOS } from '@core/registry';
+import type { ArquetipoEstruturaDef, ArquetipoPersonalizado } from '@prometheus';
 import { lerEstado, salvarEstado } from '@shared/persistence';
-
-import type { ArquetipoEstruturaDef, ArquetipoPersonalizado } from '@';
 
 import { ARQUETIPOS } from '../../estrategistas/arquetipos-defs.js';
 

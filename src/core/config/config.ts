@@ -2,9 +2,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
+import type { IncludeExcludeConfig } from '@prometheus';
 import { lerArquivoTexto } from '@shared/persistence';
-
-import type { IncludeExcludeConfig } from '@';
 
 import { PROMETHEUS_ARQUIVOS,PROMETHEUS_DIRS } from '../registry/paths.js';
 import { LIMITES_PADRAO } from './limites.js';

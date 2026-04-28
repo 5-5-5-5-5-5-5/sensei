@@ -1,9 +1,8 @@
 // SPDX-License-Identifier: MIT
 import type tty from 'node:tty';
 
+import type { FormatOptions, Nivel, StyleFn } from '@prometheus';
 import { isJsonMode } from '@shared/helpers';
-
-import type { FormatOptions, Nivel, StyleFn } from '@';
 
 import { chalk } from '../../../config/chalk-safe.js';
 import { config } from '../../../config/config.js';

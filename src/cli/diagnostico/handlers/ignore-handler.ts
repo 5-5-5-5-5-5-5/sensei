@@ -3,8 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 import { getMessages } from '@core/messages';
-
-import type { Ocorrencia, ScanIgnoreOptions } from '@';
+import type { Ocorrencia, ScanIgnoreOptions } from '@prometheus';
 
 const { CliIgnoreHandlerMensagens: msgs } = getMessages();
 

@@ -13,8 +13,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 import { config , mesclarConfigExcludes } from '@core/config';
-
-import type { FiltrosProcessados, OpcoesProcessamentoFiltros, TipoLinguagemProjeto } from '@';
+import type { FiltrosProcessados, OpcoesProcessamentoFiltros, TipoLinguagemProjeto } from '@prometheus';
 
   /* -------------------------- PROCESSAMENTO DE PADRÕES -------------------------- */
 

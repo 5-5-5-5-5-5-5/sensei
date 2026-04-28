@@ -4,8 +4,7 @@
  */
 
 import { migrarParaVersaoAtual, validarSchema } from '@core/schema';
-
-import type { LeitorRelatorioOptions } from '@';
+import type { LeitorRelatorioOptions } from '@prometheus';
 
 import { lerEstado } from '../persistence/persistencia.js';
 

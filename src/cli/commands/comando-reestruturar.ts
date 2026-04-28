@@ -6,11 +6,10 @@ import { registroAnalistas as tecnicas } from '@analistas/registry';
 import { chalk , config } from '@core/config';
 import { executarInquisicao, prepararComAst } from '@core/execution';
 import { CABECALHOS, messages } from '@core/messages';
+import type { FileEntry, FileEntryWithAst, Ocorrencia, ResultadoInquisicao } from '@prometheus';
+import { extrairMensagemErro } from '@prometheus';
 import { Command } from 'commander';
 import ora from 'ora';
-
-import type { FileEntry, FileEntryWithAst, Ocorrencia, ResultadoInquisicao } from '@';
-import { extrairMensagemErro } from '@';
 
 import { exportarRelatoriosReestruturacao } from '../handlers/reestruturacao-exporter.js';
 import { exibirMolduraConflitos, exibirMolduraPlano } from '../helpers/exibir-moldura.js';

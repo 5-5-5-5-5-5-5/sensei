@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-import type { FormatadorMinimoParser, FormatadorMinimoResult } from '@';
+import type { FormatadorMinimoParser, FormatadorMinimoResult } from '@prometheus';
 
 import {
   getProtectedLinesFromTemplateLiterals,

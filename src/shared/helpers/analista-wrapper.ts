@@ -3,7 +3,7 @@
  * Wrapper para analistas que adiciona suporte automático a supressões inline
  */
 
-import type { Analista, Ocorrencia } from '@';
+import type { Analista, Ocorrencia } from '@prometheus';
 
 import { filtrarOcorrenciasSuprimidas } from './suppressao.js';
 

@@ -1,10 +1,9 @@
 // SPDX-License-Identifier: MIT
 import type { NodePath } from '@babel/traverse';
+import type { Analista, TecnicaAplicarResultado } from '@prometheus';
+import { criarOcorrencia } from '@prometheus';
 import { detectarContextoProjeto } from '@shared';
 import { detectarComentariosPendentes } from '@shared/helpers';
-
-import type { Analista, TecnicaAplicarResultado } from '@';
-import { criarOcorrencia } from '@';
 
 /**
  * Analista para detectar TODO e FIXME em comentários.

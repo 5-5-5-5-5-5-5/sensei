@@ -4,9 +4,8 @@ import path from 'node:path';
 
 import { config } from '@core/config';
 import { getMessages } from '@core/messages';
+import type { ArquetipoDrift, ArquetipoEstruturaDef, ArquetipoPersonalizado, ContextoExecucao, PackageJson, ResultadoContexto, ResultadoDeteccaoArquetipo, SinaisProjetoAvancados, SnapshotEstruturaBaseline } from '@prometheus';
 import { lerEstado, salvarEstado } from '@shared/persistence';
-
-import type { ArquetipoDrift, ArquetipoEstruturaDef, ArquetipoPersonalizado, ContextoExecucao, PackageJson, ResultadoContexto, ResultadoDeteccaoArquetipo, SinaisProjetoAvancados, SnapshotEstruturaBaseline } from '@';
 
 import { extrairSinaisAvancados } from '../arquitetos/sinais-projeto-avancados.js';
 import { ARQUETIPOS } from '../estrategistas/arquetipos-defs.js';

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-import type { FormatadorMinimoResult } from '@';
+import type { FormatadorMinimoResult } from '@prometheus';
 
 import { otimizarSvgLikeSvgo } from '../svgs.js';
 

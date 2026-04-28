@@ -1,9 +1,8 @@
 // SPDX-License-Identifier: MIT
 import { messages } from '@core/messages';
+import type { Ocorrencia } from '@prometheus';
+import { criarAnalista, criarOcorrencia } from '@prometheus';
 import { otimizarSvgLikeSvgo, shouldSugerirOtimizacaoSvg } from '@shared/impar';
-
-import type { Ocorrencia } from '@';
-import { criarAnalista, criarOcorrencia } from '@';
 
 const disableEnv = process.env.PROMETHEUS_DISABLE_PLUGIN_SVG === '1';
 type Msg = ReturnType<typeof criarOcorrencia>;

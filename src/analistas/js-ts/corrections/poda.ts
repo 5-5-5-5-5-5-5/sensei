@@ -3,6 +3,12 @@ import path from 'node:path';
 
 import { config } from '@core/config';
 import { getMessages } from '@core/messages';
+import type {
+  FileEntryWithAst,
+  HistoricoItem,
+  Pendencia,
+  ResultadoPoda,
+} from '@prometheus';
 import {
   gerarRelatorioPodaJson,
   gerarRelatorioPodaMarkdown,
@@ -11,14 +17,7 @@ import { ensureDir } from '@shared/helpers';
 import { lerEstado, salvarEstado } from '@shared/persistence';
 import pLimit from 'p-limit';
 
-import type {
-  FileEntryWithAst,
-  HistoricoItem,
-  Pendencia,
-  ResultadoPoda,
-} from '@';
-
-import { detectarFantasmas } from '../detectores/detector-fantasmas.js';
+import { detectarFantasmas } from '../../detectores/index.js';
 
 const { log, logAuto } = getMessages();
 

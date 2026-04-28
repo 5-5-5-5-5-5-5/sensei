@@ -2,11 +2,10 @@
 import type { NodePath } from '@babel/traverse';
 import type { Node } from '@babel/types';
 import { messages } from '@core/messages';
+import type { Analista, Ocorrencia, ProblemaDocumentacao } from '@prometheus';
+import { criarOcorrencia } from '@prometheus';
 import { detectarContextoProjeto } from '@shared';
 import { filtrarOcorrenciasSuprimidas } from '@shared/helpers';
-
-import type { Analista, Ocorrencia, ProblemaDocumentacao } from '@';
-import { criarOcorrencia } from '@';
 
 export const analistaDocumentacao: Analista = {
   nome: 'documentacao',

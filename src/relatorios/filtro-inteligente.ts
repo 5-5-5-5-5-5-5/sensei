@@ -5,8 +5,7 @@
 // Agrupa problemas similares e prioriza por impacto para evitar sobrecarga de informação
 
 import { getMessages } from '@core/messages';
-
-import type { Ocorrencia, OcorrenciaNivel, ProblemaAgrupado, RelatorioResumo } from '@';
+import type { Ocorrencia, OcorrenciaNivel, ProblemaAgrupado, RelatorioResumo } from '@prometheus';
 
 const { AGRUPAMENTOS_MENSAGEM, PRIORIDADES, RelatorioMensagens } = getMessages();
 

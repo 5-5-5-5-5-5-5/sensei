@@ -3,10 +3,9 @@ import { statSync } from 'node:fs';
 import path from 'node:path';
 
 import { getTypesDirectoryRelPosix } from '@core/config';
+import type { ContextoExecucao, PlanoMoverItem, PlanoSugestaoEstrutura } from '@prometheus';
 import type { OpcoesEstrategista } from '@shared/helpers';
 import { carregarConfigEstrategia, destinoPara, deveIgnorar, normalizarRel } from '@shared/helpers';
-
-import type { ContextoExecucao, PlanoMoverItem, PlanoSugestaoEstrutura } from '@';
 
 /**
  * Estrategista/Planejador de Estrutura
@@ -18,7 +17,7 @@ import type { ContextoExecucao, PlanoMoverItem, PlanoSugestaoEstrutura } from '@
  * Domínio ideal: arquitetos (diagnóstico/planejamento). A execução fica com zeladores.
  */
 
-export async function gerarPlanoEstrategico(contexto: Pick<ContextoExecucao, 'arquivos' | 'baseDir'>, opcoes: OpcoesEstrategista = {}, sinaisAvancados?: import('@').SinaisProjetoAvancados): Promise<PlanoSugestaoEstrutura> {
+export async function gerarPlanoEstrategico(contexto: Pick<ContextoExecucao, 'arquivos' | 'baseDir'>, opcoes: OpcoesEstrategista = {}, sinaisAvancados?: import('@prometheus').SinaisProjetoAvancados): Promise<PlanoSugestaoEstrutura> {
   const typesDir = getTypesDirectoryRelPosix();
   const cfg = await carregarConfigEstrategia(contexto.baseDir, {
     ...opcoes,
@@ -106,7 +105,7 @@ export async function gerarPlanoEstrategico(contexto: Pick<ContextoExecucao, 'ar
 /**
  * Ajusta o destino de um arquivo baseado nos sinais avançados do projeto
  */
-function ajustarDestinoPorSinais(relPath: string, destinoOriginal: string, sinais: import('@').SinaisProjetoAvancados, motivoOriginal: string): string {
+function ajustarDestinoPorSinais(relPath: string, destinoOriginal: string, sinais: import('@prometheus').SinaisProjetoAvancados, motivoOriginal: string): string {
   let destino = destinoOriginal;
   let _motivo = motivoOriginal;
 

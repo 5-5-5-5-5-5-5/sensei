@@ -5,9 +5,8 @@ import type { NodePath, Visitor } from '@babel/traverse';
 import traverse from '@babel/traverse';
 import * as t from '@babel/types';
 import { messages } from '@core/messages';
+import { criarAnalista, criarOcorrencia } from '@prometheus';
 import { createLineLookup , maskJsComments } from '@shared/helpers';
-
-import { criarAnalista, criarOcorrencia } from '@';
 
 const disableEnv = process.env.PROMETHEUS_DISABLE_PLUGIN_REACT === '1';
 type Msg = ReturnType<typeof criarOcorrencia>;

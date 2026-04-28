@@ -2,11 +2,10 @@
 import type { Dirent, Stats } from 'node:fs';
 import { promises as fs } from 'node:fs';
 
+import type { FileEntry, FileMap, ScanOptions } from '@prometheus';
 import { lerArquivoTexto, lerEstado } from '@shared/persistence';
 import micromatch from 'micromatch';
 import path from 'path';
-
-import type { FileEntry, FileMap, ScanOptions } from '@';
 
 import { config } from '../config/config.js';
 import { messages } from '../messages/index.js';

@@ -7,9 +7,8 @@
  */
 import type { Dirent } from 'node:fs';
 
+import type { ConfigIncluiExclui } from '@prometheus';
 import micromatch from 'micromatch';
-
-import type { ConfigIncluiExclui } from '@';
 
 /**
  * Avalia se um caminho deve ser incluído conforme config simplificada.

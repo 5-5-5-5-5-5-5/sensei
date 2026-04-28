@@ -6,7 +6,7 @@
 
 import { readFileSync, writeFileSync } from 'node:fs';
 
-import type { CorrecaoConfig, CorrecaoResult, Ocorrencia } from '@';
+import type { CorrecaoConfig, CorrecaoResult, Ocorrencia } from '@prometheus';
 
 /**
  * Aplica correção em um arquivo específico

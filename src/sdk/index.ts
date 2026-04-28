@@ -2,8 +2,7 @@
 
 import { analistaGithubActions, analistaGithubActionsGlobal, registrarDetectorGithubActions } from '@analistas/plugins';
 import type { ResultadoAnaliseSdk } from '@projeto-types/comum';
-
-import type { Ocorrencia } from '@';
+import type { Ocorrencia } from '@prometheus';
 
 export type ResultadoAnalise = ResultadoAnaliseSdk;
 
@@ -59,7 +58,7 @@ export const PrometheusSDK = {
    */
   async analisarRepositorio(contexto: unknown): Promise<Ocorrencia[]> {
     try {
-      const res = await analistaGithubActionsGlobal.aplicar('', '', null, undefined, contexto as import('@').ContextoExecucao);
+      const res = await analistaGithubActionsGlobal.aplicar('', '', null, undefined, contexto as import('@prometheus').ContextoExecucao);
       return Array.isArray(res) ? res : [];
     } catch {
       return [];

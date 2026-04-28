@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-import type { DiagnosticoProjeto, SinaisProjeto } from '@';
+import type { DiagnosticoProjeto, SinaisProjeto } from '@prometheus';
 
 // Níveis de confiança para detecção de tipos de projeto
 const CONFIANCA = {

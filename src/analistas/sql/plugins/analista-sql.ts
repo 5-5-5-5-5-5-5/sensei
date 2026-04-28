@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
-import type { Ocorrencia } from '@';
-import { criarAnalista, criarOcorrencia } from '@';
+import type { Ocorrencia } from '@prometheus';
+import { criarAnalista, criarOcorrencia } from '@prometheus';
 
 /**
  * Analista de SQL

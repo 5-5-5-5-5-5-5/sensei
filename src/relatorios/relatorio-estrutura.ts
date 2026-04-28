@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-import type { AlinhamentoItemDiagnostico } from '@';
+import type { AlinhamentoItemDiagnostico } from '@prometheus';
 
 // Re-exporta para compatibilidade com nome original
 export type AlinhamentoItem = AlinhamentoItemDiagnostico;

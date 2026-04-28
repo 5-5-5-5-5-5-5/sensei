@@ -3,10 +3,9 @@ import type { NodePath } from '@babel/traverse';
 import type { ExportNamedDeclaration, ImportDeclaration, ImportDefaultSpecifier, ImportNamespaceSpecifier, ImportSpecifier, Node } from '@babel/types';
 import { traverse } from '@core/config';
 import { messages } from '@core/messages';
+import type { AnaliseArquitetural, Analista, ContextoExecucao, EstatisticasArquivo, ExportInfo, ImportInfo, Ocorrencia } from '@prometheus';
+import { criarOcorrencia } from '@prometheus';
 import * as path from 'path';
-
-import type { AnaliseArquitetural, Analista, ContextoExecucao, EstatisticasArquivo, ExportInfo, ImportInfo, Ocorrencia } from '@';
-import { criarOcorrencia } from '@';
 
 export const analistaArquitetura: Analista = {
   nome: 'arquitetura',

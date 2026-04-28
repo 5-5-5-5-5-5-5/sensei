@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: MIT
 import { messages } from '@core/messages';
-
-import type { Ocorrencia } from '@';
-import { criarAnalista, criarOcorrencia } from '@';
+import type { Ocorrencia } from '@prometheus';
+import { criarAnalista, criarOcorrencia } from '@prometheus';
 
 const disableEnv = process.env.PROMETHEUS_DISABLE_PLUGIN_CSS_IN_JS === '1';
 type Msg = ReturnType<typeof criarOcorrencia>;

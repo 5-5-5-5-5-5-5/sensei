@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-import type { ResultadoDeteccaoArquetipo } from '@';
+import type { ResultadoDeteccaoArquetipo } from '@prometheus';
 
 /**
  * Detector especializado para projetos baseados em XML

@@ -4,8 +4,7 @@
 import {
   getMessages,
 } from '@core/messages';
-
-import type { LogComBloco } from '@';
+import type { LogComBloco } from '@prometheus';
 
 const {
   log,

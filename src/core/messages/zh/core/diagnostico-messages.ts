@@ -7,7 +7,7 @@
  * 集中所有与仓库诊断相关的消息
  */
 
-import type { ModoOperacao } from '@';
+import type { ModoOperacao } from '@prometheus';
 
 /**
  * 诊断图标

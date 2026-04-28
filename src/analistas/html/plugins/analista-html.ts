@@ -1,10 +1,9 @@
 // SPDX-License-Identifier: MIT
 import { messages } from '@core/messages';
+import { criarAnalista, criarOcorrencia } from '@prometheus';
 import { createLineLookup , maskHtmlComments, maskTagBlocks } from '@shared/helpers';
 import type { AnyNode, Document, Element, Text } from 'domhandler';
 import { parseDocument } from 'htmlparser2';
-
-import { criarAnalista, criarOcorrencia } from '@';
 
 const disableEnv = process.env.PROMETHEUS_DISABLE_PLUGIN_HTML === '1';
 type Msg = ReturnType<typeof criarOcorrencia>;

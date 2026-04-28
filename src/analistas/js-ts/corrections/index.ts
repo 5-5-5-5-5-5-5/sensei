@@ -1,0 +1,16 @@
+export * from './agregador.js';
+export { analistaQuickFixes as analistaQuickFixesAnalista } from './analista-pontuacao.js';
+export { analistaPontuacao,analistas } from './analista-pontuacao.js';
+export { analistaQuickFixes } from './analista-quick-fixes.js';
+export * from './auto-fix-engine.js';
+export * from './corretor-estrutura.js';
+export * from './fix-alias-imports.js';
+export * from './fix-md-fences.js';
+export * from './mapa-reversao.js';
+export * from './poda.js';
+export * from './pontuacao-shared.js';
+export { isTypeScriptContext as isTypeScriptContextShared } from './pontuacao-shared.js';
+export * from './quick-fixes/index.js';
+export * from './reescrever-testes-aliases.js';
+export { isTypeScriptContext } from './type-safety/context-analyzer.js';
+export * from './type-safety/index.js';

@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import { createRequire } from 'node:module';
 import path from 'node:path';
 
-import type { FormatadorMinimoResult } from '@';
+import type { FormatadorMinimoResult } from '@prometheus';
 
 import type { FormatterFn } from './formatter-registry.js';
 import { getFormatterForPath, registerFormatter } from './formatter-registry.js';
@@ -33,7 +33,7 @@ import { formatarYamlMinimo } from './formatters/yaml.js';
 import { getSyntaxInfoForPath } from './syntax-map.js';
 
 export type { FormatterFn } from './formatter-registry.js';
-export type { FormatadorMinimoParser, FormatadorMinimoResult, MarkdownFenceMatch } from '@';
+export type { FormatadorMinimoParser, FormatadorMinimoResult, MarkdownFenceMatch } from '@prometheus';
 
 function formatarJson5Minimo(code: string): FormatadorMinimoResult {
   return formatarCodeMinimo(code, {

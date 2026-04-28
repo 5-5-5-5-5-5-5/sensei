@@ -8,11 +8,10 @@ import { executarInquisicao, iniciarInquisicao, prepararComAst, registrarUltimas
 import { messages } from '@core/messages';
 import { aplicarSupressaoOcorrencias } from '@core/parsing';
 import { scanSystemIntegrity } from '@guardian';
+// Importar tipos centralizados (consolidado)
+import { asTecnicas, converterResultadoGuardian, type FileEntry, type FileEntryWithAst, type FiltrosConfig, IntegridadeStatus, type LinguagensJson, type LogExtensions, type OpcoesProcessamentoDiagnostico, type ParseErrosJson, type ResultadoGuardian, type ResultadoInquisicaoCompleto, type ResultadoProcessamentoDiagnostico, type SaidaJsonDiagnostico } from '@prometheus';
 import { emitirConselhoPrometheus , gerarRelatorioJson } from '@relatorios';
 import { dedupeOcorrencias,fragmentarRelatorio , stringifyJsonEscaped  } from '@shared/data-processing';
-
-// Importar tipos centralizados (consolidado)
-import { asTecnicas, converterResultadoGuardian, type FileEntry, type FileEntryWithAst, type FiltrosConfig, IntegridadeStatus, type LinguagensJson, type LogExtensions, type OpcoesProcessamentoDiagnostico, type ParseErrosJson, type ResultadoGuardian, type ResultadoInquisicaoCompleto, type ResultadoProcessamentoDiagnostico, type SaidaJsonDiagnostico } from '@';
 
 import { scanIgnore } from './diagnostico/handlers/ignore-handler.js';
 import { scanImports } from './diagnostico/handlers/importer-handler.js';
@@ -378,7 +377,7 @@ export async function processarDiagnostico(opts: OpcoesProcessamentoDiagnostico)
       const includeList = Array.isArray((fmIncluirSrc as Record<string, unknown>)?.analystsInclude) ? (fmIncluirSrc as Record<string, unknown>).analystsInclude as string[] : [];
       const fmExcluirSrc: unknown = (config as unknown as Record<string, unknown>).fastMode && (config as unknown as Record<string, unknown>).fastMode as Record<string, unknown>;
       const excludeList = Array.isArray((fmExcluirSrc as Record<string, unknown>)?.analystsExclude) ? (fmExcluirSrc as Record<string, unknown>).analystsExclude as string[] : [];
-      tecnicas = asTecnicas((registro as (import('@').Analista | import('@').Tecnica)[]).filter(a => {
+      tecnicas = asTecnicas((registro as (import('@prometheus').Analista | import('@prometheus').Tecnica)[]).filter(a => {
         // Normaliza nomes para comparação robusta
         const nomeRaw = (a as unknown as {
           nome?: string;

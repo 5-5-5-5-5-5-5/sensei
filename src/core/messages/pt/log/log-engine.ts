@@ -4,9 +4,8 @@
  * Detecta automaticamente complexidade e adapta verbosidade
  */
 
+import type { FileMap, LogContext, LogData, LogLevel, LogTemplate, ProjetoMetricas } from '@prometheus';
 import { isJsonMode } from '@shared/helpers';
-
-import type { FileMap, LogContext, LogData, LogLevel, LogTemplate, ProjetoMetricas } from '@';
 
 import { config } from '../../../config/config.js';
 import { ICONES_FEEDBACK } from '../../shared/icons.js';

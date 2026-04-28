@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 import type { ClassDeclaration, ImportDeclaration, Program, Statement, TSEnumDeclaration, TSInterfaceDeclaration, TSTypeAliasDeclaration, VariableDeclaration } from '@babel/types';
-
-import type { ArquetipoEstruturaDef, FileEntryWithAst, PackageJson, ResultadoDeteccaoArquetipo, SinaisProjetoAvancados } from '@';
+import type { ArquetipoEstruturaDef, FileEntryWithAst, PackageJson, ResultadoDeteccaoArquetipo, SinaisProjetoAvancados } from '@prometheus';
 
 export function scoreArquetipo(def: ArquetipoEstruturaDef, _arquivos: string[],
 // prefixo _ para ignorar warning de unused

@@ -16,8 +16,7 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
 import { messages } from '@core/messages';
-
-import type { AliasConfig, ImportCorrecao, ImportCorrecaoArquivo, ImportCorrecaoOptions } from '@';
+import type { AliasConfig, ImportCorrecao, ImportCorrecaoArquivo, ImportCorrecaoOptions } from '@prometheus';
 
 const log = messages.log;
 

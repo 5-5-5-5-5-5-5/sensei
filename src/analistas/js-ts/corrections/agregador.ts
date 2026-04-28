@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: MIT
 import type { NodePath } from '@babel/traverse';
 import type { Node } from '@babel/types';
-
-import type { Analista, Ocorrencia } from '@';
+import type { Analista, Ocorrencia } from '@prometheus';
 
 import {
   analistaPontuacao,

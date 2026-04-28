@@ -4,7 +4,7 @@
  * Verifica compatibilidade e compilação TypeScript
  */
 
-import type { TypeAnalysis, TypeReplacementValidation } from '@';
+import type { TypeAnalysis, TypeReplacementValidation } from '@prometheus';
 
 import { findExistingType, isSameType } from './type-creator.js';
 

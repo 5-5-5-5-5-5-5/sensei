@@ -7,7 +7,7 @@
  * Centraliza todas as mensagens relacionadas ao diagnóstico de repositório
  */
 
-import type { ModoOperacao } from '@';
+import type { ModoOperacao } from '@prometheus';
 
 /**
  * Ícones do diagnóstico

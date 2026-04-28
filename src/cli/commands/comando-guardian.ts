@@ -7,10 +7,9 @@ import { config } from '@core/config';
 import { iniciarInquisicao } from '@core/execution';
 import { messages } from '@core/messages';
 import { acceptNewBaseline } from '@guardian';
+import type { FileEntry, FileEntryWithAst, Tecnica } from '@prometheus';
+import { asTecnicas, extrairMensagemErro, IntegridadeStatus } from '@prometheus';
 import { Command } from 'commander';
-
-import type { FileEntry, FileEntryWithAst, Tecnica } from '@';
-import { asTecnicas, extrairMensagemErro, IntegridadeStatus } from '@';
 
 import { executarGuardian as executarGuardianModular, type GuardianOptions } from '../diagnostico/handlers/guardian-handler.js';
 import { ExitCode, sair } from '../helpers/exit-codes.js';

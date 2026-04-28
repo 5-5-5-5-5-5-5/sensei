@@ -4,7 +4,7 @@
  * JSONフィールドの説明テキスト、ラベル、メタデータを定義
  */
 
-import type { JsonComMetadados } from '@';
+import type { JsonComMetadados } from '@prometheus';
 
 export const JsonMensagens = {
   /* -------------------------- 共通フィールド -------------------------- */

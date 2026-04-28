@@ -3,10 +3,9 @@ import type { NodePath } from '@babel/traverse';
 import type { ArrowFunctionExpression, ClassMethod, FunctionDeclaration, FunctionExpression, Node, ObjectMethod } from '@babel/types';
 import { traverse } from '@core/config';
 import { messages } from '@core/messages';
+import type { Analista, BlocoFuncao, ContextoExecucao, DuplicacaoEncontrada, Ocorrencia } from '@prometheus';
+import { criarOcorrencia } from '@prometheus';
 import { createHash } from 'crypto';
-
-import type { Analista, BlocoFuncao, ContextoExecucao, DuplicacaoEncontrada, Ocorrencia } from '@';
-import { criarOcorrencia } from '@';
 
 export const analistaDuplicacoes: Analista = {
   nome: 'detector-duplicacoes',

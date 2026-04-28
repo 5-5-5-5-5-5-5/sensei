@@ -43,7 +43,7 @@ async function mainCli() {
   const { getMessages } = await import('@core/messages');
   const { getDefaultContextMemory } = await import('@shared');
   const { lerArquivoTexto } = await import('@shared/persistence');
-  const { extrairMensagemErro } = await import('@');
+  const { extrairMensagemErro } = await import('@prometheus');
 
   const { log, CliBinMensagens } = getMessages();
   const program = new Command();

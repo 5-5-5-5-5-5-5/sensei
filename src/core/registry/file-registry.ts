@@ -15,7 +15,7 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
-import type { MigrationResult } from '@';
+import type { MigrationResult } from '@prometheus';
 
 import { messages } from '../messages/index.js';
 import { MIGRACAO_MAPA,PROMETHEUS_ARQUIVOS, PROMETHEUS_DIRS, type PrometheusFilePath } from './paths.js';

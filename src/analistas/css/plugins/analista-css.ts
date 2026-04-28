@@ -1,11 +1,10 @@
 // SPDX-License-Identifier: MIT
 import { messages } from '@core/messages';
+import { criarAnalista, criarOcorrencia } from '@prometheus';
 import { isLikelyIntentionalDuplicate, lintCssLikeStylelint } from '@shared/impar';
 import postcss, { type AtRule, type Container, type Declaration, type Root, type Rule, type Syntax } from 'postcss';
 import postcssSass from 'postcss-sass';
 import postcssScss from 'postcss-scss';
-
-import { criarAnalista, criarOcorrencia } from '@';
 
 const disableEnv = (globalThis as {
   process?: {

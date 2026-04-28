@@ -33,32 +33,11 @@
       "node"
     ],
     "paths": {
-      "@": [
-        "./src/types/index.ts"
-      ],
       "@/": [
         "./src/"
       ],
       "@analistas/arquitetos": [
         "./src/analistas/arquitetos/index.ts"
-      ],
-      "@analistas/corrections/quick-fixes": [
-        "./src/analistas/corrections/quick-fixes/index.ts"
-      ],
-      "@analistas/corrections/type-safety": [
-        "./src/analistas/corrections/type-safety/index.ts"
-      ],
-      "@analistas/detectores": [
-        "./src/analistas/detectores/index.ts"
-      ],
-      "@analistas/estrategistas": [
-        "./src/analistas/estrategistas/index.ts"
-      ],
-      "@analistas/js-ts": [
-        "./src/analistas/js-ts/index.ts"
-      ],
-      "@analistas/html": [
-        "./src/analistas/html/index.ts"
       ],
       "@analistas/css": [
         "./src/analistas/css/index.ts"
@@ -66,32 +45,41 @@
       "@analistas/css-in-js": [
         "./src/analistas/css-in-js/index.ts"
       ],
-      "@analistas/tailwind": [
-        "./src/analistas/tailwind/index.ts"
+      "@analistas/detectores": [
+        "./src/analistas/detectores/index.ts"
       ],
-      "@analistas/react": [
-        "./src/analistas/react/index.ts"
+      "@analistas/estrategistas": [
+        "./src/analistas/estrategistas/index.ts"
       ],
-      "@analistas/python": [
-        "./src/analistas/python/index.ts"
-      ],
-      "@analistas/xml": [
-        "./src/analistas/xml/index.ts"
-      ],
-      "@analistas/svg": [
-        "./src/analistas/svg/index.ts"
-      ],
-      "@analistas/sql": [
-        "./src/analistas/sql/index.ts"
-      ],
-      "@analistas/shell": [
-        "./src/analistas/shell/index.ts"
+      "@analistas/formatters": [
+        "./src/analistas/formatters/index.ts"
       ],
       "@analistas/github-actions": [
         "./src/analistas/github-actions/index.ts"
       ],
-      "@analistas/formatters": [
-        "./src/analistas/formatters/index.ts"
+      "@analistas/html": [
+        "./src/analistas/html/index.ts"
+      ],
+      "@analistas/js-ts": [
+        "./src/analistas/js-ts/index.ts"
+      ],
+      "@analistas/js-ts/analistas": [
+        "./src/analistas/js-ts/analistas/index.ts"
+      ],
+      "@analistas/js-ts/corrections": [
+        "./src/analistas/js-ts/corrections/index.ts"
+      ],
+      "@analistas/js-ts/corrections/quick-fixes": [
+        "./src/analistas/js-ts/corrections/quick-fixes/index.ts"
+      ],
+      "@analistas/js-ts/corrections/type-safety": [
+        "./src/analistas/js-ts/corrections/type-safety/index.ts"
+      ],
+      "@analistas/js-ts/detectores": [
+        "./src/analistas/js-ts/detectores/index.ts"
+      ],
+      "@analistas/js-ts/plugins": [
+        "./src/analistas/js-ts/plugins/index.ts"
       ],
       "@analistas/plugins": [
         "./src/analistas/plugins/index.ts"
@@ -99,8 +87,29 @@
       "@analistas/pontuadores": [
         "./src/analistas/pontuadores/index.ts"
       ],
+      "@analistas/python": [
+        "./src/analistas/python/index.ts"
+      ],
+      "@analistas/react": [
+        "./src/analistas/react/index.ts"
+      ],
       "@analistas/registry": [
         "./src/analistas/registry/index.ts"
+      ],
+      "@analistas/shell": [
+        "./src/analistas/shell/index.ts"
+      ],
+      "@analistas/sql": [
+        "./src/analistas/sql/index.ts"
+      ],
+      "@analistas/svg": [
+        "./src/analistas/svg/index.ts"
+      ],
+      "@analistas/tailwind": [
+        "./src/analistas/tailwind/index.ts"
+      ],
+      "@analistas/xml": [
+        "./src/analistas/xml/index.ts"
       ],
       "@bin": [
         "./src/bin/index.ts"
@@ -209,6 +218,9 @@
       ],
       "@projeto-types/zeladores": [
         "./src/types/zeladores/index.ts"
+      ],
+      "@prometheus": [
+        "./src/types/index.ts"
       ],
       "@relatorios": [
         "./src/relatorios/index.ts"

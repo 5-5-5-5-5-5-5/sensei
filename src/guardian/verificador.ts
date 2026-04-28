@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-import type { FileEntry, RegistroIntegridade, ResultadoVerificacao } from '@';
+import type { FileEntry, RegistroIntegridade, ResultadoVerificacao } from '@prometheus';
 
 import { gerarSnapshotDoConteudo } from './hash.js';
 

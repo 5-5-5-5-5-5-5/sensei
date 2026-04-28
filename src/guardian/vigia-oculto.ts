@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 import { getMessages } from '@core/messages';
-
-import type { FileEntry } from '@';
+import type { FileEntry } from '@prometheus';
 
 import { REGISTRO_VIGIA_CAMINHO_PADRAO } from './constantes.js';
 import { gerarSnapshotDoConteudo } from './hash.js';

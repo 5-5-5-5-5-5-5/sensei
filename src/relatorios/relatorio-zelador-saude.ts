@@ -2,8 +2,7 @@
 import { estatisticasUsoGlobal } from '@analistas/js-ts';
 import { chalk , config } from '@core/config';
 import { getMessages } from '@core/messages';
-
-import type { LogComBloco, Ocorrencia } from '@';
+import type { LogComBloco, Ocorrencia } from '@prometheus';
 
 const { log, logRelatorio, RelatorioMensagens, RelatorioZeladorSaudeMensagens } = getMessages();
 

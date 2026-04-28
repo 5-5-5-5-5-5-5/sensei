@@ -6,6 +6,6 @@
  */
 
 export * from './analistas/index.js';
-export * from './detectores/detector-documentacao.js';
-export * from './detectores/detector-node.js';
-export * from './plugins/otimizacoes-performance.js';
+export * from './corrections/index.js';
+export * from './detectores/index.js';
+export * from './plugins/index.js';

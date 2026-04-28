@@ -6,8 +6,7 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
 import { messages } from '@core/messages';
-
-import type { GlobalComVitest, SalvarBinarioFn, SalvarEstadoFn, VitestSpyWrapper } from '@';
+import type { GlobalComVitest, SalvarBinarioFn, SalvarEstadoFn, VitestSpyWrapper } from '@prometheus';
 
 const getLog = () => messages.log;
 

@@ -9,7 +9,7 @@
  * - @prometheus-enable nome-da-regra
  */
 
-import type { RegrasSuprimidas, SupressaoInfo } from '@';
+import type { RegrasSuprimidas, SupressaoInfo } from '@prometheus';
 
 export type { RegrasSuprimidas, SupressaoInfo };
 

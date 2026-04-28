@@ -5,6 +5,7 @@ import path from 'node:path';
 import { chalk , config } from '@core/config';
 import { scanRepository } from '@core/execution';
 import { getMessages } from '@core/messages';
+import type { FormatarCommandOpts, FormatResult } from '@prometheus';
 import {
   formatarComPrettierProjeto,
   formatarPrettierMinimo,
@@ -12,8 +13,6 @@ import {
 import { salvarEstado } from '@shared/persistence';
 import { Command } from 'commander';
 import micromatch from 'micromatch';
-
-import type { FormatarCommandOpts, FormatResult } from '@';
 
 import { ExitCode, sair } from '../helpers/exit-codes.js';
 import { processPatternList } from '../helpers/pattern-helpers.js';

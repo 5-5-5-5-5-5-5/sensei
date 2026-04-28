@@ -5,11 +5,10 @@ import type { Node } from '@babel/types';
 import * as t from '@babel/types';
 import { traverse } from '@core/config';
 import { messages } from '@core/messages';
+import type { Contador, ContextoExecucao, Estatisticas, Ocorrencia, TecnicaAplicarResultado } from '@prometheus';
+import { criarOcorrencia, ocorrenciaErroAnalista } from '@prometheus';
 import { detectarContextoProjeto } from '@shared';
 import { garantirArray, incrementar } from '@shared/helpers';
-
-import type { Contador, ContextoExecucao, Estatisticas, Ocorrencia, TecnicaAplicarResultado } from '@';
-import { criarOcorrencia, ocorrenciaErroAnalista } from '@';
 
 /**
  * Métricas de uso de padrões em análise de código

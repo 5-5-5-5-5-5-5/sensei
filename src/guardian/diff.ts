@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 import { config } from '@core/config';
-
-import type { ComparacaoSnapshot } from '@';
+import type { ComparacaoSnapshot } from '@prometheus';
 
 /**
  * Compara dois snapshots de integridade (hash por arquivo) e retorna as diferenças encontradas.

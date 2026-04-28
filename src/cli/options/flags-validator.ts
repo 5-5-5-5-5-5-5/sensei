@@ -9,7 +9,7 @@
  * - Gerar avisos e sugestões contextuais
  */
 
-import type { FlagsBrutas, FlagsNormalizadas, ModoAutoFix, ModoOperacao, ResultadoValidacao } from '@'; /**
+import type { FlagsBrutas, FlagsNormalizadas, ModoAutoFix, ModoOperacao, ResultadoValidacao } from '@prometheus'; /**
                                                                                                         * Defaults seguros
                                                                                                         */
 const PADROES: FlagsNormalizadas = {

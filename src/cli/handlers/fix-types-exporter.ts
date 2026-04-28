@@ -9,8 +9,7 @@ import path from 'node:path';
 
 import { config } from '@core/config';
 import { messages } from '@core/messages';
-
-import type { CasoTipoInseguro, FixTypesExportOptions, FixTypesExportResult } from '@';
+import type { CasoTipoInseguro, FixTypesExportOptions, FixTypesExportResult } from '@prometheus';
 
 const log = messages.log;
 

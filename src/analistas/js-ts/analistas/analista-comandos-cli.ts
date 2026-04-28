@@ -6,10 +6,9 @@ import type { ArrowFunctionExpression, BlockStatement, CallExpression, ClassDecl
 import * as t from '@babel/types';
 import { traverse } from '@core/config';
 import { messages } from '@core/messages';
+import type { ComandoRegistro, ContextoExecucao, HandlerInfo, Ocorrencia, TecnicaAplicarResultado } from '@prometheus';
+import { isBabelNode } from '@prometheus';
 import { detectarContextoProjeto, isRelevanteParaAnalise } from '@shared';
-
-import type { ComandoRegistro, ContextoExecucao, HandlerInfo, Ocorrencia, TecnicaAplicarResultado } from '@';
-import { isBabelNode } from '@';
 
 type BabelNode = Node;
 export function extractHandlerInfo(node: Node | unknown): HandlerInfo | null {

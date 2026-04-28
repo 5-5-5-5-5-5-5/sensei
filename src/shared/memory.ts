@@ -4,8 +4,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 
 import type { RunEndUpdate, RunStartInput } from '@projeto-types/shared';
-
-import type { PrometheusContextState, PrometheusRunRecord } from '@';
+import type { PrometheusContextState, PrometheusRunRecord } from '@prometheus';
 
 // Re-exporta para compatibilidade com código existente
 export type { PrometheusContextState, PrometheusRunRecord, RunEndUpdate, RunStartInput };
