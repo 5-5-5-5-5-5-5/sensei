@@ -40,7 +40,7 @@
         "./src/analistas/arquitetos/index.ts"
       ],
       "@analistas/css": [
-        "./src/analistas/css/index.ts"
+        "./src/analistas/css/plugins/index.ts"
       ],
       "@analistas/css-in-js": [
         "./src/analistas/css-in-js/index.ts"

@@ -35,6 +35,12 @@ import {analistaPadroesHtml} from '../html/analistas/analista-padroes-html.js';
 import {analistaSegurancaHtml} from '../html/analistas/seguranca-html.js';
 import {analistaQuickFixesHtml} from '../html/corrections/analista-quick-fixes-html.js';
 import {analistaPontuacaoHtml} from '../html/corrections/analista-pontuacao-html.js';
+// Analistas CSS
+import {analistaElementosCssLongos} from '../css/analistas/analista-elementos-css-longos.js';
+import {analisadorPadroesCss} from '../css/analistas/analisador-padroes-css.js';
+import {analisadorSegurancaCss} from '../css/analistas/seguranca-css.js';
+import {analisadorQuickFixesCss} from '../css/corrections/quick-fixes-css.js';
+import {analisadorPontuacaoCss} from '../css/corrections/pontuacao-css.js';
 
 let analistaCorrecaoAutomatica: EntradaRegistry = undefined;
 try {
@@ -60,6 +66,8 @@ comSupressaoInline(analistaConstrucoesSintaticas), comSupressaoInline(analistaCo
 comSupressaoInline(analistaAntiPadroesAsync as unknown as Analista), comSupressaoInline(analistaVazamentoMemoria as unknown as Analista), comSupressaoInline(analistaSeguranca), comSupressaoInline(analistaDocumentacao), comSupressaoInline(detectorMarkdown as unknown as Analista), comSupressaoInline(detectorTiposInseguros as unknown as Analista), comSupressaoInline(detectorInterfacesInline as unknown as Analista), comSupressaoInline(analistaPadronizador),
 // Analistas HTML
 comSupressaoInline(analistaElementosLongos), comSupressaoInline(analistaPadroesHtml), comSupressaoInline(analistaSegurancaHtml), comSupressaoInline(analistaQuickFixesHtml), comSupressaoInline(analistaPontuacaoHtml),
+// Analistas CSS
+comSupressaoInline(analistaElementosCssLongos), comSupressaoInline(analisadorPadroesCss), comSupressaoInline(analisadorSegurancaCss), comSupressaoInline(analisadorQuickFixesCss), comSupressaoInline(analisadorPontuacaoCss),
 // Plugins autodiscovered em src/analistas/plugins/
 ...pluginsAutodiscovered.map(p => comSupressaoInline(p as unknown as Analista) as Tecnica),
 // Analistas contextuais inteligentes
