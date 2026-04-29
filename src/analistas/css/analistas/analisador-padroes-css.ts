@@ -2,7 +2,7 @@
 import { messages } from '@core/messages';
 import type { Ocorrencia, TecnicaAplicarResultado } from '@prometheus';
 import { criarAnalista, criarOcorrencia } from '@prometheus';
-import postcss, { type Root, type Rule, type Declaration } from 'postcss';
+import postcss from 'postcss';
 
 function warn(message: string, relPath: string, line: number, nivel: Ocorrencia['nivel'] = 'info'): Ocorrencia {
   return criarOcorrencia({
@@ -23,14 +23,14 @@ export const analisadorPadroesCss = criarAnalista({
   test: (relPath: string): boolean => /\.css$/i.test(relPath),
   aplicar: async (src: string, relPath: string): Promise<TecnicaAplicarResultado | null> => {
     const ocorrencias: Ocorrencia[] = [];
-    
+
     try {
       const root = postcss.parse(src);
-      
+
       root.walkRules((rule) => {
         const selector = rule.selector || '';
         const line = rule.source?.start?.line || 1;
-        
+
         if (/^#[a-zA-Z0-9_-]+$/i.test(selector) && !selector.includes(':')) {
           ocorrencias.push(warn(
             'Seletor de ID deve ser evitado em CSS (uso específico via JS é melhor)',
@@ -39,7 +39,7 @@ export const analisadorPadroesCss = criarAnalista({
             'info'
           ));
         }
-        
+
         if (selector.includes('!important')) {
           ocorrencias.push(warn(
             'Uso de !important deve ser evitado',
@@ -48,7 +48,7 @@ export const analisadorPadroesCss = criarAnalista({
             'aviso'
           ));
         }
-        
+
         const hacks = [
           '* html', '*+html', '*:first-child+html',
           'html>body', 'x:-moz-placeholder',
@@ -65,12 +65,12 @@ export const analisadorPadroesCss = criarAnalista({
           }
         }
       });
-      
+
       root.walkDecls((decl) => {
         const prop = decl.prop?.toLowerCase() || '';
         const value = decl.value?.toLowerCase() || '';
         const line = decl.source?.start?.line || 1;
-        
+
         if (prop.includes('filter') || prop.includes('ms-filter')) {
           if (value.includes('alpha(') || value.includes('opacity=')) {
             ocorrencias.push(warn(
@@ -81,9 +81,10 @@ export const analisadorPadroesCss = criarAnalista({
             ));
           }
         }
-        
+
         if (prop === 'display' && value === 'inline-block') {
-          const hasZoom = (decl.parent as any)?.nodes?.some((n: any) => 
+          const parentNode = decl.parent as unknown as { nodes?: Array<{ prop?: string }> };
+          const hasZoom = parentNode?.nodes?.some((n) =>
             n.prop?.toLowerCase() === 'zoom' || n.prop === '*zoom'
           );
           if (hasZoom) {
@@ -95,9 +96,10 @@ export const analisadorPadroesCss = criarAnalista({
             ));
           }
         }
-        
+
         if (prop === 'position' && value === 'fixed') {
-          const hasZIndex = (decl.parent as any)?.nodes?.some((n: any) => 
+          const parentNode = decl.parent as unknown as { nodes?: Array<{ prop?: string }> };
+          const hasZIndex = parentNode?.nodes?.some((n) =>
             n.prop?.toLowerCase() === 'z-index'
           );
           if (!hasZIndex) {
@@ -110,7 +112,7 @@ export const analisadorPadroesCss = criarAnalista({
           }
         }
       });
-      
+
       return ocorrencias.length > 0 ? ocorrencias : null;
     } catch {
       return null;

@@ -24,7 +24,7 @@ export const analistaPadroesHtml = criarAnalista({
   aplicar: async (src: string, relPath: string): Promise<TecnicaAplicarResultado | null> => {
     const ocorrencias: Ocorrencia[] = [];
     const isTemplate = /\.(template\.html|\.component\.html)$/i.test(relPath);
-    
+
     if (isTemplate) return null;
 
     const scan = maskHtmlComments(maskTagBlocks(maskTagBlocks(src, 'script'), 'style'));

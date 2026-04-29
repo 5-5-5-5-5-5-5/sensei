@@ -15,7 +15,7 @@ import type { Node } from '@babel/types';
 import { messages } from '@core/messages';
 import type { Analista, ContextoExecucao, Ocorrencia, PackageJson } from '@prometheus';
 
-import { detectarContextoInteligente } from '../detectores/detector-contexto-inteligente.js';
+import { detectarContextoInteligente } from '../js-ts/detectores/detector-contexto-inteligente.js';
 
 const log = messages.log;
 

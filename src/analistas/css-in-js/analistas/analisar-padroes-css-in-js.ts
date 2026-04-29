@@ -22,11 +22,11 @@ export const analisarPadroesCssInJs = criarAnalista({
   test: (relPath: string): boolean => /\.(ts|tsx|js|jsx)$/i.test(relPath) && !relPath.includes('node_modules'),
   aplicar: async (src: string, relPath: string): Promise<TecnicaAplicarResultado | null> => {
     const ocorrencias: Ocorrencia[] = [];
-    
+
     if (!src) return null;
-    
+
     const lineOf = (idx: number) => src.slice(0, idx).split('\n').length;
-    
+
     for (const m of src.matchAll(/withConfig\s*\(/g)) {
       if (m.index !== undefined) {
         ocorrencias.push(warn(
@@ -37,7 +37,7 @@ export const analisarPadroesCssInJs = criarAnalista({
         ));
       }
     }
-    
+
     for (const m of src.matchAll(/injectGlobal\s*\(/g)) {
       if (m.index !== undefined) {
         ocorrencias.push(warn(
@@ -48,7 +48,7 @@ export const analisarPadroesCssInJs = criarAnalista({
         ));
       }
     }
-    
+
     for (const m of src.matchAll(/\$\{[^}]+props[^}]+\}/g)) {
       if (m.index !== undefined && m[0].length > 50) {
         ocorrencias.push(warn(
@@ -59,7 +59,7 @@ export const analisarPadroesCssInJs = criarAnalista({
         ));
       }
     }
-    
+
     for (const m of src.matchAll(/attrs\s*\(\s*\(\s*\)/g)) {
       if (m.index !== undefined) {
         ocorrencias.push(warn(
@@ -70,7 +70,7 @@ export const analisarPadroesCssInJs = criarAnalista({
         ));
       }
     }
-    
+
     for (const m of src.matchAll(/css\s*`[^`]*@import[^`]*`/g)) {
       if (m.index !== undefined) {
         ocorrencias.push(warn(
@@ -81,7 +81,7 @@ export const analisarPadroesCssInJs = criarAnalista({
         ));
       }
     }
-    
+
     for (const m of src.matchAll(/\.attrs\s*\(\s*\{[^}]*\}\s*\)/g)) {
       if (m.index !== undefined) {
         const hasFunction = /attrs\s*\(\s*\(\s*[^)]*=>|\s*function/.test(m[0]);
@@ -95,7 +95,7 @@ export const analisarPadroesCssInJs = criarAnalista({
         }
       }
     }
-    
+
     return ocorrencias.length > 0 ? ocorrencias : null;
   }
 });

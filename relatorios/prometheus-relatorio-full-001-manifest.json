@@ -1,0 +1,341 @@
+{
+  "baseNome": "prometheus-relatorio-full-001",
+  "generatedAt": "2026-04-29T10:11:53.816Z",
+  "parts": [
+    {
+      "bytes": 1470490,
+      "file": "prometheus-relatorio-full-001-meta.json",
+      "kind": "meta"
+    },
+    {
+      "bytes": 27242,
+      "count": 33,
+      "file": "prometheus-relatorio-full-001-ocorrencias-part-1.json",
+      "index": 1,
+      "kind": "ocorrencias",
+      "summary": {
+        "topArquivos": [
+          {
+            "arquivo": "src/analistas/detectores/detector-seguranca.ts",
+            "count": 4
+          },
+          {
+            "arquivo": "[raiz do projeto]",
+            "count": 3
+          },
+          {
+            "arquivo": "desconhecido",
+            "count": 2
+          },
+          {
+            "arquivo": "src/analistas/css-in-js/analistas/seguranca-css-in-js.ts",
+            "count": 2
+          },
+          {
+            "arquivo": "src/analistas/html/corrections/analista-pontuacao-html.ts",
+            "count": 2
+          },
+          {
+            "arquivo": "src/analistas/html/corrections/analista-quick-fixes-html.ts",
+            "count": 2
+          },
+          {
+            "arquivo": "src/shared/impar/formatters/utils.ts",
+            "count": 2
+          },
+          {
+            "arquivo": ".github/workflows/license-gate.yml",
+            "count": 1
+          },
+          {
+            "arquivo": "CONTRIBUTING.md",
+            "count": 1
+          },
+          {
+            "arquivo": "docs/arquitetura/SEGURANCA.md",
+            "count": 1
+          }
+        ],
+        "topTipos": [
+          {
+            "count": 16,
+            "tipo": "css-in-js-seguranca"
+          },
+          {
+            "count": 3,
+            "tipo": "evidencia_contextual"
+          },
+          {
+            "count": 3,
+            "tipo": "tipo-literal-inline-complexo"
+          },
+          {
+            "count": 2,
+            "tipo": "interface-inline-exportada"
+          },
+          {
+            "count": 2,
+            "tipo": "vulnerabilidade-seguranca"
+          },
+          {
+            "count": 1,
+            "tipo": "estrutura-suspeita"
+          },
+          {
+            "count": 1,
+            "tipo": "estrutura-config"
+          },
+          {
+            "count": 1,
+            "tipo": "estrutura-entrypoints"
+          },
+          {
+            "count": 1,
+            "tipo": "identificacao_projeto"
+          },
+          {
+            "count": 1,
+            "tipo": "tecnologias_alternativas"
+          }
+        ]
+      },
+      "total": 1
+    },
+    {
+      "bytes": 5510213,
+      "count": 200,
+      "file": "prometheus-relatorio-full-001-fileentries-part-1.json",
+      "index": 1,
+      "kind": "fileEntries",
+      "summary": {
+        "topArquivosByLinhas": [
+          {
+            "arquivo": "package-lock.json",
+            "linhas": 7810
+          },
+          {
+            "arquivo": "prometheus-0.10.3.tgz",
+            "linhas": 6374
+          },
+          {
+            "arquivo": "README.md",
+            "linhas": 944
+          },
+          {
+            "arquivo": "docs/desenvolvimento/estrutura-codigo/README.md",
+            "linhas": 661
+          },
+          {
+            "arquivo": "src/analistas/js-ts/detectores/detector-contexto-inteligente.ts",
+            "linhas": 647
+          },
+          {
+            "arquivo": "docs/desenvolvimento/SISTEMA-PLUGINS.md",
+            "linhas": 584
+          },
+          {
+            "arquivo": "docs/arquitetura/TYPE-SAFETY.md",
+            "linhas": 583
+          },
+          {
+            "arquivo": "docs/referencia/comandos/README.md",
+            "linhas": 583
+          },
+          {
+            "arquivo": "src/cli/commands/comando-fix-types.ts",
+            "linhas": 534
+          },
+          {
+            "arquivo": "docs/desenvolvimento/PADROES.md",
+            "linhas": 528
+          }
+        ]
+      },
+      "total": 5
+    },
+    {
+      "bytes": 754234,
+      "count": 200,
+      "file": "prometheus-relatorio-full-001-fileentries-part-2.json",
+      "index": 2,
+      "kind": "fileEntries",
+      "summary": {
+        "topArquivosByLinhas": [
+          {
+            "arquivo": "src/cli/processamento-diagnostico.ts",
+            "linhas": 1804
+          },
+          {
+            "arquivo": "src/core/messages/en/log/log-helper.ts",
+            "linhas": 837
+          },
+          {
+            "arquivo": "src/core/messages/ja/log/log-helper.ts",
+            "linhas": 837
+          },
+          {
+            "arquivo": "src/core/execution/executor.ts",
+            "linhas": 595
+          },
+          {
+            "arquivo": "src/core/config/config.ts",
+            "linhas": 551
+          },
+          {
+            "arquivo": "src/core/execution/inquisidor.ts",
+            "linhas": 430
+          },
+          {
+            "arquivo": "src/core/execution/scanner.ts",
+            "linhas": 422
+          },
+          {
+            "arquivo": "src/cli/diagnostico/exporters/markdown-exporter.ts",
+            "linhas": 412
+          },
+          {
+            "arquivo": "src/core/messages/en/log/log.ts",
+            "linhas": 387
+          },
+          {
+            "arquivo": "src/core/messages/ja/analistas/ia-assistente-messages.ts",
+            "linhas": 361
+          }
+        ]
+      },
+      "total": 5
+    },
+    {
+      "bytes": 657397,
+      "count": 200,
+      "file": "prometheus-relatorio-full-001-fileentries-part-3.json",
+      "index": 3,
+      "kind": "fileEntries",
+      "summary": {
+        "topArquivosByLinhas": [
+          {
+            "arquivo": "src/core/messages/zh/log/log-helper.ts",
+            "linhas": 837
+          },
+          {
+            "arquivo": "src/core/messages/pt/log/log-helper.ts",
+            "linhas": 836
+          },
+          {
+            "arquivo": "src/core/workers/worker-executor.ts",
+            "linhas": 491
+          },
+          {
+            "arquivo": "src/core/parsing/parser.ts",
+            "linhas": 394
+          },
+          {
+            "arquivo": "src/core/messages/ja/log/log.ts",
+            "linhas": 387
+          },
+          {
+            "arquivo": "src/core/messages/pt/log/log.ts",
+            "linhas": 387
+          },
+          {
+            "arquivo": "src/core/messages/zh/log/log.ts",
+            "linhas": 387
+          },
+          {
+            "arquivo": "src/core/messages/pt/analistas/ia-assistente-messages.ts",
+            "linhas": 382
+          },
+          {
+            "arquivo": "src/core/messages/zh/analistas/ia-assistente-messages.ts",
+            "linhas": 361
+          },
+          {
+            "arquivo": "src/core/messages/ja/ui/filtro-config.ts",
+            "linhas": 318
+          }
+        ]
+      },
+      "total": 5
+    },
+    {
+      "bytes": 588230,
+      "count": 200,
+      "file": "prometheus-relatorio-full-001-fileentries-part-4.json",
+      "index": 4,
+      "kind": "fileEntries",
+      "summary": {
+        "topArquivosByLinhas": [
+          {
+            "arquivo": "src/core/workers/worker-pool.ts",
+            "linhas": 697
+          },
+          {
+            "arquivo": "src/shared/impar/formatters/css.ts",
+            "linhas": 523
+          },
+          {
+            "arquivo": "src/shared/impar/formatters/html.ts",
+            "linhas": 522
+          },
+          {
+            "arquivo": "src/shared/impar/formatters/markdown.ts",
+            "linhas": 448
+          },
+          {
+            "arquivo": "src/shared/impar/stylelint.ts",
+            "linhas": 426
+          },
+          {
+            "arquivo": "src/shared/plugins/core-plugin.ts",
+            "linhas": 402
+          },
+          {
+            "arquivo": "src/shared/impar/formater.ts",
+            "linhas": 365
+          },
+          {
+            "arquivo": "src/relatorios/filtro-inteligente.ts",
+            "linhas": 335
+          },
+          {
+            "arquivo": "src/types/shared/validacao.ts",
+            "linhas": 324
+          },
+          {
+            "arquivo": "src/shared/impar/formatters/utils.ts",
+            "linhas": 304
+          }
+        ]
+      },
+      "total": 5
+    },
+    {
+      "bytes": 43461,
+      "count": 4,
+      "file": "prometheus-relatorio-full-001-fileentries-part-5.json",
+      "index": 5,
+      "kind": "fileEntries",
+      "summary": {
+        "topArquivosByLinhas": [
+          {
+            "arquivo": "THIRD-PARTY-NOTICES.txt",
+            "linhas": 460
+          },
+          {
+            "arquivo": "vitest.config.ts",
+            "linhas": 334
+          },
+          {
+            "arquivo": "tsconfig.json",
+            "linhas": 299
+          },
+          {
+            "arquivo": "tsconfig.eslint.json",
+            "linhas": 273
+          }
+        ]
+      },
+      "total": 5
+    }
+  ]
+}

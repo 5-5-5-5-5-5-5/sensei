@@ -1,0 +1,118 @@
+{
+  "erros": [
+    {
+      "linha": 43,
+      "mensagem": "eval() é perigoso - pode causar XSS",
+      "nivel": "erro",
+      "relPath": "src/analistas/css-in-js/analistas/seguranca-css-in-js.ts",
+      "tipo": "css-in-js-seguranca"
+    },
+    {
+      "linha": 64,
+      "mensagem": "document.write() é perigoso e pode causar XSS",
+      "nivel": "erro",
+      "relPath": "src/analistas/css-in-js/analistas/seguranca-css-in-js.ts",
+      "tipo": "css-in-js-seguranca"
+    },
+    {
+      "linha": 111,
+      "mensagem": "eval() é perigoso - pode causar XSS",
+      "nivel": "erro",
+      "relPath": "src/analistas/detectores/detector-seguranca.ts",
+      "tipo": "css-in-js-seguranca"
+    },
+    {
+      "linha": 115,
+      "mensagem": "eval() é perigoso - pode causar XSS",
+      "nivel": "erro",
+      "relPath": "src/analistas/detectores/detector-seguranca.ts",
+      "tipo": "css-in-js-seguranca"
+    },
+    {
+      "linha": 118,
+      "mensagem": "eval() é perigoso - pode causar XSS",
+      "nivel": "erro",
+      "relPath": "src/analistas/detectores/detector-seguranca.ts",
+      "tipo": "css-in-js-seguranca"
+    },
+    {
+      "linha": 148,
+      "mensagem": "document.write() é perigoso e pode causar XSS",
+      "nivel": "erro",
+      "relPath": "src/analistas/detectores/detector-seguranca.ts",
+      "tipo": "css-in-js-seguranca"
+    },
+    {
+      "linha": 44,
+      "mensagem": "document.write() é perigoso e pode causar XSS",
+      "nivel": "erro",
+      "relPath": "src/analistas/html/analistas/seguranca-html.ts",
+      "tipo": "css-in-js-seguranca"
+    },
+    {
+      "linha": 35,
+      "mensagem": "document.write() é perigoso e pode causar XSS",
+      "nivel": "erro",
+      "relPath": "src/analistas/html/corrections/analista-pontuacao-html.ts",
+      "tipo": "css-in-js-seguranca"
+    },
+    {
+      "linha": 22,
+      "mensagem": "document.write() é perigoso e pode causar XSS",
+      "nivel": "erro",
+      "relPath": "src/analistas/html/corrections/analista-quick-fixes-html.ts",
+      "tipo": "css-in-js-seguranca"
+    },
+    {
+      "linha": 23,
+      "mensagem": "document.write() é perigoso e pode causar XSS",
+      "nivel": "erro",
+      "relPath": "src/analistas/html/corrections/analista-quick-fixes-html.ts",
+      "tipo": "css-in-js-seguranca"
+    },
+    {
+      "linha": 52,
+      "mensagem": "eval() é perigoso - pode causar XSS",
+      "nivel": "erro",
+      "relPath": "src/analistas/python/plugins/analista-python.ts",
+      "tipo": "css-in-js-seguranca"
+    },
+    {
+      "linha": 50,
+      "mensagem": "eval() é perigoso - pode causar XSS",
+      "nivel": "erro",
+      "relPath": "src/analistas/shell/plugins/analista-shell.ts",
+      "tipo": "css-in-js-seguranca"
+    },
+    {
+      "linha": 148,
+      "mensagem": "eval() é perigoso - pode causar XSS",
+      "nivel": "erro",
+      "relPath": "src/core/messages/en/core/plugin-messages.ts",
+      "tipo": "css-in-js-seguranca"
+    },
+    {
+      "linha": 148,
+      "mensagem": "eval() é perigoso - pode causar XSS",
+      "nivel": "erro",
+      "relPath": "src/core/messages/ja/core/plugin-messages.ts",
+      "tipo": "css-in-js-seguranca"
+    },
+    {
+      "linha": 148,
+      "mensagem": "eval() é perigoso - pode causar XSS",
+      "nivel": "erro",
+      "relPath": "src/core/messages/pt/core/plugin-messages.ts",
+      "tipo": "css-in-js-seguranca"
+    },
+    {
+      "linha": 148,
+      "mensagem": "eval() é perigoso - pode causar XSS",
+      "nivel": "erro",
+      "relPath": "src/core/messages/zh/core/plugin-messages.ts",
+      "tipo": "css-in-js-seguranca"
+    }
+  ],
+  "timestamp": "2026-04-29T10:11:53.814Z",
+  "total": 16
+}

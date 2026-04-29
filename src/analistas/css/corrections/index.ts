@@ -1,2 +1,2 @@
-export * from './quick-fixes-css.js';
 export * from './pontuacao-css.js';
+export * from './quick-fixes-css.js';

@@ -1,15 +1,8 @@
 // SPDX-License-Identifier: MIT
 import { messages } from '@core/messages';
 import type { Analista, Ocorrencia, TecnicaAplicarResultado } from '@prometheus';
-import { criarAnalista, criarOcorrencia } from '@prometheus';
+import { criarOcorrencia } from '@prometheus';
 import { createLineLookup } from '@shared/helpers';
-
-interface QuickFixHtmlMatch {
-  index: number;
-  matchType: string;
-  suggestedFix: string;
-  description: string;
-}
 
 const quickFixesHtml: Array<{
   pattern: RegExp;
@@ -38,25 +31,25 @@ const quickFixesHtml: Array<{
   {
     pattern: /<iframe[^>](?!.*title=)/g,
     type: 'iframe-sem-title',
-    fix: (m) => m[0].slice(0, -1) + ' title="Descrição do iframe">',
+    fix: (m) => `${m[0].slice(0, -1)  } title="Descrição do iframe">`,
     description: 'Adicionar title em iframe para acessibilidade'
   },
   {
     pattern: /<img[^>](?!.*alt=)/g,
     type: 'img-sem-alt',
-    fix: (m) => m[0].slice(0, -1) + ' alt="">',
+    fix: (m) => `${m[0].slice(0, -1)  } alt="">`,
     description: 'Adicionar alt em img para acessibilidade'
   },
   {
     pattern: /<a[^>]*target=["']?_blank["']?[^>]*>(?!.*rel=)/g,
     type: 'link-blank-sem-rel',
-    fix: (m) => m[0].slice(0, -1) + ' rel="noopener noreferrer">',
+    fix: (m) => `${m[0].slice(0, -1)  } rel="noopener noreferrer">`,
     description: 'Adicionar rel="noopener noreferrer" em links com target="_blank"'
   },
   {
     pattern: /<button[^>](?!.*type=)/g,
     type: 'button-sem-type',
-    fix: (m) => m[0].slice(0, -1) + ' type="button">',
+    fix: (m) => `${m[0].slice(0, -1)  } type="button">`,
     description: 'Adicionar type="button" em buttons'
   }
 ];
@@ -88,7 +81,7 @@ export const analistaQuickFixesHtml: Analista = {
       for (const m of src.matchAll(regex)) {
         if (typeof m.index === 'number') {
           const linha = lineOf(m.index);
-          const suggestedFix = qf.fix(m);
+          qf.fix(m);
 
           ocorrencias.push(warn(
             `${qf.description} (${qf.type})`,

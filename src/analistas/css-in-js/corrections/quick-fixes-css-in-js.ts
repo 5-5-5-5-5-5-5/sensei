@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 import { messages } from '@core/messages';
 import type { Analista, Ocorrencia, TecnicaAplicarResultado } from '@prometheus';
-import { criarAnalista, criarOcorrencia } from '@prometheus';
+import { criarOcorrencia } from '@prometheus';
 
 const quickFixesCssInJs: Array<{
   pattern: RegExp;

@@ -22,11 +22,11 @@ export const analisarSegurancaCssInJs = criarAnalista({
   test: (relPath: string): boolean => /\.(ts|tsx|js|jsx)$/i.test(relPath) && !relPath.includes('node_modules'),
   aplicar: async (src: string, relPath: string): Promise<TecnicaAplicarResultado | null> => {
     const ocorrencias: Ocorrencia[] = [];
-    
+
     if (!src) return null;
-    
+
     const lineOf = (idx: number) => src.slice(0, idx).split('\n').length;
-    
+
     for (const m of src.matchAll(/dangerouslySetInnerHTML[\s\S]*?css\s*`[^`]*?`/g)) {
       if (m.index !== undefined) {
         ocorrencias.push(warn(
@@ -36,7 +36,7 @@ export const analisarSegurancaCssInJs = criarAnalista({
         ));
       }
     }
-    
+
     for (const m of src.matchAll(/eval\s*\(/g)) {
       if (m.index !== undefined) {
         ocorrencias.push(warn(
@@ -46,7 +46,7 @@ export const analisarSegurancaCssInJs = criarAnalista({
         ));
       }
     }
-    
+
     for (const m of src.matchAll(/innerHTML\s*=/g)) {
       if (m.index !== undefined && !m[0].includes('dangerouslySetInnerHTML')) {
         ocorrencias.push(warn(
@@ -57,7 +57,7 @@ export const analisarSegurancaCssInJs = criarAnalista({
         ));
       }
     }
-    
+
     for (const m of src.matchAll(/document\.write\s*\(/g)) {
       if (m.index !== undefined) {
         ocorrencias.push(warn(
@@ -67,7 +67,7 @@ export const analisarSegurancaCssInJs = criarAnalista({
         ));
       }
     }
-    
+
     for (const m of src.matchAll(/dangerouslyUseGlobalFont\s*\(/g)) {
       if (m.index !== undefined) {
         ocorrencias.push(warn(
@@ -78,7 +78,7 @@ export const analisarSegurancaCssInJs = criarAnalista({
         ));
       }
     }
-    
+
     for (const m of src.matchAll(/style\s*=\s*\{[^}]*\$\{[^}]+user/g)) {
       if (m.index !== undefined) {
         ocorrencias.push(warn(
@@ -88,7 +88,7 @@ export const analisarSegurancaCssInJs = criarAnalista({
         ));
       }
     }
-    
+
     return ocorrencias.length > 0 ? ocorrencias : null;
   }
 });

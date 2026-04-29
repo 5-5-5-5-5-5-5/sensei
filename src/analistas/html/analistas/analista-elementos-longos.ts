@@ -3,8 +3,8 @@ import { messages } from '@core/messages';
 import type { Ocorrencia, TecnicaAplicarResultado } from '@prometheus';
 import { criarAnalista, criarOcorrencia } from '@prometheus';
 import { createLineLookup } from '@shared/helpers';
-import { parseDocument } from 'htmlparser2';
 import type { AnyNode, Element, Text } from 'domhandler';
+import { parseDocument } from 'htmlparser2';
 
 const LIMITE_PROFUNDIDADE = 5;
 const LIMITE_TAMANHO_CONTEUDO = 2000;

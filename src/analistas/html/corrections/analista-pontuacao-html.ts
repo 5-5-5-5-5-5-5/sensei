@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 import { messages } from '@core/messages';
 import type { Analista, Ocorrencia, TecnicaAplicarResultado } from '@prometheus';
-import { criarAnalista, criarOcorrencia } from '@prometheus';
+import { criarOcorrencia } from '@prometheus';
 import { createLineLookup } from '@shared/helpers';
 
 interface ProblemaPontuacao {
@@ -46,7 +46,7 @@ function warn(message: string, relPath: string, line: number, nivel: Ocorrencia[
   });
 }
 
-function detectarProblemasHtml(src: string, relPath: string): { tipo: string; linha: number }[] {
+function detectarProblemasHtml(src: string, _relPath: string): { tipo: string; linha: number }[] {
   const problemas: { tipo: string; linha: number }[] = [];
   const lineOf = createLineLookup(src).lineAt;
 
