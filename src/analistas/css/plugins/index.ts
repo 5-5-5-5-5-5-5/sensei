@@ -3,4 +3,4 @@
  * Barrel export para CSS
  */
 
-export * from './plugins/analista-css.js';
+export * from './analista-css.js';

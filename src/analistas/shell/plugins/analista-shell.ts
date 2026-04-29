@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MIT
+// @prometheus-disable shell
 import type { Ocorrencia } from '@prometheus';
 import { criarAnalista, criarOcorrencia } from '@prometheus';
 

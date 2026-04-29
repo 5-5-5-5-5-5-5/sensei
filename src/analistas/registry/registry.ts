@@ -6,29 +6,45 @@
 import type { Analista, EntradaRegistry, InfoAnalista, ModuloAnalista, Tecnica } from '@prometheus';
 import { comSupressaoInline } from '@shared/helpers';
 
-import { analistaAntiPadroesAsync } from '../detectores/detector-anti-padroes-async.js';
+import {analisadorPadroesCss} from '../css/analistas/analisador-padroes-css.js';
+// Analistas CSS
+import {analistaElementosCssLongos} from '../css/analistas/analista-elementos-css-longos.js';
+import {analisadorSegurancaCss} from '../css/analistas/seguranca-css.js';
+import {analisadorPontuacaoCss} from '../css/corrections/pontuacao-css.js';
+import {analisadorQuickFixesCss} from '../css/corrections/quick-fixes-css.js';
+// Analistas CSS-in-JS
+import {analisarElementosCssInJs} from '../css-in-js/analistas/analisar-elementos-css-in-js.js';
+import {analisarPadroesCssInJs} from '../css-in-js/analistas/analisar-padroes-css-in-js.js';
+import {analisarSegurancaCssInJs} from '../css-in-js/analistas/seguranca-css-in-js.js';
+import {analisarQuickFixesCssInJs} from '../css-in-js/corrections/quick-fixes-css-in-js.js';
 import { analistaArquitetura } from '../detectores/detector-arquitetura.js';
 import { analistaCodigoFragil } from '../detectores/detector-codigo-fragil.js';
-// Novos analistas refinados
-import { analistaConstrucoesSintaticas } from '../detectores/detector-construcoes-sintaticas.js';
 import * as detectorDependenciasMod from '../detectores/detector-dependencias.js';
 import { analistaDuplicacoes } from '../detectores/detector-duplicacoes.js';
 import * as detectorEstruturaMod from '../detectores/detector-estrutura.js';
-import { detectorInterfacesInline } from '../detectores/detector-interfaces-inline.js';
 import { analistaPadronizador } from '../detectores/detector-padronizador.js';
 import { analistaSeguranca } from '../detectores/detector-seguranca.js';
-import { detectorTiposInseguros } from '../detectores/detector-tipos-inseguros.js';
 import { analistaVazamentoMemoria } from '../detectores/detector-vazamentos-memoria.js';
 // Analistas contextuais inteligentes
 import { analistaSugestoesContextuais } from '../estrategistas/sugestoes-contextuais.js';
 import { detectorMarkdown } from '../formatters/detectores/detector-markdown.js';
+import { analistaElementosLongos } from '../html/analistas/analista-elementos-longos.js';
+import {analistaPadroesHtml} from '../html/analistas/analista-padroes-html.js';
+import {analistaSegurancaHtml} from '../html/analistas/seguranca-html.js';
+import {analistaPontuacaoHtml} from '../html/corrections/analista-pontuacao-html.js';
+import {analistaQuickFixesHtml} from '../html/corrections/analista-quick-fixes-html.js';
 // Analistas de IA (v0.7.0 - AI-Powered Analysis)
 import { analistaComandosCli } from '../js-ts/analistas/analista-comandos-cli.js';
 import { analistaFuncoesLongas } from '../js-ts/analistas/analista-funcoes-longas.js';
 import { analistaPadroesUso } from '../js-ts/analistas/analista-padroes-uso.js';
 import { analistaTodoComentarios } from '../js-ts/analistas/analista-todo-comments.js';
+import { analistaAntiPadroesAsync } from '../js-ts/detectores/detector-anti-padroes-async.js';
+// Novos analistas refinados
+import { analistaConstrucoesSintaticas } from '../js-ts/detectores/detector-construcoes-sintaticas.js';
 // Plugins opcionais (movidos para @analistas/plugins/)
 import { analistaDocumentacao } from '../js-ts/detectores/detector-documentacao.js';
+import { detectorInterfacesInline } from '../js-ts/detectores/detector-interfaces-inline.js';
+import { detectorTiposInseguros } from '../js-ts/detectores/detector-tipos-inseguros.js';
 import { discoverAnalistasPlugins } from './autodiscovery.js';
 
 let analistaCorrecaoAutomatica: EntradaRegistry = undefined;
@@ -53,6 +69,12 @@ comSupressaoInline(analistaConstrucoesSintaticas), comSupressaoInline(analistaCo
 // Analistas especializados complementares
 // Analistas especializados complementares
 comSupressaoInline(analistaAntiPadroesAsync as unknown as Analista), comSupressaoInline(analistaVazamentoMemoria as unknown as Analista), comSupressaoInline(analistaSeguranca), comSupressaoInline(analistaDocumentacao), comSupressaoInline(detectorMarkdown as unknown as Analista), comSupressaoInline(detectorTiposInseguros as unknown as Analista), comSupressaoInline(detectorInterfacesInline as unknown as Analista), comSupressaoInline(analistaPadronizador),
+// Analistas HTML
+comSupressaoInline(analistaElementosLongos), comSupressaoInline(analistaPadroesHtml), comSupressaoInline(analistaSegurancaHtml), comSupressaoInline(analistaQuickFixesHtml), comSupressaoInline(analistaPontuacaoHtml),
+// Analistas CSS
+comSupressaoInline(analistaElementosCssLongos), comSupressaoInline(analisadorPadroesCss), comSupressaoInline(analisadorSegurancaCss), comSupressaoInline(analisadorQuickFixesCss), comSupressaoInline(analisadorPontuacaoCss),
+// Analistas CSS-in-JS
+comSupressaoInline(analisarElementosCssInJs), comSupressaoInline(analisarPadroesCssInJs), comSupressaoInline(analisarSegurancaCssInJs), comSupressaoInline(analisarQuickFixesCssInJs),
 // Plugins autodiscovered em src/analistas/plugins/
 ...pluginsAutodiscovered.map(p => comSupressaoInline(p as unknown as Analista) as Tecnica),
 // Analistas contextuais inteligentes

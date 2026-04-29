@@ -3,7 +3,7 @@
  * Tipos para sistema de correções automáticas
  */
 
-import type { Ocorrencia } from '../../comum/ocorrencias.js';
+import type { Ocorrencia } from '../../../comum/ocorrencias.js';
 
 export interface CorrecaoResult {
   sucesso: boolean;
@@ -24,4 +24,16 @@ export interface ResultadoAnaliseEstrutural {
   arquivosAnalisados: number;
   problemas: Ocorrencia[];
   sugestoes: string[];
+}
+
+export interface ProblemaPontuacaoHtml {
+  tipo: string;
+  peso: number;
+  descricao: string;
+}
+
+export interface ProblemaPontuacaoCss {
+  tipo: string;
+  peso: number;
+  descricao: string;
 }

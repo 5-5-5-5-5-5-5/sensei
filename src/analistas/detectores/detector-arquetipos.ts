@@ -100,7 +100,7 @@ export async function detectarArquetipos(contexto: Pick<ContextoExecucao, 'arqui
   try {
     const {
       detectarContextoInteligente
-    } = await import('./detector-contexto-inteligente.js');
+    } = await import('../js-ts/detectores/detector-contexto-inteligente.js');
     const estruturaDetectada = arquivos; // Lista de caminhos
     // Carregar package.json com tratamento de erro adequado
     let packageJsonContent: PackageJson = {};

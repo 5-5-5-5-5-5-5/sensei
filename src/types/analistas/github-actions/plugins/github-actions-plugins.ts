@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-import type { ProblemaWorkflow } from './detectores.js';
+import type { ProblemaWorkflow } from '../../detectores/detectores.js';
 
 /**
  * Interface para um detector customizado de GitHub Actions

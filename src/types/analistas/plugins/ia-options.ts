@@ -1,4 +1,4 @@
-import type { LLMOptions } from '../ia/llm-options.js';
+import type { LLMOptions } from '../../ia/llm-options.js';
 
 export interface IAPadroesAvancadosOptions {
   llm: LLMOptions;

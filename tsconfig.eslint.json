@@ -6,17 +6,35 @@
     "baseUrl": ".",
     "noEmit": true,
     "paths": {
-     "@/": [
+    "@/": [
         "./src/"
       ],
       "@analistas/arquitetos": [
         "./src/analistas/arquitetos/index.ts"
       ],
       "@analistas/css": [
-        "./src/analistas/css/index.ts"
+        "./src/analistas/css/plugins/index.ts"
       ],
       "@analistas/css-in-js": [
         "./src/analistas/css-in-js/index.ts"
+      ],
+      "@analistas/css-in-js/analistas": [
+        "./src/analistas/css-in-js/analistas/index.ts"
+      ],
+      "@analistas/css-in-js/corrections": [
+        "./src/analistas/css-in-js/corrections/index.ts"
+      ],
+      "@analistas/css-in-js/plugins": [
+        "./src/analistas/css-in-js/plugins/index.ts"
+      ],
+      "@analistas/css/analistas": [
+        "./src/analistas/css/analistas/index.ts"
+      ],
+      "@analistas/css/corrections": [
+        "./src/analistas/css/corrections/index.ts"
+      ],
+      "@analistas/css/plugins": [
+        "./src/analistas/css/plugins/index.ts"
       ],
       "@analistas/detectores": [
         "./src/analistas/detectores/index.ts"
@@ -32,6 +50,15 @@
       ],
       "@analistas/html": [
         "./src/analistas/html/index.ts"
+      ],
+      "@analistas/html/analistas": [
+        "./src/analistas/html/analistas/index.ts"
+      ],
+      "@analistas/html/corrections": [
+        "./src/analistas/html/corrections/index.ts"
+      ],
+      "@analistas/html/plugins": [
+        "./src/analistas/html/plugins/index.ts"
       ],
       "@analistas/js-ts": [
         "./src/analistas/js-ts/index.ts"
@@ -158,6 +185,21 @@
       ],
       "@projeto-types/analistas/corrections": [
         "./src/types/analistas/corrections/index.ts"
+      ],
+        "@projeto-types/analistas/detectores": [
+        "./src/types/analistas/detectores/index.ts"
+      ],
+      "@projeto-types/analistas/estrategistas": [
+        "./src/types/analistas/estrategistas/index.ts"
+      ],
+      "@projeto-types/analistas/html/corrections": [
+        "./src/types/analistas/html/corrections/index.ts"
+      ],
+      "@projeto-types/analistas/js-ts/corrections": [
+        "./src/types/analistas/js-ts/corrections/index.ts"
+      ],
+      "@projeto-types/analistas/plugins": [
+        "./src/types/analistas/plugins/index.ts"
       ],
       "@projeto-types/cli": [
         "./src/types/cli/index.ts"

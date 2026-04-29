@@ -247,7 +247,7 @@ export interface TipoDuplicadoArgs {
  * Estado do visitor para detecção de vazamentos de memória
  */
 export interface MemoriaVisitorState {
-  ocorrencias: import('../comum/ocorrencias.js').OcorrenciaBase[];
+  ocorrencias: import('../../comum/ocorrencias.js').OcorrenciaBase[];
   relPath: string;
   contextType: 'react' | 'vanilla';
   hasGlobalListeners: boolean;

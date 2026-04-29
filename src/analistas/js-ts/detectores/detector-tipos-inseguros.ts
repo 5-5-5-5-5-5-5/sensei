@@ -16,7 +16,7 @@ import { config } from '@core/config';
 import type { Analista, Ocorrencia } from '@prometheus';
 import { isTestArquivo, shouldSuppressOccurrence,splitLines  } from '@shared/helpers';
 
-import { categorizarUnknown, extractVariableName, isAnyInGenericFunction, isInStringOrComment, isLegacyOrVendorFile, isTypeScriptContext, isUnknownInGenericContext } from '../js-ts/corrections/type-safety/context-analyzer.js';
+import { categorizarUnknown, extractVariableName, isAnyInGenericFunction, isInStringOrComment, isLegacyOrVendorFile, isTypeScriptContext, isUnknownInGenericContext } from '../corrections/type-safety/context-analyzer.js';
 
 const ANALISTA: Analista = {
   nome: 'detector-tipos-inseguros',
