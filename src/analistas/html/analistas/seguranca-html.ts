@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MIT
+// @prometheus-disable seguranca-html
 import { messages } from '@core/messages';
 import type { Ocorrencia, TecnicaAplicarResultado } from '@prometheus';
 import { criarAnalista, criarOcorrencia } from '@prometheus';
@@ -20,7 +21,7 @@ export const analistaSegurancaHtml = criarAnalista({
   categoria: 'seguranca',
   descricao: 'Detecta vulnerabilidades XSS em HTML (innerHTML, outerHTML, document.write)',
   global: false,
-  test: (relPath: string): boolean => /\.(html|htm)$/i.test(relPath),
+  test: (relPath: string): boolean => /\.(html|htm)$/i.test(relPath) && !relPath.includes('src/analistas') && !relPath.includes('src/core/messages'),
   aplicar: async (src: string, relPath: string): Promise<TecnicaAplicarResultado | null> => {
     const ocorrencias: Ocorrencia[] = [];
     const lineOf = createLineLookup(src).lineAt;

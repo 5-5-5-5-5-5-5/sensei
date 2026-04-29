@@ -3,7 +3,7 @@
  * Tipos para sistema de Worker Pool
  */
 
-import type { MetricaAnalista } from '../../analistas/metricas.js';
+import type { MetricaAnalista } from '../../analistas/detectores/metricas.js';
 import type { Tecnica } from '../../comum/analistas.js';
 import type { FileEntryWithAst } from '../../comum/file-entries.js';
 import type { Ocorrencia } from '../../comum/ocorrencias.js';

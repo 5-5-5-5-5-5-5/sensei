@@ -6,14 +6,17 @@
  * estrategistas e suas funcionalidades.
  */
 
-// Markdown
-export * from './markdown.js';
-
-// Detectores
-export * from './detectores.js';
-
-// Estrategistas
-export * from './estrategistas.js';
-
 // Correções
 export * from './corrections/index.js';
+
+// Detectores
+export * from './detectores/index.js';
+
+// Estrategistas
+export * from './estrategistas/index.js';
+
+// Plugins
+export * from './plugins/index.js';
+
+// Markdown
+export * from './markdown.js';

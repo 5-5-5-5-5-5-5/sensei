@@ -186,6 +186,21 @@
       "@projeto-types/analistas/corrections": [
         "./src/types/analistas/corrections/index.ts"
       ],
+        "@projeto-types/analistas/detectores": [
+        "./src/types/analistas/detectores/index.ts"
+      ],
+      "@projeto-types/analistas/estrategistas": [
+        "./src/types/analistas/estrategistas/index.ts"
+      ],
+      "@projeto-types/analistas/html/corrections": [
+        "./src/types/analistas/html/corrections/index.ts"
+      ],
+      "@projeto-types/analistas/js-ts/corrections": [
+        "./src/types/analistas/js-ts/corrections/index.ts"
+      ],
+      "@projeto-types/analistas/plugins": [
+        "./src/types/analistas/plugins/index.ts"
+      ],
       "@projeto-types/cli": [
         "./src/types/cli/index.ts"
       ],

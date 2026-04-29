@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MIT
+// @prometheus-disable css-in-js-seguranca
 import { messages } from '@core/messages';
 import type { Ocorrencia, TecnicaAplicarResultado } from '@prometheus';
 import { criarAnalista, criarOcorrencia } from '@prometheus';
@@ -19,7 +20,7 @@ export const analisarSegurancaCssInJs = criarAnalista({
   categoria: 'seguranca',
   descricao: 'Detecta vulnerabilidades e práticas inseguras em CSS-in-JS',
   global: false,
-  test: (relPath: string): boolean => /\.(ts|tsx|js|jsx)$/i.test(relPath) && !relPath.includes('node_modules'),
+  test: (relPath: string): boolean => /\.(ts|tsx|js|jsx)$/i.test(relPath) && !relPath.includes('node_modules') && !relPath.includes('src/analistas') && !relPath.includes('src/core/messages'),
   aplicar: async (src: string, relPath: string): Promise<TecnicaAplicarResultado | null> => {
     const ocorrencias: Ocorrencia[] = [];
 

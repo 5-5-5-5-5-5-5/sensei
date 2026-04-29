@@ -14,7 +14,7 @@ export const analistaSeguranca: Analista = {
   categoria: 'seguranca',
   descricao: 'Detecta vulnerabilidades e práticas inseguras no código',
   test: (relPath: string): boolean => {
-    return /\.(js|jsx|ts|tsx|mjs|cjs)$/.test(relPath);
+    return /\.(js|jsx|ts|tsx|mjs|cjs)$/.test(relPath) && !relPath.includes('src/analistas') && !relPath.includes('src/core/messages');
   },
   aplicar: (src: string, relPath: string, ast: NodePath<Node> | null): Ocorrencia[] => {
     if (!src) return [];

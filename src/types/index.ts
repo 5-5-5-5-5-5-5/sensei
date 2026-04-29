@@ -6,16 +6,12 @@
  */
 
 // Analistas
-export * from './analistas/contexto.js';
 export * from './analistas/corrections/index.js';
-export * from './analistas/corrections/type-safety.js';
-export * from './analistas/detectores.js';
-export * from './analistas/estrategistas.js';
-export * from './analistas/github-actions-plugins.js';
-export * from './analistas/handlers.js';
-export * from './analistas/metricas.js';
-export * from './analistas/modulos-dinamicos.js';
-export * from './analistas/pontuacao.js';
+export * from './analistas/detectores/index.js';
+export * from './analistas/estrategistas/index.js';
+export * from './analistas/html/corrections/index.js';
+export * from './analistas/js-ts/corrections/index.js';
+export * from './analistas/plugins/index.js';
 
 // CLI
 export * from './cli/comandos.js';

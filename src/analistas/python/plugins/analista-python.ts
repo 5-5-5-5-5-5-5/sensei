@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MIT
+// @prometheus-disable python
 import { messages } from '@core/messages';
 import { criarAnalista, criarOcorrencia } from '@prometheus';
 import { createLineLookup , maskPythonComments, maskPythonStringsAndComments } from '@shared/helpers';

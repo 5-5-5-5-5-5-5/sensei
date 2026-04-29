@@ -1,14 +1,9 @@
 // SPDX-License-Identifier: MIT
 import { messages } from '@core/messages';
+import type { ProblemaPontuacaoCss } from '@projeto-types/analistas/corrections';
 import type { Analista, Ocorrencia, TecnicaAplicarResultado } from '@prometheus';
 import { criarOcorrencia } from '@prometheus';
 import postcss from 'postcss';
-
-interface ProblemaPontuacaoCss {
-  tipo: string;
-  peso: number;
-  descricao: string;
-}
 
 const tabelasPontuacaoCss: ProblemaPontuacaoCss[] = [
   { tipo: 'id-como-seletor', peso: 5, descricao: 'Seletor de ID usado' },

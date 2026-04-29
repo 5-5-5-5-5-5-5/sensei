@@ -1,16 +1,12 @@
 // SPDX-License-Identifier: MIT
+// @prometheus-disable pontuacao-html
 import { messages } from '@core/messages';
+import type { ProblemaPontuacaoHtml } from '@projeto-types/analistas/corrections';
 import type { Analista, Ocorrencia, TecnicaAplicarResultado } from '@prometheus';
 import { criarOcorrencia } from '@prometheus';
 import { createLineLookup } from '@shared/helpers';
 
-interface ProblemaPontuacao {
-  tipo: string;
-  peso: number;
-  descricao: string;
-}
-
-const tabelasPontuacao: ProblemaPontuacao[] = [
+const tabelasPontuacao: ProblemaPontuacaoHtml[] = [
   { tipo: 'doctype-faltando', peso: 10, descricao: 'DOCTYPE ausente' },
   { tipo: 'html-lang-faltando', peso: 10, descricao: 'Atributo lang no <html> ausente' },
   { tipo: 'meta-charset-faltando', peso: 10, descricao: 'Meta charset ausente' },

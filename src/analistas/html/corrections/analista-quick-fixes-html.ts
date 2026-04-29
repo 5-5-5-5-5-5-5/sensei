@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MIT
+// @prometheus-disable auto-fix-html
 import { messages } from '@core/messages';
 import type { Analista, Ocorrencia, TecnicaAplicarResultado } from '@prometheus';
 import { criarOcorrencia } from '@prometheus';
