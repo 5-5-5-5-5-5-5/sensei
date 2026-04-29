@@ -3,4 +3,6 @@
  * Barrel export para CSS-in-JS
  */
 
-export * from './plugins/analista-css-in-js.js';
+export * from './plugins/index.js';
+export * from './analistas/index.js';
+export * from './corrections/index.js';

@@ -41,6 +41,11 @@ import {analisadorPadroesCss} from '../css/analistas/analisador-padroes-css.js';
 import {analisadorSegurancaCss} from '../css/analistas/seguranca-css.js';
 import {analisadorQuickFixesCss} from '../css/corrections/quick-fixes-css.js';
 import {analisadorPontuacaoCss} from '../css/corrections/pontuacao-css.js';
+// Analistas CSS-in-JS
+import {analisarElementosCssInJs} from '../css-in-js/analistas/analisar-elementos-css-in-js.js';
+import {analisarPadroesCssInJs} from '../css-in-js/analistas/analisar-padroes-css-in-js.js';
+import {analisarSegurancaCssInJs} from '../css-in-js/analistas/seguranca-css-in-js.js';
+import {analisarQuickFixesCssInJs} from '../css-in-js/corrections/quick-fixes-css-in-js.js';
 
 let analistaCorrecaoAutomatica: EntradaRegistry = undefined;
 try {
@@ -68,6 +73,8 @@ comSupressaoInline(analistaAntiPadroesAsync as unknown as Analista), comSupressa
 comSupressaoInline(analistaElementosLongos), comSupressaoInline(analistaPadroesHtml), comSupressaoInline(analistaSegurancaHtml), comSupressaoInline(analistaQuickFixesHtml), comSupressaoInline(analistaPontuacaoHtml),
 // Analistas CSS
 comSupressaoInline(analistaElementosCssLongos), comSupressaoInline(analisadorPadroesCss), comSupressaoInline(analisadorSegurancaCss), comSupressaoInline(analisadorQuickFixesCss), comSupressaoInline(analisadorPontuacaoCss),
+// Analistas CSS-in-JS
+comSupressaoInline(analisarElementosCssInJs), comSupressaoInline(analisarPadroesCssInJs), comSupressaoInline(analisarSegurancaCssInJs), comSupressaoInline(analisarQuickFixesCssInJs),
 // Plugins autodiscovered em src/analistas/plugins/
 ...pluginsAutodiscovered.map(p => comSupressaoInline(p as unknown as Analista) as Tecnica),
 // Analistas contextuais inteligentes
