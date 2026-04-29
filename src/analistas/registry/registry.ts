@@ -30,6 +30,11 @@ import { analistaTodoComentarios } from '../js-ts/analistas/analista-todo-commen
 // Plugins opcionais (movidos para @analistas/plugins/)
 import { analistaDocumentacao } from '../js-ts/detectores/detector-documentacao.js';
 import { discoverAnalistasPlugins } from './autodiscovery.js';
+import { analistaElementosLongos } from '../html/analistas/analista-elementos-longos.js';
+import {analistaPadroesHtml} from '../html/analistas/analista-padroes-html.js';
+import {analistaSegurancaHtml} from '../html/analistas/seguranca-html.js';
+import {analistaQuickFixesHtml} from '../html/corrections/analista-quick-fixes-html.js';
+import {analistaPontuacaoHtml} from '../html/corrections/analista-pontuacao-html.js';
 
 let analistaCorrecaoAutomatica: EntradaRegistry = undefined;
 try {
@@ -53,6 +58,8 @@ comSupressaoInline(analistaConstrucoesSintaticas), comSupressaoInline(analistaCo
 // Analistas especializados complementares
 // Analistas especializados complementares
 comSupressaoInline(analistaAntiPadroesAsync as unknown as Analista), comSupressaoInline(analistaVazamentoMemoria as unknown as Analista), comSupressaoInline(analistaSeguranca), comSupressaoInline(analistaDocumentacao), comSupressaoInline(detectorMarkdown as unknown as Analista), comSupressaoInline(detectorTiposInseguros as unknown as Analista), comSupressaoInline(detectorInterfacesInline as unknown as Analista), comSupressaoInline(analistaPadronizador),
+// Analistas HTML
+comSupressaoInline(analistaElementosLongos), comSupressaoInline(analistaPadroesHtml), comSupressaoInline(analistaSegurancaHtml), comSupressaoInline(analistaQuickFixesHtml), comSupressaoInline(analistaPontuacaoHtml),
 // Plugins autodiscovered em src/analistas/plugins/
 ...pluginsAutodiscovered.map(p => comSupressaoInline(p as unknown as Analista) as Tecnica),
 // Analistas contextuais inteligentes

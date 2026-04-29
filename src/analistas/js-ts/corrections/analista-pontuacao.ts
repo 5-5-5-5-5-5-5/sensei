@@ -44,7 +44,7 @@ export const analistaQuickFixes: Analista = {
     const quickFixes = findQuickFixes(src, undefined, undefined, relPath);
 
     // Quick fixes específicos por tipo de problema detectado
-    const problemaTipos = ['unhandled-async', 'console-log', 'memory-leak', 'dangerous-html', 'eval-usage', 'complex-regex'];
+    const problemaTipos = ['unhandled-async', 'console-log', 'memory-leak', 'eval-usage', 'complex-regex'];
     for (const problemTipo of problemaTipos) {
       const specificFixes = findQuickFixes(src, problemTipo, undefined, relPath);
       quickFixes.push(...specificFixes);
