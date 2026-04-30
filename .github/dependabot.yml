@@ -10,7 +10,7 @@ updates:
     schedule:
       interval: "weekly"
       day: "monday"
-      time: "06:00"
+      time: "05:00"
       timezone: "America/Sao_Paulo"
     open-pull-requests-limit: 10
     commit-message:
@@ -28,6 +28,7 @@ updates:
         update-types:
           - "minor"
           - "patch"
+
       # Group TypeScript ecosystem
       typescript:
         patterns:
@@ -35,19 +36,13 @@ updates:
           - "@types/*"
           - "ts-*"
           - "tsc-*"
-      # Group testing tools
-      testing:
-        patterns:
-          - "vitest"
-          - "@vitest/*"
-          - "c8"
-          - "istanbul*"
+  
       # Group linting tools
       linting:
         patterns:
           - "eslint*"
           - "@eslint/*"
-          - "prettier*"
+
       # Group Babel
       babel:
         patterns:
@@ -63,7 +58,7 @@ updates:
     schedule:
       interval: "weekly"
       day: "monday"
-      time: "06:00"
+      time: "05:00"
       timezone: "America/Sao_Paulo"
     open-pull-requests-limit: 5
     commit-message:
