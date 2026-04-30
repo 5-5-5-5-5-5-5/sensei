@@ -39,17 +39,17 @@ Proveniência e Autoria: Este documento integra o projeto Prometheus (licença M
 
 ##  Sumário
 
-- [ Características](#-características-principais)
-- [ Começar Rápido](#-começar-rápido)
+- [ Características Principais](#-características-principais)
+- [ Começar Rápido](./docs/guias/GUIA-INICIO-RAPIDO.md)
 - [ Instalação](#instalação)
 - [ Fluxo Recomendado](#fluxo-recomendado)
-- [ Configuração](#configuração)
-- [ Comandos Disponíveis](#-comandos-disponíveis)
-- [ Documentação Completa](#-documentação-completa)
-- [ Exemplos](#-exemplos)
-- [ Arquitetura](#-estrutura-do-projeto)
-- [‍ Desenvolvimento](#-desenvolvimento)
-- [ Contribuir](#-desenvolvimento)
+- [ Configuração](./docs/guias/GUIA-CONFIGURACAO.md)
+- [ Comandos Disponíveis](./docs/guias/GUIA-COMANDOS.md)
+- [ Documentação Completa](./docs/)
+- [ Exemplos](./docs/exemplos/EXEMPLOS-USO.md)
+- [ Arquitetura](./docs/arquitetura/ARVORE-ARQUITETURAL.md)
+- [‍ Desenvolvimento](./docs/desenvolvimento/)
+- [ Contribuir](./CONTRIBUTING.md)
 - [ Suporte](#-suporte)
 
 ##  Características Principais
