@@ -6,7 +6,7 @@
     "baseUrl": ".",
     "noEmit": true,
     "paths": {
-    "@analistas/arquitetos": [
+   "@analistas/arquitetos": [
         "./src/analistas/arquitetos/index.ts"
       ],
       "@analistas/css": [
@@ -26,6 +26,9 @@
       ],
       "@analistas/css/corrections": [
         "./src/analistas/css/corrections/index.ts"
+      ],
+      "@analistas/detectores": [
+        "./src/analistas/detectores/index.ts"
       ],
       "@analistas/estrategistas": [
         "./src/analistas/estrategistas/index.ts"
@@ -110,9 +113,6 @@
       ],
       "@analistas/shell/corrections": [
         "./src/analistas/shell/corrections/index.ts"
-      ],
-      "@analistas/shell/detectores": [
-        "./src/analistas/shell/detectores/index.ts"
       ],
       "@analistas/sql": [
         "./src/analistas/sql/index.ts"
@@ -437,6 +437,9 @@
       ],
       "@projeto-types/zeladores": [
         "./src/types/zeladores/index.ts"
+      ],
+      "@prometheus": [
+        "./src/types/index.ts"
       ],
       "@relatorios": [
         "./src/relatorios/index.ts"

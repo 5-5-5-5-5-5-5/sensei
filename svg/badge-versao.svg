@@ -8,5 +8,5 @@
   <rect width="180" height="40" fill="#0a0a0a" rx="8"/>
   <rect width="95" height="40" fill="url(#maintainedGrad)" rx="3"/>
   <text x="44" y="22" fill="#000000" dominant-baseline="middle" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">VERSÃO</text>
-    <text x="140" y="22" fill="#ffffff" dominant-baseline="middle" font-family="Verdana,sans-serif" font-size="14" font-weight="bold" text-anchor="middle">0.10.4</text>
+    <text x="140" y="22" fill="#ffffff" dominant-baseline="middle" font-family="Verdana,sans-serif" font-size="14" font-weight="bold" text-anchor="middle">0.10.5</text>
     </svg>
