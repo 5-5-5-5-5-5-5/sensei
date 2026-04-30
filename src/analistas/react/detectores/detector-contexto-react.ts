@@ -348,5 +348,6 @@ export function inferirArquetipoReact(
     'vite-vue': 'vue-spa'
   };
 
-  return mapeamentoArquetipos[resultados[0].tecnologia] || 'generico';
+  const tecnologia = resultados[0]?.tecnologia;
+  return tecnologia ? (mapeamentoArquetipos[tecnologia] || 'generico') : 'generico';
 }

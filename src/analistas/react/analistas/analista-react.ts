@@ -31,7 +31,7 @@ function hasElectronPatterns(src: string): boolean {
 
 const traverseFn = traverse as unknown as typeof import('@babel/traverse').default;
 
-function warn(message: string, relPath: string, line?: number, nivel = messages.SeverityNiveis.warning): Msg {
+function warn(message: string, relPath: string, line?: number, nivel: 'info' | 'aviso' | 'erro' = 'aviso'): Msg {
   return criarOcorrencia({
     relPath,
     mensagem: message,

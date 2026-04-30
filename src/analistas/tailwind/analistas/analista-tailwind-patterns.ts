@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
+import { messages } from '@core/messages';
 import type { Ocorrencia } from '@prometheus';
 import { criarAnalista, criarOcorrencia } from '@prometheus';
 
-import { messages } from '../../../core/consts.js';
 import { categorizeTailwindToken, hasDarkModeVariant } from './consts.js';
 
 function warn(message: string, relPath: string, line?: number, nivel: Ocorrencia['nivel'] = 'info'): Ocorrencia {
-  return criarOcorrencia({ relPath, mensagem: message, linha: line, nivel, origem: messages.AnalystOrigins.tailwind, tipo: messages.AnalystTipos.tailwind });
+  return criarOcorrencia({ relPath, mensagem: message, linha: line, nivel, origem: messages.AnalystOrigens.tailwind, tipo: messages.AnalystTipos.tailwind });
 }
 
 export const analistaTailwindPatterns = criarAnalista({

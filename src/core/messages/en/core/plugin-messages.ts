@@ -25,6 +25,23 @@ inlineHandlerJsx: 'Inline handler detected in JSX; prefer stable functions (useC
 deprecatedLifecycleMethod: (name: string) => `Deprecated lifecycle method: ${name}. Use componentDidMount, componentDidUpdate or hooks.`,
 complexInlineStyles: 'Complex inline styles detected. Consider using CSS modules or styled-components for better performance and organization.'
 } as const;
+  /* -------------------------- NEXT.JS MESSAGES -------------------------- */
+export const NextJsMensagens = {
+  nextServerWithoutEnvCheck: 'Next.js server function should check NODE_ENV',
+  nextMetadataIncomplete: 'Metadata should include title or description'
+} as const;
+  /* -------------------------- VUE MESSAGES -------------------------- */
+export const VueMensagens = {
+  vueVHtmlUnsafe: 'v-html can be unsafe if binding user input',
+  vueTwoWayBindingWithoutEmit: 'Two-way binding should use emit for prop changes'
+} as const;
+  /* -------------------------- ELECTRON MESSAGES -------------------------- */
+export const ElectronMensagens = {
+  electronNodeIntegration: 'nodeIntegration: true is a security risk',
+  electronContextIsolation: 'contextIsolation: false exposes preload to renderer',
+  electronEvalUsage: 'Use of eval() in Electron app is a security risk',
+  electronSyncIpc: 'Synchronous IPC can block the renderer process'
+} as const;
   /* -------------------------- REACT HOOKS MESSAGES -------------------------- */
 export const ReactHooksMensagens = {
 useEffectNoDeps: 'useEffect without dependency array (evaluate deps to avoid loops).',

@@ -8,6 +8,7 @@
 // Analistas
 export * from './analistas/corrections/index.js';
 export * from './analistas/detectores/index.js';
+export type { MetricaAnalista, TopAnalista } from './analistas/detectores/metricas.js';
 export * from './analistas/estrategistas/index.js';
 export * from './analistas/html/corrections/index.js';
 export * from './analistas/js-ts/corrections/index.js';

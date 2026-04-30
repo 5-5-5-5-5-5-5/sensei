@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: MIT
 
+export type * from './contexto.js';
+
 // Tipos permissivos para detectores — preferimos segurança de compilação agora
 // e refinaremos os tipos por detector no futuro.
 

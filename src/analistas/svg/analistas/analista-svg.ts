@@ -92,7 +92,7 @@ export const analistaSvg = criarAnalista({
       ocorrencias.push(msg(messages.SvgMensagens.semRole, relPath, messages.SeverityNiveis.suggestion, roleLine));
     }
     // Estrutura válida
-    if (!/<svg[^>]*>[\s\S]*<\/(?i)svg>/i.test(src)) {
+    if (!/<svg[^>]*>[\s\S]*<\/(?:svg)>/i.test(src)) {
       ocorrencias.push(msg(messages.SvgMensagens.fechamentoInvalido, relPath, messages.SeverityNiveis.warning, linhaSvg));
     }
     // Otimização (diferença de bytes)

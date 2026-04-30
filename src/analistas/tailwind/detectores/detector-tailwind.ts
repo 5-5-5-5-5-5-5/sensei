@@ -1,6 +1,4 @@
 // SPDX-License-Identifier: MIT
-import type { DetectorResultado } from '@prometheus';
-import { criarDetector } from '@prometheus';
 
 export interface TailwindDetectorConfig {
   enableJit?: boolean;
@@ -79,10 +77,10 @@ export function detectarTailwindConfig(tailwindConfig: string): { modoDark?: str
   };
 }
 
-export const detectorTailwind = criarDetector({
+export const detectorTailwind = {
   nome: 'detector-tailwind',
   descricao: 'Detecta uso de Tailwind CSS e analisa configuracoes',
-  aplicar: (src: string): DetectorResultado | null => {
+  detectar: (src: string): { detectado: boolean; linguagem: string; meta?: Record<string, unknown> } | null => {
     if (!detectarTailwindEmSrc(src)) return null;
 
     const configuracoes: string[] = [];
@@ -102,4 +100,4 @@ export const detectorTailwind = criarDetector({
       }
     };
   }
-});
+};

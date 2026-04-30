@@ -149,8 +149,8 @@ function collectPythonIssues(src: string, relPath: string): Msg[] {
 
   for (const match of scan.matchAll(/@(?:staticmethod|classmethod)\s*\n\s*def\s+\w+/gm)) {
     const line = lineOf(match.index);
-    const nextMatch = scan.slice(match.index).match(/^(\s*)def\s+(\w+)/m);
-    if (nextMatch && !/@(?:staticmethod|classmethod)\s*\n.*\n\1*@functools\.wraps/m.test(scan.slice(match.index))) {
+    const nextPortion = scan.slice(match.index, match.index + 200);
+    if (!/@functools\.wraps/.test(nextPortion)) {
       ocorrencias.push(warn(messages.PythonMensagens.decoratorWithoutWraps, relPath, line, messages.SeverityNiveis.warning));
     }
   }

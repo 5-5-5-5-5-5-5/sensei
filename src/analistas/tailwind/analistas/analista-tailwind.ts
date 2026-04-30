@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
+import { messages } from '@core/messages';
 import type { Ocorrencia } from '@prometheus';
 import { criarAnalista, criarOcorrencia } from '@prometheus';
 import { createLineLookup } from '@shared/helpers';
 
-import { messages } from '../../../core/consts.js';
 import { categorizeTailwindToken, hasDarkModeVariant, isJitPattern, TAILWIND_RESPONSIVE_PREFIXES, TAILWIND_STATE_PREFIXES } from './consts.js';
 
 const disableEnv = process.env.PROMETHEUS_DISABLE_PLUGIN_TAILWIND === '1';
@@ -171,7 +171,7 @@ function propertyKey(token: string): string | null {
 }
 
 function warn(message: string, relPath: string, line?: number, nivel: Ocorrencia['nivel'] = 'aviso'): Msg {
-  return criarOcorrencia({ relPath, mensagem: message, linha: line, nivel, origem: messages.AnalystOrigins.tailwind, tipo: messages.AnalystTipos.tailwind });
+  return criarOcorrencia({ relPath, mensagem: message, linha: line, nivel, origem: messages.AnalystOrigens.tailwind, tipo: messages.AnalystTipos.tailwind });
 }
 
 function collectTailwindIssues(src: string, relPath: string): Msg[] {

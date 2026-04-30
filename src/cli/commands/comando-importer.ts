@@ -11,6 +11,15 @@ import { scanImports } from '../diagnostico/handlers/importer-handler.js';
 const TSCONFIG_PATH = path.resolve(process.cwd(), 'tsconfig.json');
 const SRC_DIR = path.resolve(process.cwd(), 'src');
 
+const ALIASES_ESPECIAIS: Record<string, string> = {
+  '@prometheus': './src/types/index.ts',
+};
+
+const ALIASES_ESPECIAIS_INVERTIDOS: Record<string, string> = Object.entries(ALIASES_ESPECIAIS).reduce((acc, [k, v]) => {
+  acc[v] = k;
+  return acc;
+}, {} as Record<string, string>);
+
 
 interface ImporterOptions {
   verbose?: boolean;
@@ -57,6 +66,14 @@ function getBaseAliases(paths: Record<string, string[]>, options: ImporterOption
   if (!bases.some(b => b.prefix === '@')) bases.push({ prefix: '@', target: './src/types/index' });
   if (!bases.some(b => b.prefix === '@/')) bases.push({ prefix: '@/', target: './src/' });
   if (!bases.some(b => b.prefix === '@src')) bases.push({ prefix: '@src', target: './src' });
+
+  for (const [alias, target] of Object.entries(ALIASES_ESPECIAIS)) {
+    const normalizedTarget = target.replace(/^\.\//, '').replace(/\.ts$/, '');
+    if (!bases.some(b => b.prefix === alias)) {
+      bases.push({ prefix: alias, target: normalizedTarget });
+      verboseLog(`Added special alias: ${alias} → ${normalizedTarget}`, options);
+    }
+  }
 
   return bases.sort((a, b) => b.target.length - a.target.length);
 }
@@ -151,6 +168,15 @@ function scanBarrels(originalBases: { prefix: string; target: string }[], option
         changed = true;
         verboseLog(`Removed wildcard: ${key}`, options);
       }
+    }
+  }
+
+  for (const [alias, target] of Object.entries(ALIASES_ESPECIAIS)) {
+    if (!paths[alias]) {
+      const normalizedTarget = target.replace(/^\.\//, '');
+      paths[alias] = [normalizedTarget];
+      changed = true;
+      verboseLog(`Added special alias: ${alias} → ${normalizedTarget}`, options);
     }
   }
 

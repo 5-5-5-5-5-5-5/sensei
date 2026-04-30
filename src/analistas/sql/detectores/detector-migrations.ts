@@ -1,8 +1,14 @@
 // SPDX-License-Identifier: MIT
 import type { Ocorrencia } from '@prometheus';
-import { criarDetector } from '@prometheus';
 
-export const detectorMigrations = criarDetector({
+interface DetectorMigrationsResult {
+  nome: string;
+  descricao: string;
+  test: (relPath: string) => boolean;
+  detectar: (src: string, relPath: string) => Promise<Ocorrencia[]>;
+}
+
+export const detectorMigrations: DetectorMigrationsResult = {
   nome: 'detector-migrations',
   descricao: 'Detecta padrões específicos em arquivos de migração de banco de dados',
   test: (relPath: string): boolean => {
@@ -31,7 +37,7 @@ export const detectorMigrations = criarDetector({
           linha: numeroLinha,
           sugestao: 'Verifique se dados serão perdidos. Considere usar estratégia de soft delete.',
           origem: 'detector-migrations'
-        });
+        } as Ocorrencia);
       }
 
       if (/rename\s+table/i.test(linha) || /rename\s+column/i.test(linha)) {
@@ -43,7 +49,7 @@ export const detectorMigrations = criarDetector({
           linha: numeroLinha,
           sugestao: 'Documente a mudança para atualização de código dependente.',
           origem: 'detector-migrations'
-        });
+        } as Ocorrencia);
       }
 
       if (/change\s+column\s+type/i.test(linha) || /alter\s+column/i.test(linha)) {
@@ -55,7 +61,7 @@ export const detectorMigrations = criarDetector({
           linha: numeroLinha,
           sugestao: 'Verifique compatibilidade de dados e impactos em aplicações.',
           origem: 'detector-migrations'
-        });
+        } as Ocorrencia);
       }
 
       if (/add\s+constraint/i.test(linha) && /not\s+null/i.test(linha)) {
@@ -67,7 +73,7 @@ export const detectorMigrations = criarDetector({
           linha: numeroLinha,
           sugestao: 'Considere adicionar valores padrão ou limpar dados antes.',
           origem: 'detector-migrations'
-        });
+        } as Ocorrencia);
       }
 
       if (/create\s+index/i.test(linha) && /concurrently/i.test(linha)) {
@@ -78,10 +84,10 @@ export const detectorMigrations = criarDetector({
           relPath,
           linha: numeroLinha,
           origem: 'detector-migrations'
-        });
+        } as Ocorrencia);
       }
     });
 
     return ocorrencias;
   }
-});
+};

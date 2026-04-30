@@ -21,6 +21,7 @@ export interface DeteccaoCustom {
 interface WorkflowStep {
   name?: string;
   uses?: string;
+  if?: string;
   with?: {
     path?: string;
     'fetch-depth'?: number | string;

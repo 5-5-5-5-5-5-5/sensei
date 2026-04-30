@@ -57,6 +57,9 @@
       "@analistas/css/corrections": [
         "./src/analistas/css/corrections/index.ts"
       ],
+      "@analistas/detectores": [
+        "./src/analistas/detectores/index.ts"
+      ],
       "@analistas/estrategistas": [
         "./src/analistas/estrategistas/index.ts"
       ],
@@ -140,9 +143,6 @@
       ],
       "@analistas/shell/corrections": [
         "./src/analistas/shell/corrections/index.ts"
-      ],
-      "@analistas/shell/detectores": [
-        "./src/analistas/shell/detectores/index.ts"
       ],
       "@analistas/sql": [
         "./src/analistas/sql/index.ts"

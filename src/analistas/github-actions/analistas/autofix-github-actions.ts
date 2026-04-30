@@ -134,7 +134,7 @@ export const autofixConcurrency: DeteccaoCustom = {
   cancel-in-progress: true
 `;
     if (conteudo.startsWith('name:')) {
-      return { descricao: 'Concurrency group adicionado', conteudo: concurrencyBlock + '\n' + conteudo };
+      return { descricao: 'Concurrency group adicionado', conteudo: `${concurrencyBlock  }\n${  conteudo}` };
     }
     return null;
   }
@@ -150,7 +150,8 @@ export const autofixBranchFilter: DeteccaoCustom = {
     const on = (workflow as { on?: unknown }).on;
     if (!on) return probs;
     const onObj = typeof on === 'string' ? { [on]: {} } : (on as Record<string, unknown>);
-    if (onObj.push && !onObj.push.branches) {
+    const pushObj = onObj.push as { branches?: string[] } | undefined;
+    if (pushObj && !pushObj.branches) {
       probs.push({ tipo: 'push-sem-branches-filter', descricao: 'Trigger push sem filtro de branches', linha: 1, sugestao: 'Adicionar branches: [main, develop]', severidade: 'media' });
     }
     return probs;

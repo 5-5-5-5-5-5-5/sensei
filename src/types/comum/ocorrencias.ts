@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MIT
+import type { Correcao } from '../analistas/corrections/pontuacao.js';
 
 export type OcorrenciaNivel = 'erro' | 'aviso' | 'info' | 'sucesso';
 
@@ -129,5 +130,31 @@ export function ocorrenciaParseErro(data: {
     origem: 'prometheus',
     ...data,
     mensagem: data.mensagem.trim(),
+  };
+}
+
+// Função para criar correção
+
+export function criarCorrecao(
+  def: {
+    nome: string;
+    categoria?: string;
+    descricao: string;
+    test?: (relPath: string) => boolean;
+    aplicar?: (ocorrencia: any, src: string) => Promise<{ original: string; modificado: string; descricao?: string } | null>;
+    original?: string;
+    modificado?: string;
+    tipo?: 'substituicao' | 'insercao' | 'remocao' | 'refatoracao';
+    confidence?: number;
+    risks?: string[];
+  }
+): Partial<Correcao> {
+  return {
+    nome: def.nome,
+    categoria: def.categoria,
+    descricao: def.descricao,
+    tipo: def.tipo ?? 'substituicao',
+    confidence: def.confidence ?? 1,
+    risks: def.risks ?? [],
   };
 }
