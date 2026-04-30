@@ -12,6 +12,7 @@ export * from './cli-comando-diagnosticar-messages.js';
 export * from './cli-comando-formatar-messages.js';
 export * from './cli-comando-guardian-messages.js';
 export * from './cli-comando-metricas-messages.js';
+export * from './cli-comando-name-messages.js';
 export * from './cli-comando-names-messages.js';
 export * from './cli-comando-otimizar-svg-messages.js';
 export * from './cli-comando-padronizador-messages.js';

@@ -11,13 +11,11 @@ import {
   comandoImporter,
   comandoLicencas,
   comandoMetricas,
-  comandoNames,
+  comandoName,
   comandoOtimizarSvg,
-  comandoPadronizador,
   comandoPlugins,
   comandoPodar,
   comandoReestruturar,
-  comandoRename,
   criarComandoFixTypes,
   registrarComandoReverter,
 } from './commands/index.js';
@@ -31,7 +29,6 @@ export function registrarComandos(
   program.addCommand(comandoFormatar(aplicarFlagsGlobais));
   program.addCommand(comandoOtimizarSvg(aplicarFlagsGlobais));
   program.addCommand(comandoPodar(aplicarFlagsGlobais));
-  program.addCommand(comandoPadronizador(aplicarFlagsGlobais));
   program.addCommand(comandoReestruturar(aplicarFlagsGlobais));
   program.addCommand(comandoAtualizar(aplicarFlagsGlobais));
   program.addCommand(comandoAnalistas());
@@ -39,8 +36,7 @@ export function registrarComandos(
   program.addCommand(criarComandoFixTypes());
   program.addCommand(comandoLicencas());
   program.addCommand(comandoPlugins());
-  program.addCommand(comandoNames(aplicarFlagsGlobais));
-  program.addCommand(comandoRename(aplicarFlagsGlobais));
+  program.addCommand(comandoName(aplicarFlagsGlobais));
   program.addCommand(comandoImporter(aplicarFlagsGlobais));
   program.addCommand(comandoIgnore());
   registrarComandoReverter(program);
