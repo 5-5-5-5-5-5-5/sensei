@@ -15,12 +15,6 @@ const ALIASES_ESPECIAIS: Record<string, string> = {
   '@prometheus': './src/types/index.ts',
 };
 
-const ALIASES_ESPECIAIS_INVERTIDOS: Record<string, string> = Object.entries(ALIASES_ESPECIAIS).reduce((acc, [k, v]) => {
-  acc[v] = k;
-  return acc;
-}, {} as Record<string, string>);
-
-
 interface ImporterOptions {
   verbose?: boolean;
   dryRun?: boolean;

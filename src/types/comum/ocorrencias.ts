@@ -141,7 +141,7 @@ export function criarCorrecao(
     categoria?: string;
     descricao: string;
     test?: (relPath: string) => boolean;
-    aplicar?: (ocorrencia: any, src: string) => Promise<{ original: string; modificado: string; descricao?: string } | null>;
+    aplicar?: (ocorrencia: OcorrenciaBase, src: string) => Promise<{ original: string; modificado: string; descricao?: string } | null>;
     original?: string;
     modificado?: string;
     tipo?: 'substituicao' | 'insercao' | 'remocao' | 'refatoracao';

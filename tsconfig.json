@@ -33,9 +33,6 @@
       "node"
     ],
     "paths": {
-      "@prometheus": [
-        "./src/types/index.ts"
-      ],
       "@analistas/arquitetos": [
         "./src/analistas/arquitetos/index.ts"
       ],
@@ -467,6 +464,9 @@
       ],
       "@projeto-types/zeladores": [
         "./src/types/zeladores/index.ts"
+      ],
+      "@prometheus": [
+        "./src/types/index.ts"
       ],
       "@relatorios": [
         "./src/relatorios/index.ts"

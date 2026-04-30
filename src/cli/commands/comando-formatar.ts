@@ -4,9 +4,9 @@ import path from 'node:path';
 
 import traverseModule from '@babel/traverse';
 import { chalk, config, generate } from '@core/config';
+import { scanRepository } from '@core/execution';
 import { getMessages } from '@core/messages';
 import { decifrarSintaxe } from '@core/parsing';
-import { scanRepository } from '@core/execution';
 import type { FormatarCommandOpts, FormatResult } from '@prometheus';
 import {
   formatarComPrettierProjeto,
@@ -65,10 +65,10 @@ async function applyFixPatterns(
   let modified = false;
 
   traverse(ast, {
-    BinaryExpression(p: any) {
+    BinaryExpression(p: import('@babel/traverse').NodePath<import('@babel/types').BinaryExpression>) {
       const { node } = p;
       if (node.operator === '==' || node.operator === '!=') {
-        const isNullCheck = (n: any) =>
+        const isNullCheck = (n: import('@babel/types').Node) =>
           n.type === 'NullLiteral' ||
           (n.type === 'Identifier' && n.name === 'undefined');
         if (isNullCheck(node.right) || isNullCheck(node.left)) return;
@@ -78,13 +78,13 @@ async function applyFixPatterns(
         modified = true;
       }
     },
-    TSAsExpression(p: any) {
+    TSAsExpression(p: import('@babel/traverse').NodePath<import('@babel/types').TSAsExpression>) {
       const { node } = p;
       if (node.typeAnnotation && node.typeAnnotation.type === 'TSAnyKeyword') {
         // just detect, no modification needed
       }
     },
-    TSTypeAssertion(p: any) {
+    TSTypeAssertion(p: import('@babel/traverse').NodePath<import('@babel/types').TSTypeAssertion>) {
       const { node } = p;
       const { expression, typeAnnotation } = node;
       p.replaceWith({

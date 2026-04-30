@@ -3,7 +3,7 @@ export interface AnalistaShellConfig {
   categoria: string;
   descricao: string;
   test: (relPath: string) => boolean;
-  aplicar: (src: string, relPath: string) => Promise<any[]>;
+  aplicar: (src: string, relPath: string) => Promise<unknown[] | null>;
 }
 
 export interface ShellIssue {

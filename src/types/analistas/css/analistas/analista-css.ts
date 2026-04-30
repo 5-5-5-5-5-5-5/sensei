@@ -3,7 +3,7 @@ export interface AnalistaCssConfig {
   categoria: string;
   descricao: string;
   test: (relPath: string) => boolean;
-  aplicar: (src: string, relPath: string) => Promise<any[] | null>;
+  aplicar: (src: string, relPath: string) => Promise<unknown[] | null>;
 }
 
 export interface CssIssue {

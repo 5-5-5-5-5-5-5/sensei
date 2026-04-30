@@ -32,8 +32,6 @@ function isJsonConfig(relPath: string): boolean {
 }
 
 function collectXmlIssues(src: string, relPath: string): Msg[] {
-  const ocorrencias: Msg[] = [];
-
   const scan = maskXmlNonCode(src);
   const lineOf = createLineLookup(scan).lineAt;
 

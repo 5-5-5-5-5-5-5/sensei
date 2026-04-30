@@ -26,8 +26,7 @@ Comandos disponíveis:
 - `metricas`
 - `fix-types`
 - `licencas`
-- `names`
-- `rename`
+- `name`
 - `reverter`
 - `perf`
 
@@ -102,7 +101,7 @@ prometheus guardian --diff --json
 
 ## formatar
 
-Formatação interna do projeto.
+Formatação interna do projeto e correção de padrões.
 
 ```bash
 prometheus formatar [opções]
@@ -110,17 +109,21 @@ prometheus formatar [opções]
 
 Flags:
 
-- `--check`
-- `--write`
-- `--engine <engine>`
-- `--include <padrao>`
-- `--exclude <padrao>`
+- `--check` - Apenas verifica se precisa formatação (default)
+- `--write` - Aplica as mudanças no filesystem
+- `--engine <engine>` - Motor: auto|interno|prettier
+- `--fix-patterns` - Escaneia padrões não padronizados
+- `--fix-patterns-write` - Aplica correções de padrões
+- `--include <padrao>` - Glob pattern a INCLUIR
+- `--exclude <padrao>` - Glob pattern a EXCLUIR
 
 Exemplos:
 
 ```bash
 prometheus formatar --check
 prometheus formatar --write --engine auto
+prometheus formatar --fix-patterns
+prometheus formatar --fix-patterns --write
 ```
 
 ## otimizar-svg
@@ -285,24 +288,26 @@ Subcomandos confirmados:
 - `notices`
 - `disclaimer`
 
-## names
+## name
 
-Gera arquivos de mapeamento de nomes no diretório `names/`.
+Gerencia nomes de variáveis - extração e renomeação.
 
 ```bash
-prometheus names [opções]
+prometheus name [opções]
 ```
 
 Flags:
 
-- `--legacy`
+- `--escrever` - Extrai nomes de variáveis para `names/`
+- `--replace` - Aplica renomeações do arquivo `names/`
+- `--legacy` - Gera também names/name.txt único
 
-## rename
-
-Aplica renomeações baseadas nos mapeamentos gerados por `names`.
+Exemplos:
 
 ```bash
-prometheus rename
+prometheus name --escrever
+prometheus name --escrever --legacy
+prometheus name --replace
 ```
 
 ## reverter
