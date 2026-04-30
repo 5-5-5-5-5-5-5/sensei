@@ -1,1 +1,0 @@
-export * from './analista-css-in-js.js';

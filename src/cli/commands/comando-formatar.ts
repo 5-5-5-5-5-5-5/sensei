@@ -2,9 +2,11 @@
 
 import path from 'node:path';
 
-import { chalk , config } from '@core/config';
+import traverseModule from '@babel/traverse';
+import { chalk, config, generate } from '@core/config';
 import { scanRepository } from '@core/execution';
 import { getMessages } from '@core/messages';
+import { decifrarSintaxe } from '@core/parsing';
 import type { FormatarCommandOpts, FormatResult } from '@prometheus';
 import {
   formatarComPrettierProjeto,
@@ -20,11 +22,17 @@ import { configurarFiltros } from '../processing/filters.js';
 
 const { log, CliFormatarExtraMensagens } = getMessages();
 
+const traverse = traverseModule.default || traverseModule;
+
 function isFormatavel(relPath: string): boolean {
   const basename = relPath.split('/').pop()?.toLowerCase() || '';
   return /\.(json[c5]?|md|markdown|ya?ml|ts|tsx|js|jsx|mjs|cjs|html?|css|py|xml|php|toml|ini|sql|dockerfile|sh|bash|java|properties|txt|log|lock|env|gradle|kts|svg|scss|less|go|k[mt])$/i.test(
     relPath,
   ) || /^(\.gitignore|\.editorconfig|\.npmrc|\.nvmrc)$/i.test(basename);
+}
+
+function isTsJsFile(relPath: string): boolean {
+  return /\.(ts|tsx|js|jsx|mjs|cjs)$/i.test(relPath) && !relPath.includes('node_modules') && !relPath.includes('dist');
 }
 
 function detectaNodeModulesExplicito(
@@ -33,6 +41,83 @@ function detectaNodeModulesExplicito(
 ): boolean {
   const all = [...includeFlat, ...includeGroups.flat()];
   return all.some((p) => /(^|\/)node_modules(\/|$)/.test(String(p || '')));
+}
+
+interface FixPatternsResult {
+  total: number;
+  arquivosAfetados: number;
+  erros: number;
+}
+
+async function applyFixPatterns(
+  code: string,
+  relPath: string,
+  baseDir: string,
+  dryRun: boolean,
+): Promise<{ changed: boolean; result?: string; errors: string[] }> {
+  const errors: string[] = [];
+
+  const ast = await decifrarSintaxe(code, path.extname(relPath), { relPath });
+  if (!ast) {
+    return { changed: false, errors: ['Falha ao parsear AST'] };
+  }
+
+  let modified = false;
+
+  traverse(ast, {
+    BinaryExpression(p: import('@babel/traverse').NodePath<import('@babel/types').BinaryExpression>) {
+      const { node } = p;
+      if (node.operator === '==' || node.operator === '!=') {
+        const isNullCheck = (n: import('@babel/types').Node) =>
+          n.type === 'NullLiteral' ||
+          (n.type === 'Identifier' && n.name === 'undefined');
+        if (isNullCheck(node.right) || isNullCheck(node.left)) return;
+
+        const sugerido = node.operator === '==' ? '===' : '!==';
+        node.operator = sugerido as '===' | '!==';
+        modified = true;
+      }
+    },
+    TSAsExpression(p: import('@babel/traverse').NodePath<import('@babel/types').TSAsExpression>) {
+      const { node } = p;
+      if (node.typeAnnotation && node.typeAnnotation.type === 'TSAnyKeyword') {
+        // just detect, no modification needed
+      }
+    },
+    TSTypeAssertion(p: import('@babel/traverse').NodePath<import('@babel/types').TSTypeAssertion>) {
+      const { node } = p;
+      const { expression, typeAnnotation } = node;
+      p.replaceWith({
+        type: 'TSAsExpression',
+        expression,
+        typeAnnotation,
+      });
+      modified = true;
+    },
+  });
+
+  if (!modified || dryRun) {
+    return { changed: modified, errors };
+  }
+
+  try {
+    const generated = generate(ast, {
+      retainLines: true,
+      comments: true,
+    });
+
+    const final = await formatarComPrettierProjeto({
+      code: generated.code,
+      relPath,
+      baseDir,
+    });
+
+    const contentToWrite = final.ok ? final.formatted : generated.code;
+    return { changed: true, result: contentToWrite, errors };
+  } catch (e) {
+    errors.push(e instanceof Error ? e.message : String(e));
+    return { changed: false, errors };
+  }
 }
 
 export function comandoFormatar(
@@ -54,6 +139,16 @@ export function comandoFormatar(
       'auto',
     )
     .option(
+      '--fix-patterns',
+      'Escaneia padrões não padronizados (==/!=, as any, etc)',
+      false,
+    )
+    .option(
+      '--fix-patterns-write',
+      'Aplica correções de padrões não padronizados',
+      false,
+    )
+    .option(
       '--include <padrao>',
       'Glob pattern a INCLUIR (pode repetir a flag ou usar vírgulas / espaços para múltiplos)',
       (val: string, prev: string[]) => {
@@ -71,15 +166,18 @@ export function comandoFormatar(
       },
       [] as string[],
     )
-    .action(async function (this: Command, opts: FormatarCommandOpts) {
+    .action(async function (this: Command, opts: FormatarCommandOpts & { fixPatterns?: boolean; fixPatternsWrite?: boolean }) {
       try {
         await aplicarFlagsGlobais(
           this.parent && typeof this.parent.opts === 'function'
             ? this.parent.opts()
             : {},
         );
+
         const write = Boolean(opts.write);
         const check = write ? false : Boolean(opts.check ?? true);
+        const fixPatterns = Boolean(opts.fixPatterns);
+        const fixPatternsWrite = Boolean(opts.fixPatternsWrite);
 
         const engineRaw = String(
           opts.engine || process.env.PROMETHEUS_FORMAT_ENGINE || 'auto',
@@ -94,7 +192,6 @@ export function comandoFormatar(
         const includeList = processPatternList(opts.include);
         const excludeList = processPatternList(opts.exclude);
 
-        // Mantém consistência com o pipeline de filtros: aplica defaults de excludes
         const includeGroupsRaw: string[][] = [];
         const incluiNodeModules = detectaNodeModulesExplicito(
           includeGroupsRaw,
@@ -116,18 +213,28 @@ export function comandoFormatar(
           arquivosMudaram: [],
         };
 
-        log.info(chalk.bold(CliFormatarExtraMensagens.titulo));
+        const fixPatternsResult: FixPatternsResult = {
+          total: 0,
+          arquivosAfetados: 0,
+          erros: 0,
+        };
+
+        if (fixPatterns) {
+          log.info(chalk.cyan(CliFormatarExtraMensagens.fixPatternsScan));
+        } else {
+          log.info(chalk.bold(CliFormatarExtraMensagens.titulo));
+        }
+
         if (config.SCAN_ONLY) {
-          log.aviso(
-            CliFormatarExtraMensagens.scanOnlyAtivo,
-          );
+          log.aviso(CliFormatarExtraMensagens.scanOnlyAtivo);
         }
 
         const fileMap = await scanRepository(baseDir, {
           includeContent: true,
-          filter: (relPath) => {
-            // Se include foi informado, o scanner cuida do grosso; aqui garantimos
-            // que o comando não tente formatar tipos fora do escopo suportado.
+          filter: (relPath: string) => {
+            if (fixPatterns) {
+              return isTsJsFile(relPath);
+            }
             return isFormatavel(relPath);
           },
         });
@@ -138,18 +245,36 @@ export function comandoFormatar(
         for (const e of entries) {
           const relPath = e.relPath;
 
-          // Exclude deve funcionar mesmo quando include está ativo (scanner não aplica)
           if (excludeList.length && micromatch.isMatch(relPath, excludeList)) {
             continue;
           }
 
-          // Include adicional (por segurança/consistência) — aceita match por glob ou caminho exato
           if (includeList.length) {
             const matchGlob = micromatch.isMatch(relPath, includeList);
             const matchExact = includeList.some(
               (p) => String(p).trim() === relPath,
             );
             if (!matchGlob && !matchExact) continue;
+          }
+
+          if (fixPatterns) {
+            const src = typeof e.content === 'string' ? e.content : '';
+            const fixResult = await applyFixPatterns(src, relPath, baseDir, !fixPatternsWrite);
+
+            if (fixResult.errors.length > 0) {
+              fixPatternsResult.erros++;
+              continue;
+            }
+
+            if (fixResult.changed) {
+              fixPatternsResult.total++;
+              fixPatternsResult.arquivosAfetados++;
+
+              if (fixPatternsWrite && fixResult.result) {
+                await salvarEstado(path.resolve(baseDir, relPath), fixResult.result);
+              }
+            }
+            continue;
           }
 
           const src = typeof e.content === 'string' ? e.content : '';
@@ -198,6 +323,16 @@ export function comandoFormatar(
           }
         }
 
+        if (fixPatterns) {
+          if (fixPatternsWrite) {
+            log.sucesso(CliFormatarExtraMensagens.fixPatternsConcluido.replace('{total}', String(fixPatternsResult.arquivosAfetados)));
+          } else {
+            log.sucesso(CliFormatarExtraMensagens.fixPatternsEncontrados.replace('{total}', String(fixPatternsResult.total)));
+          }
+          sair(ExitCode.Ok);
+          return;
+        }
+
         if (result.erros > 0) {
           log.erro(CliFormatarExtraMensagens.errosEncontrados.replace('{total}', String(result.erros)));
           sair(ExitCode.Failure);
@@ -217,7 +352,6 @@ export function comandoFormatar(
           return;
         }
 
-        // write
         if (result.mudaram > 0) {
           log.sucesso(CliFormatarExtraMensagens.arquivosFormatados.replace('{total}', String(result.mudaram)));
         } else {

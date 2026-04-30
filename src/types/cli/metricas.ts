@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-import type { MetricaAnalista, TopAnalista } from '../index.js';
+import type { MetricaAnalista, TopAnalista } from '../analistas/detectores/metricas.js';
 
 /**
  * Métrica simplificada de analista (evita dependência circular)

@@ -1,4 +1,3 @@
 // SPDX-License-Identifier: MIT
-export * from './contexto.js';
-export * from './detectores.js';
-export * from './metricas.js';
+// Global detectors - for architecture, design, project-level issues
+export type * from './detectores.js';

@@ -15,7 +15,7 @@ Guia completo e detalhado de todos os comandos disponíveis no Prometheus.
 | ------------------- | -------------------------------------- | --------------- |
 | `diagnosticar`      | Análise completa do projeto            | Principal       |
 | `guardian`          | Monitor de integridade estrutural      | Monitoramento   |
-| `formatar`          | Formatação de código                   | Manutenção      |
+| `formatar`          | Formatação de código e padrões         | Manutenção      |
 | `otimizar-svg`      | Otimização de arquivos SVG             | Manutenção      |
 | `podar`             | Remoção de código morto                | Limpeza         |
 | `reestruturar`      | Reestruturação inteligente             | Refatoração     |
@@ -24,15 +24,12 @@ Guia completo e detalhado de todos os comandos disponíveis no Prometheus.
 | `metricas`          | Exibir métricas do projeto             | Consulta        |
 | `fix-types`         | Correção de tipos inseguros            | Correção        |
 | `licencas`          | Gestão de licenças de dependências     | Compliance      |
-| `names`             | Extração de nomes de variáveis         | Mapeamento      |
-| `rename`            | Renomeação em massa de variáveis       | Refatoração     |
+| `name`              | Extrair/renomear variáveis             | Mapeamento      |
 | `reverter`          | Reversão de renomeações                | Reversão        |
 | `perf`              | Benchmark de performance da CLI        | Performance     |
 | `ignore`            | Gera .gitignore baseado em tecnologias | Utilitário      |
 | `importer`          | Analisa imports e path aliases         | Análise         |
-| `padronizador`      | Escaneia e aplica padrões de código    | Refatoração     |
-
-| `plugins` | Gerenciar plugins de análise | Extensões |
+| `plugins`           | Gerenciar plugins de análise           | Extensões       |
 
 ---
 
@@ -350,74 +347,51 @@ prometheus importer --only-missing
 
 ---
 
-##  `prometheus padronizador`
+##  `prometheus name`
 
-Escaneia o código e reporta padrões não padronizados. Pode aplicar correções automáticas.
-
-### Sintaxe
-
-```bash
-prometheus padronizador [opções]
-```
-
-### Opções
-
-| Opção       | Tipo    | Padrão   | Descrição                           |
-| ----------- | ------- | -------- | ----------------------------------- |
-| `--scan`    | boolean | `false`  | Apenas escaneia e reporta           |
-| `--replace` | boolean | `false`  | Aplica padronização automática      |
-
-### Exemplos
-
-```bash
-# Apenas escanear e relatar
-prometheus padronizador --scan
-
-# Aplicar correções automáticas
-prometheus padronizador --replace
-```
-
----
-
-##  `prometheus names`
-
-Extrair nomes de variáveis do projeto.
+Gerencia nomes de variáveis no repositório - extração e renomeação.
 
 ### Sintaxe
 
 ```bash
-prometheus names [opções]
+prometheus name [opções]
 ```
 
 ### Opções
 
 | Opção        | Tipo    | Descrição                                |
 | ------------ | ------- | ---------------------------------------- |
-| `--legacy`   | boolean | Gera também arquivo único names/name.txt |
+| `--escrever` | boolean | Extrai nomes de variáveis para `names/`  |
+| `--replace`  | boolean | Aplica renomeações do arquivo `names/`   |
+| `--legacy`   | boolean | Gera também names/name.txt único         |
 
 ### Exemplos
 
 ```bash
-prometheus names
-prometheus names --legacy
+# Extrair nomes de variáveis
+prometheus name --escrever
+
+# Extrair com arquivo único agregado
+prometheus name --escrever --legacy
+
+# Aplicar renomeações
+prometheus name --replace
 ```
 
----
-
-##  `prometheus rename`
-
-Aplicar renomeações de variáveis em massa.
-
-### Sintaxe
+### Fluxo de Trabalho
 
 ```bash
-prometheus rename [opções]
-```
+# 1. Extrair nomes de variáveis
+prometheus name --escrever
 
-### Exemplos
+# 2. Editar os arquivos em names/ para definir novos nomes
+# arquivo.txt: oldName = newName
 
-```bash
-prometheus rename
+# 3. Aplicar renomeações
+prometheus name --replace
+
+# 4. Se precisar reverter
+prometheus reverter
 ```
 
 ---

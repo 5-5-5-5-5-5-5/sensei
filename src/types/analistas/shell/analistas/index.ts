@@ -1,0 +1,1 @@
+export type * from './analista-shell.js';

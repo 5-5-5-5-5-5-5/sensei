@@ -72,7 +72,7 @@ Prometheus oferece uma suite completa de ferramentas para análise e manutençã
 - **Poda Inteligente**: Identificação e limpeza de arquivos órfãos e código morto
 - **Fix Types**: Correção automática de tipos inseguros (`any`, `unknown`)
 - **Formatação**: Formatação automática seguindo padrões do projeto
-- **Names/Rename**: Extração e renomeação em massa de variáveis com mapeamento inteligente
+- **Names/Name**: Extração e renomeação em massa de variáveis com mapeamento inteligente
 - **Reverter**: Gerenciamento de mapa de reversão para moves aplicados
 
 ###  Relatórios Profissionais

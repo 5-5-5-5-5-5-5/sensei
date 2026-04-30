@@ -13,17 +13,34 @@
 */
   /* -------------------------- MENSAGENS REACT -------------------------- */
 export const ReactMensagens = {
-linkTargetBlank: 'Link com target="_blank" sem rel="noreferrer"/"noopener".',
-dangerouslySetInnerHTML: 'Uso de dangerouslySetInnerHTML encontrado; valide a necessidade.',
-imgWithoutAlt: 'Imagem sem atributo alt (acessibilidade).',
-httpFetch: 'Chamada HTTP sem TLS detectada; prefira HTTPS.',
-hardcodedCredential: 'Possível credencial hardcoded; use variáveis de ambiente.',
-locationHrefRedirect: 'Atribuição direta a location.href; valide origem para evitar open redirect.',
-listItemNoKey: 'Item em lista (map) sem atributo key.',
-indexAsKey: 'Uso de índice como key (pode causar problemas de reordenação).',
-inlineHandlerJsx: 'Handler inline detectado em JSX; prefira funções estáveis (useCallback) ou extrair fora do render.',
-deprecatedLifecycleMethod: (name: string) => `Método de ciclo de vida obsoleto: ${name}. Use componentDidMount, componentDidUpdate ou hooks.`,
-complexInlineStyles: 'Estilos inline complexos detectados. Considere usar CSS modules ou styled-components para melhor performance e organização.'
+  linkTargetBlank: 'Link com target="_blank" sem rel="noreferrer"/"noopener".',
+  dangerouslySetInnerHTML: 'Uso de dangerouslySetInnerHTML encontrado; valide a necessidade.',
+  imgWithoutAlt: 'Imagem sem atributo alt (acessibilidade).',
+  httpFetch: 'Chamada HTTP sem TLS detectada; prefira HTTPS.',
+  hardcodedCredential: 'Possível credencial hardcoded; use variáveis de ambiente.',
+  locationHrefRedirect: 'Atribuição direta a location.href; valide origem para evitar open redirect.',
+  listItemNoKey: 'Item em lista (map) sem atributo key.',
+  indexAsKey: 'Uso de índice como key (pode causar problemas de reordenação).',
+  inlineHandlerJsx: 'Handler inline detectado em JSX; prefira funções estáveis (useCallback) ou extrair fora do render.',
+  deprecatedLifecycleMethod: (name: string) => `Método de ciclo de vida obsoleto: ${name}. Use componentDidMount, componentDidUpdate ou hooks.`,
+  complexInlineStyles: 'Estilos inline complexos detectados. Considere usar CSS modules ou styled-components para melhor performance e organização.'
+} as const;
+  /* -------------------------- MENSAGENS NEXT.JS -------------------------- */
+export const NextJsMensagens = {
+  nextServerWithoutEnvCheck: 'Next.js server function should check NODE_ENV',
+  nextMetadataIncomplete: 'Metadata should include title or description'
+} as const;
+  /* -------------------------- MENSAGENS VUE -------------------------- */
+export const VueMensagens = {
+  vueVHtmlUnsafe: 'v-html can be unsafe if binding user input',
+  vueTwoWayBindingWithoutEmit: 'Two-way binding should use emit for prop changes'
+} as const;
+  /* -------------------------- MENSAGENS ELECTRON -------------------------- */
+export const ElectronMensagens = {
+  electronNodeIntegration: 'nodeIntegration: true is a security risk',
+  electronContextIsolation: 'contextIsolation: false exposes preload to renderer',
+  electronEvalUsage: 'Use of eval() in Electron app is a security risk',
+  electronSyncIpc: 'Synchronous IPC can block the renderer process'
 } as const;
   /* -------------------------- MENSAGENS REACT HOOKS -------------------------- */
 export const ReactHooksMensagens = {
@@ -115,14 +132,19 @@ return `${base} (${detalhes})`;
 },
 parseErro: (parser: string, err: string) => `Falha ao validar formatação interna (parser: ${parser}): ${err}`
 } as const;
-  /* -------------------------- MENSAGENS SVG (OTIMIZAÇÃO) -------------------------- */
+  /* -------------------------- MENSAGENS SVG (COMPLETO) -------------------------- */
 export const SvgMensagens = {
-naoPareceSvg: 'Arquivo .svg não contém uma tag <svg> válida.',
-semViewBox: 'SVG sem viewBox detectado (pode prejudicar responsividade).',
-scriptInline: 'SVG contém <script>. Risco de segurança: evite SVGs com script embutido.',
-eventoInline: 'SVG contém handlers inline (on*). Evite eventos inline em assets.',
-javascriptUrl: 'SVG contém javascript: em URL/href. Risco de segurança.',
-podeOtimizar: (originalBytes: number, optimizedBytes: number, mudancas: string[]) => `SVG pode ser otimizado (${originalBytes}B → ${optimizedBytes}B). Mudanças: ${mudancas.join(', ')}.`
+  naoPareceSvg: 'Arquivo .svg não contém uma tag <svg> válida.',
+  semViewBox: 'SVG sem viewBox detectado (pode prejudicar responsividade).',
+  semDimensoes: 'SVG sem width/height detectados (defina para melhor renderização).',
+  semTitulo: 'SVG sem elemento <title> (acessibilidade WCAG).',
+  semDescricao: 'SVG sem elemento <desc> (acessibilidade WCAG).',
+  semRole: 'SVG sem role ou aria-* (acessibilidade).',
+  fechamentoInvalido: 'SVG sem tag de fechamento </svg> (estrutura inválida).',
+  scriptInline: 'SVG contém <script>. Risco de segurança: evite SVGs com script embutido.',
+  eventoInline: 'SVG contém handlers inline (on*). Evite eventos inline em assets.',
+  javascriptUrl: 'SVG contém javascript: em URL/href. Risco de segurança.',
+  podeOtimizar: (originalBytes: number, optimizedBytes: number, mudancas: string[]) => `SVG pode ser otimizado (${originalBytes}B → ${optimizedBytes}B). Mudanças: ${mudancas.join(', ')}.`
 } as const;
   /* -------------------------- MENSAGENS CSS-IN-JS -------------------------- */
 export const CssInJsMensagens = {
@@ -134,27 +156,35 @@ httpUrl: 'Recurso externo via HTTP em url(); prefira HTTPS.'
 } as const;
   /* -------------------------- MENSAGENS PYTHON -------------------------- */
 export const PythonMensagens = {
-// Imports & Dependencies
-missingTypeHints: 'Função sem type hints detectada; adicione type hints para melhor legibilidade.',
-hardcodedString: (string: string) => `String hardcoded detectada (${string.slice(0, 30)}...); considere usar constantes.`,
-httpWithoutVerify: 'Requisição HTTP sem verify=True detectada; valide certificados SSL.',
-sqlInjection: 'Possível SQL injection detectada; use prepared statements.',
-// Code Quality
-broadExcept: 'Exceção genérica (except:) detectada; seja específico.',
-bareRaise: 'raise sem contexto detectada; sempre passe a exceção para manter stack trace.',
-passInExcept: 'pass em except block; implemente tratamento de erro apropriado.',
-// Best Practices
-printInsteadOfLog: 'print() detectado; prefira logging module para produção.',
-evalUsage: 'eval() detectado; evite usar eval - vulnerabilidade de segurança.',
-execUsage: 'exec() detectado; evite usar exec - vulnerabilidade de segurança.',
-subprocessShellTrue: 'subprocess com shell=True detectado; risco de command injection. Prefira lista de args e shell=False.',
-pickleUsage: 'pickle load(s) detectado; nunca desserialize dados não confiáveis (RCE). Prefira formatos seguros (JSON).',
-yamlUnsafeLoad: 'yaml.load sem Loader seguro detectado; prefira yaml.safe_load (evita execução).',
-globalKeyword: 'Uso de global keyword detectado; prefira passar como parâmetro.',
-mutableDefault: 'Argumento com valor padrão mutável (list/dict) detectado; use None como padrão.',
-// Performance
-listComprehensionOpportunity: 'Loop que poderia ser list comprehension detectado.',
-loopingOverDict: 'Iteração sobre dict sem .items(); considere usar .items().'
+  // Imports & Dependencies
+  missingTypeHints: 'Função sem type hints detectada; adicione type hints para melhor legibilidade.',
+  hardcodedString: (string: string) => `String hardcoded detectada (${string.slice(0, 30)}...); considere usar constantes.`,
+  httpWithoutVerify: 'Requisição HTTP sem verify=True detectada; valide certificados SSL.',
+  sqlInjection: 'Possível SQL injection detectada; use prepared statements.',
+  // Code Quality
+  broadExcept: 'Exceção genérica (except:) detectada; seja específico.',
+  bareRaise: 'raise sem contexto detectada; sempre passe a exceção para manter stack trace.',
+  passInExcept: 'pass em except block; implemente tratamento de erro apropriado.',
+  // Best Practices
+  printInsteadOfLog: 'print() detectado; prefira logging module para produção.',
+  evalUsage: 'eval() detectado; evite usar eval - vulnerabilidade de segurança.',
+  execUsage: 'exec() detectado; evite usar exec - vulnerabilidade de segurança.',
+  subprocessShellTrue: 'subprocess com shell=True detectado; risco de command injection. Prefira lista de args e shell=False.',
+  pickleUsage: 'pickle load(s) detectado; nunca desserialize dados não confiáveis (RCE). Prefira formatos seguros (JSON).',
+  yamlUnsafeLoad: 'yaml.load sem Loader seguro detectado; prefira yaml.safe_load (evita execução).',
+  globalKeyword: 'Uso de global keyword detectado; prefira passar como parâmetro.',
+  mutableDefault: 'Argumento com valor padrão mutável (list/dict) detectado; use None como padrão.',
+  // Performance
+  listComprehensionOpportunity: 'Loop que poderia ser list comprehension detectado.',
+  loopingOverDict: 'Iteração sobre dict sem .items(); considere usar .items().',
+  // Additional detections
+  funcaoSemDocstring: 'Função sem docstring detectada; adicione docstring para melhor documentação.',
+  comprehensionAninhada: 'Comprehension aninhada detectada; considere refatorar para melhorar legibilidade.',
+  propertySemGetter: 'Property sem getter detectada; certifique-se de que está correto.',
+  contextManagerWithoutAs: 'Context manager sem "as" detectado; considere usar para recursos que precisam ser limpos.',
+  decoratorWithoutWraps: 'Decorator sem @wraps detectado; use @functools.wraps para preservar metadados da função.',
+  generatorInsteadOfListComprehension: 'Generator ao invés de list comprehension detectado; use generator para listas grandes.',
+  magicNumberArg: 'Número mágico detectado como argumento; considere usar uma constante nomeada.'
 } as const;
   /* -------------------------- Nivéis de Severidade -------------------------- */
 export const SeverityNiveis = {

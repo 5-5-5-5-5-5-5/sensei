@@ -1,0 +1,48 @@
+// SPDX-FileCopyrightText: 2025 Grama. de Filhos Miner. Prometheus
+// SPDX-License-Identifier: MIT
+import { messages } from '@core/ messages';
+import { criarAnalista, criarOcorrencia } from '@prometheus';
+import type { Ocorrencia } from '@prometheus';
+
+export const analistaPythonPadroes = criarAnalista({
+  nome: 'analista- python- padroes',
+  categoria: 'codigo',
+  descricao: 'Padroes Python (docstrings, type hints).',
+  global: false,
+  test: (relPath: string): boolean => /\.py$/i.test(relPath),
+  aplicar: async (src: string, relPath: string): Promise<Ocorrencia[]> => {
+    const ocorrencias: Ocorrencia[] = [];
+
+    for (const m of src.matchAll(/^def\s+(\w+)\s*\([^)]*\):/gm)) {
+      const nome = m[1] || '';
+      const idx = m.index ?? 0;
+      const linha = src.slice(0, idx).split('\n').length;
+      const proxLinha = src.split('\n')[linha] || '';
+      if (!proxLinha.includes('"""') && !proxLinha.includes("'''")) {
+        ocorrencias.push(criarOcorrencia({
+          tipo: 'boa- pratica',
+          nivel: 'info',
+          mensagem: messages. PythonMensagens?. funcaoSemDocstring?.(nome) || `Funcao ${nome} sem docstring.`,
+          relPath,
+          linha,
+          origem: 'analista- python- padroes'
+        }));
+      }
+    }
+
+    for (const m of src.matchAll(/\bAny\b/g)) {
+      const idx = m.index ?? 0;
+      const linha = src.slice(0, idx).split('\n').length;
+      ocorrencias.push(criarOcorrencia({
+        tipo: 'tipo- inseguro',
+        nivel: 'aviso',
+        mensagem: 'Uso de Any detectado. Prefira tipos especificos.',
+        relPath,
+        linha,
+        origem: 'analista- python- padroes'
+      }));
+    }
+
+    return ocorrencias;
+  }
+});

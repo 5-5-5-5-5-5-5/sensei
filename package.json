@@ -27,7 +27,7 @@
     "reestruturar": "prometheus reestruturar",
     "podar": "prometheus podar",
     "fix-types": "prometheus fix-types",
-    "name": "prometheus names",
+    "name": "prometheus name",
     "rename": "prometheus renames",
     "perf:baseline": "prometheus perf snapshot --baseline || true",
     "perf:compare": "prometheus perf compare",
