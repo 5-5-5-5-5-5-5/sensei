@@ -3,4 +3,7 @@
  * Barrel export para Tailwind CSS
  */
 
-export * from './plugins/analista-tailwind.js';
+export * from './analistas/analista-tailwind.js';
+export * from './analistas/index.js';
+export * from './corrections/index.js';
+export * from './detectores/index.js';

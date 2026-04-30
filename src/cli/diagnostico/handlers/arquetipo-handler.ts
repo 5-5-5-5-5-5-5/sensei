@@ -9,7 +9,7 @@
  * - Formata resultados
  */
 
-import { detectarArquetipos } from '@analistas/detectores';
+import { detectarArquetipos } from '../../../analistas/detectores.js';
 import { config } from '@core/config';
 import { messages } from '@core/messages';
 import type { ArquetipoOptions, ArquetipoResult, FileEntryWithAst } from '@prometheus';

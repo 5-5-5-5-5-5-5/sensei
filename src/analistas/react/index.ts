@@ -1,7 +1,20 @@
 // SPDX-License-Identifier: MIT
 /**
- * Barrel export para React
+ * React Analyst Framework
+ *
+ * Comprehensive exports for React, Next.js, Vue, and Electron analysis
  */
 
-export * from './plugins/analista-react.js';
-export * from './plugins/analista-react-hooks.js';
+// Plugin Analysts
+export { analistaReact } from './analistas/analista-react.js';
+export { analistaReactHooks } from './analistas/analista-react-hooks.js';
+
+// Pattern Analysts
+export * from './analistas/index.js';
+
+// Corrections
+export * from './corrections/index.js';
+
+// Context Detection
+export { detectarContextoReact, inferirArquetipoReact } from './detectores/detector-contexto-react.js';
+export type { EvidenciaContexto,ResultadoDeteccaoContextual } from '@prometheus';

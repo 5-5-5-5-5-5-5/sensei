@@ -115,14 +115,19 @@ return `${base} (${detalhes})`;
 },
 parseErro: (parser: string, err: string) => `验证内部格式化失败 (解析器: ${parser}): ${err}`
 } as const;
-  /* -------------------------- SVG 消息 (优化) -------------------------- */
+  /* -------------------------- SVG 消息 (完整) -------------------------- */
 export const SvgMensagens = {
-naoPareceSvg: '.svg 文件不包含有效的 <svg> 标签。',
-semViewBox: '检测到 SVG 缺少 viewBox (可能影响响应式)。',
-scriptInline: 'SVG 包含 <script>。安全风险: 避免带有嵌入式脚本的 SVG。',
-eventoInline: 'SVG 包含内联处理函数 (on*)。避免在资产中使用内联事件。',
-javascriptUrl: 'SVG 在 URL/href 中包含 javascript:。安全风险。',
-podeOtimizar: (originalBytes: number, optimizedBytes: number, mudancas: string[]) => `SVG 可优化 (${originalBytes}B → ${optimizedBytes}B)。更改: ${mudancas.join(', ')}。`
+  naoPareceSvg: '.svg 文件不包含有效的 <svg> 标签。',
+  semViewBox: '检测到 SVG 缺少 viewBox (可能影响响应式)。',
+  semDimensoes: '检测到 SVG 缺少 width/height (请定义以获得更好的渲染)。',
+  semTitulo: 'SVG 缺少 <title> 元素 (WCAG 无障碍)。',
+  semDescricao: 'SVG 缺少 <desc> 元素 (WCAG 无障碍)。',
+  semRole: 'SVG 缺少 role 或 aria-* (无障碍)。',
+  fechamentoInvalido: 'SVG 缺少 </svg> 闭合标签 (无效结构)。',
+  scriptInline: 'SVG 包含 <script>。安全风险: 避免带有嵌入式脚本的 SVG。',
+  eventoInline: 'SVG 包含内联处理函数 (on*)。避免在资产中使用内联事件。',
+  javascriptUrl: 'SVG 在 URL/href 中包含 javascript:。安全风险。',
+  podeOtimizar: (originalBytes: number, optimizedBytes: number, mudancas: string[]) => `SVG 可优化 (${originalBytes}B → ${optimizedBytes}B)。更改: ${mudancas.join(', ')}。`
 } as const;
   /* -------------------------- CSS-in-JS 消息 -------------------------- */
 export const CssInJsMensagens = {

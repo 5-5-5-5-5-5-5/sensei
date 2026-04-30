@@ -1,0 +1,1 @@
+export type * from '../../detectores/detectores.js';

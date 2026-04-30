@@ -2,10 +2,10 @@
 /**
  * Módulo JS/TS do Prometheus
  *
- * Re-exporta analistas, detectores e plugins específicos de JavaScript/TypeScript.
+ * Re-exporta analistas, detectores e correções específicos de JavaScript/TypeScript.
+ * Analistas de frameworks específicos (React, Tailwind, etc) estão em suas pastas dedicadas.
  */
 
 export * from './analistas/index.js';
 export * from './corrections/index.js';
 export * from './detectores/index.js';
-export * from './plugins/index.js';

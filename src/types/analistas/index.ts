@@ -19,4 +19,4 @@ export * from './estrategistas/index.js';
 export * from './plugins/index.js';
 
 // Markdown
-export * from './markdown.js';
+export * from './markdown/index.js';

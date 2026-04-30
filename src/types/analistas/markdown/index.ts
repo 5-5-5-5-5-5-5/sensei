@@ -1,0 +1,1 @@
+export type * from './analistas/markdown.js';

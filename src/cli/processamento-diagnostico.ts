@@ -2,7 +2,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-import { detectarArquetipos } from '@analistas/detectores';
+import { detectarArquetipos } from '../analistas/detectores.js';
 import { chalk , config , isInsideConfigDirectory, isInsideSrc,isInsideTestsDirectory  } from '@core/config';
 import { executarInquisicao, iniciarInquisicao, prepararComAst, registrarUltimasMetricas } from '@core/execution';
 import { messages } from '@core/messages';

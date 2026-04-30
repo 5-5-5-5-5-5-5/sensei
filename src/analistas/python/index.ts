@@ -3,4 +3,6 @@
  * Barrel export para Python
  */
 
-export * from './plugins/analista-python.js';
+export * from './analistas/index.js';
+export * from './corrections/index.js';
+export * from './detectores/index.js';

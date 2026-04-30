@@ -115,14 +115,19 @@ return `${base} (${detalhes})`;
 },
 parseErro: (parser: string, err: string) => `Falha ao validar formatação interna (parser: ${parser}): ${err}`
 } as const;
-  /* -------------------------- MENSAGENS SVG (OTIMIZAÇÃO) -------------------------- */
+  /* -------------------------- MENSAGENS SVG (COMPLETO) -------------------------- */
 export const SvgMensagens = {
-naoPareceSvg: 'Arquivo .svg não contém uma tag <svg> válida.',
-semViewBox: 'SVG sem viewBox detectado (pode prejudicar responsividade).',
-scriptInline: 'SVG contém <script>. Risco de segurança: evite SVGs com script embutido.',
-eventoInline: 'SVG contém handlers inline (on*). Evite eventos inline em assets.',
-javascriptUrl: 'SVG contém javascript: em URL/href. Risco de segurança.',
-podeOtimizar: (originalBytes: number, optimizedBytes: number, mudancas: string[]) => `SVG pode ser otimizado (${originalBytes}B → ${optimizedBytes}B). Mudanças: ${mudancas.join(', ')}.`
+  naoPareceSvg: 'Arquivo .svg não contém uma tag <svg> válida.',
+  semViewBox: 'SVG sem viewBox detectado (pode prejudicar responsividade).',
+  semDimensoes: 'SVG sem width/height detectados (defina para melhor renderização).',
+  semTitulo: 'SVG sem elemento <title> (acessibilidade WCAG).',
+  semDescricao: 'SVG sem elemento <desc> (acessibilidade WCAG).',
+  semRole: 'SVG sem role ou aria-* (acessibilidade).',
+  fechamentoInvalido: 'SVG sem tag de fechamento </svg> (estrutura inválida).',
+  scriptInline: 'SVG contém <script>. Risco de segurança: evite SVGs com script embutido.',
+  eventoInline: 'SVG contém handlers inline (on*). Evite eventos inline em assets.',
+  javascriptUrl: 'SVG contém javascript: em URL/href. Risco de segurança.',
+  podeOtimizar: (originalBytes: number, optimizedBytes: number, mudancas: string[]) => `SVG pode ser otimizado (${originalBytes}B → ${optimizedBytes}B). Mudanças: ${mudancas.join(', ')}.`
 } as const;
   /* -------------------------- MENSAGENS CSS-IN-JS -------------------------- */
 export const CssInJsMensagens = {

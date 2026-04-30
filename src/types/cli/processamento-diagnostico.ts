@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 
 // Importações dos tipos unificados
-import type { detectarArquetipos } from '@analistas/detectores';
+import type { detectarArquetipos } from '../../analistas/detectores.js';
 
 import type { FileEntryWithAst, ResultadoExecucao, ResultadoGuardian } from '../index.js';
 

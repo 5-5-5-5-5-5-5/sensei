@@ -115,14 +115,19 @@ return `${base}（${detalhes}）`;
 },
 parseErro: (parser: string, err: string) => `内部フォーマットの検証に失敗しました（パーサー: ${parser}）: ${err}`
 } as const;
-  /* -------------------------- SVGメッセージ（最適化） -------------------------- */
+  /* -------------------------- SVGメッセージ（完全） -------------------------- */
 export const SvgMensagens = {
-naoPareceSvg: '.svg ファイルに有効な <svg> タグが含まれていません。',
-semViewBox: 'SVG に viewBox がありません（レスポンシブ対応に悪影響を与える可能性があります）。',
-scriptInline: 'SVG に <script> が含まれています。セキュリティリスク: 埋め込みスクリプト付き SVG は避けてください。',
-eventoInline: 'SVG にインラインハンドラー（on*）が含まれています。アセットのインラインイベントは避けてください。',
-javascriptUrl: 'SVG の URL/href に javascript: が含まれています。セキュリティリスク。',
-podeOtimizar: (originalBytes: number, optimizedBytes: number, mudancas: string[]) => `SVG を最適化できます（${originalBytes}B → ${optimizedBytes}B）。変更: ${mudancas.join(', ')}。`
+  naoPareceSvg: '.svg ファイルに有効な <svg> タグが含まれていません。',
+  semViewBox: 'SVG に viewBox がありません（レスポンシブ対応に悪影響を与える可能性があります）。',
+  semDimensoes: 'SVG に width/height がありません（より良いレンダリングのために定義してください）。',
+  semTitulo: 'SVG に <title> 要素がありません（アクセシビリティ WCAG）。',
+  semDescricao: 'SVG に <desc> 要素がありません（アクセシビリティ WCAG）。',
+  semRole: 'SVG に role または aria-* がありません（アクセシビリティ）。',
+  fechamentoInvalido: 'SVG に </svg> 閉じるタグがありません（無効な構造）。',
+  scriptInline: 'SVG に <script> が含まれています。セキュリティリスク: 埋め込みスクリプト付き SVG は避けてください。',
+  eventoInline: 'SVG にインラインハンドラー（on*）が含まれています。アセットのインラインイベントは避けてください。',
+  javascriptUrl: 'SVG の URL/href に javascript: が含まれています。セキュリティリスク。',
+  podeOtimizar: (originalBytes: number, optimizedBytes: number, mudancas: string[]) => `SVG を最適化できます（${originalBytes}B → ${optimizedBytes}B）。変更: ${mudancas.join(', ')}。`
 } as const;
   /* -------------------------- CSS-IN-JSメッセージ -------------------------- */
 export const CssInJsMensagens = {

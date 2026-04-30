@@ -115,14 +115,19 @@ return `${base} (${detalhes})`;
 },
 parseErro: (parser: string, err: string) => `Failed to validate internal formatting (parser: ${parser}): ${err}`
 } as const;
-  /* -------------------------- SVG MESSAGES (OPTIMIZATION) -------------------------- */
+  /* -------------------------- SVG MESSAGES (COMPLETE) -------------------------- */
 export const SvgMensagens = {
-naoPareceSvg: 'File .svg does not contain a valid <svg> tag.',
-semViewBox: 'SVG without viewBox detected (may harm responsiveness).',
-scriptInline: 'SVG contains <script>. Security risk: avoid SVGs with embedded script.',
-eventoInline: 'SVG contains inline handlers (on*). Avoid inline events in assets.',
-javascriptUrl: 'SVG contains javascript: in URL/href. Security risk.',
-podeOtimizar: (originalBytes: number, optimizedBytes: number, mudancas: string[]) => `SVG can be optimized (${originalBytes}B → ${optimizedBytes}B). Changes: ${mudancas.join(', ')}.`
+  naoPareceSvg: 'File .svg does not contain a valid <svg> tag.',
+  semViewBox: 'SVG without viewBox detected (may harm responsiveness).',
+  semDimensoes: 'SVG without width/height detected (define for better rendering).',
+  semTitulo: 'SVG without <title> element (WCAG accessibility).',
+  semDescricao: 'SVG without <desc> element (WCAG accessibility).',
+  semRole: 'SVG without role or aria-* (accessibility).',
+  fechamentoInvalido: 'SVG without closing </svg> tag (invalid structure).',
+  scriptInline: 'SVG contains <script>. Security risk: avoid SVGs with embedded script.',
+  eventoInline: 'SVG contains inline handlers (on*). Avoid inline events in assets.',
+  javascriptUrl: 'SVG contains javascript: in URL/href. Security risk.',
+  podeOtimizar: (originalBytes: number, optimizedBytes: number, mudancas: string[]) => `SVG can be optimized (${originalBytes}B → ${optimizedBytes}B). Changes: ${mudancas.join(', ')}.`
 } as const;
   /* -------------------------- CSS-IN-JS MESSAGES -------------------------- */
 export const CssInJsMensagens = {
@@ -153,8 +158,17 @@ yamlUnsafeLoad: 'yaml.load without safe Loader detected; prefer yaml.safe_load (
 globalKeyword: 'Use of global keyword detected; prefer passing as parameter.',
 mutableDefault: 'Argument with mutable default value (list/dict) detected; use None as default.',
 // Performance
-listComprehensionOpportunity: 'Loop that could be list comprehension detected.',
-loopingOverDict: 'Iteration over dict without .items(); consider using .items().'
+  listComprehensionOpportunity: 'Loop that could be list comprehension detected.',
+  loopingOverDict: 'Iteration over dict without .items(); consider using .items().',
+  // Additional Patterns
+  contextManagerWithoutAs: 'Context manager without "as" - consider capturing resource for proper cleanup.',
+  decoratorWithoutWraps: 'Decorator without @functools.wraps - function metadata will be lost.',
+  generatorInsteadOfListComprehension: 'Generator expression used where list comprehension may be clearer.',
+  magicNumberArg: 'Function with magic number in format string - use named variable for clarity.',
+  // Documentation
+  funcaoSemDocstring: 'Function without docstring detected - add docstring for better documentation.',
+  comprehensionAninhada: 'Nested list comprehension detected - consider using explicit loop for readability.',
+  propertySemGetter: 'Property method without @property decorator detected.'
 } as const;
   /* -------------------------- Severity Levels -------------------------- */
 export const SeverityNiveis = {

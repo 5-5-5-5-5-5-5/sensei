@@ -1,0 +1,1 @@
+export type * from './analistas/analista-formatter.js';
