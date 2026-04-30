@@ -444,9 +444,6 @@
       "@relatorios": [
         "./src/relatorios/index.ts"
       ],
-      "@sdk": [
-        "./src/sdk/index.ts"
-      ],
       "@shared": [
         "./src/shared/index.ts"
       ],

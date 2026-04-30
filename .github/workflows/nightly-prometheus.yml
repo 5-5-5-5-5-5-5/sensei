@@ -10,7 +10,7 @@ on:
 
 jobs:
   nightly:
-    name: 🕘 Nightly Quality Check
+    name: Nightly Quality Check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

@@ -20,7 +20,7 @@ env:
 
 jobs:
   build:
-    name: 🔨 Build
+    name: Build
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -50,8 +50,8 @@ jobs:
 
       - name: Verify Build Artifacts
         run: |
-          test -d dist/ && echo "✅ Dist directory exists" || exit 1
-          test -f dist/bin/index.js && echo "✅ CLI entry point exists" || exit 1
+          test -d dist/ && echo " Dist directory exists" || exit 1
+          test -f dist/bin/index.js && echo " CLI entry point exists" || exit 1
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v7
@@ -61,7 +61,7 @@ jobs:
           retention-days: 7
 
   build-matrix:
-    name: 🔨 Build (${{ matrix.os }})
+    name: Build (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
     strategy:
@@ -95,4 +95,4 @@ jobs:
 
       - name: Verify Build
         run: |
-          test -d dist/ && echo "✅ Dist directory exists" || exit 1
+          test -d dist/ && echo "Dist directory exists" || exit 1

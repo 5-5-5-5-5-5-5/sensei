@@ -21,7 +21,7 @@ env:
 
 jobs:
   license-check:
-    name: 📜 License Compatibility
+    name: License Compatibility
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -66,13 +66,13 @@ jobs:
           problematic=$(cat /tmp/licenses.json | jq -r 'to_entries[] | select(.value.licenses | test("GPL|AGPL|SSPL|BUSL"; "i")) | "\(.key): \(.value.licenses)"' 2>/dev/null || true)
 
           if [ -n "$problematic" ]; then
-            echo "⚠️ Potentially problematic licenses found:"
+            echo " Potentially problematic licenses found:"
             echo "$problematic"
             echo ""
             echo "Please review these dependencies for MIT compatibility."
             echo "has_issues=true" >> $GITHUB_OUTPUT
           else
-            echo "✅ No GPL/AGPL/SSPL/BUSL licenses found in production dependencies"
+            echo " No GPL/AGPL/SSPL/BUSL licenses found in production dependencies"
             echo "has_issues=false" >> $GITHUB_OUTPUT
           fi
 

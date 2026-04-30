@@ -10,4 +10,3 @@
 
 export { analistaGithubActions, analistaGithubActionsGlobal, registrarDetectorGithubActions } from '../github-actions/analistas/analista-github-actions.js';
 export * from './analista-multi-plataforma.js'
-export * from './ia-assistente.js'

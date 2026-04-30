@@ -13,7 +13,7 @@ env:
 
 jobs:
   check-updates:
-    name: 📦 Check Updates
+    name: Check Updates
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
@@ -44,7 +44,7 @@ jobs:
       - name: Check Outdated Dependencies
         id: outdated
         run: |
-          echo "## 📦 Outdated Dependencies" >> $GITHUB_STEP_SUMMARY
+          echo "## Outdated Dependencies" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           npm outdated --json > /tmp/outdated.json 2>/dev/null || true
           if [ -s /tmp/outdated.json ] && [ "$(cat /tmp/outdated.json)" != "{}" ]; then
@@ -52,21 +52,21 @@ jobs:
             npm outdated >> $GITHUB_STEP_SUMMARY 2>/dev/null || true
             echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
           else
-            echo "✅ All dependencies are up to date!" >> $GITHUB_STEP_SUMMARY
+            echo " All dependencies are up to date!" >> $GITHUB_STEP_SUMMARY
           fi
 
       - name: Security Audit
         run: |
-          echo "## 🔐 Security Audit" >> $GITHUB_STEP_SUMMARY
+          echo "## Security Audit" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           if npm audit --production --audit-level=moderate 2>/dev/null; then
-            echo "✅ No vulnerabilities found!" >> $GITHUB_STEP_SUMMARY
+            echo " No vulnerabilities found!" >> $GITHUB_STEP_SUMMARY
           else
-            echo "⚠️ See audit output above for details" >> $GITHUB_STEP_SUMMARY
+            echo " See audit output above for details" >> $GITHUB_STEP_SUMMARY
           fi
 
   dependabot-auto-merge:
-    name: 🤖 Auto-merge Dependabot
+    name: Auto-merge Dependabot
     runs-on: ubuntu-latest
     timeout-minutes: 30
     if: github.event_name == 'pull_request' && github.actor == 'dependabot[bot]'
