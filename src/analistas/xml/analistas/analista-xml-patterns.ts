@@ -73,7 +73,7 @@ export const analistaXmlPatterns = criarAnalista({
     const tagStack: string[] = [];
     const tagRegex = /<(\/?)(\w+)[^>]*\/?>/g;
     let tagMatch;
-    while ((tagRegex.lastIndex, tagMatch = tagRegex.exec(src)) !== null) {
+    while ((tagMatch = tagRegex.exec(src)) !== null) {
       if (tagMatch[0].endsWith('/>')) continue;
       if (tagMatch[1]) {
         if (tagStack.length > 0 && tagStack[tagStack.length - 1] === tagMatch[2]) {
