@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 import { messages } from '@core/messages';
+import type { JsonValue } from '@prometheus';
 import { criarAnalista, criarOcorrencia } from '@prometheus';
 import { createLineLookup, maskXmlNonCode } from '@shared/helpers';
 
@@ -125,13 +126,13 @@ function collectJsonConfigIssues(src: string, relPath: string, lineOf: (index: n
     return ocorrencias;
   }
 
-  collectJsonIssuesRecursive(data, '', relPath, lineOf, ocorrencias, src);
+  collectJsonIssuesRecursive(data as JsonValue, '', relPath, lineOf, ocorrencias, src);
 
   return ocorrencias;
 }
 
 function collectJsonIssuesRecursive(
-  obj: unknown,
+  obj: JsonValue,
   path: string,
   relPath: string,
   lineOf: (index: number) => number,
@@ -190,7 +191,7 @@ function collectJsonIssuesRecursive(
       }
 
       if (typeof record[key] === 'object' && record[key] !== null) {
-        collectJsonIssuesRecursive(record[key], path ? `${path}.${key}` : key, relPath, lineOf, ocorrencias, src);
+        collectJsonIssuesRecursive(record[key] as JsonValue, path ? `${path}.${key}` : key, relPath, lineOf, ocorrencias, src);
       }
     }
   }

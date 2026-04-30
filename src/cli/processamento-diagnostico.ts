@@ -11,7 +11,7 @@ import { scanSystemIntegrity } from '@guardian';
 // Importar tipos centralizados (consolidado)
 import { asTecnicas, converterResultadoGuardian, type FileEntry, type FileEntryWithAst, type FiltrosConfig, IntegridadeStatus, type LinguagensJson, type LogExtensions, type OpcoesProcessamentoDiagnostico, type ParseErrosJson, type ResultadoGuardian, type ResultadoInquisicaoCompleto, type ResultadoProcessamentoDiagnostico, type SaidaJsonDiagnostico } from '@prometheus';
 import { emitirConselhoPrometheus , gerarRelatorioJson } from '@relatorios';
-import { dedupeOcorrencias,fragmentarRelatorio , stringifyJsonEscaped  } from '@shared/data-processing';
+import { dedupeOcorrencias, stringifyJsonEscaped  } from '@shared/data-processing';
 
 import { scanIgnore } from './diagnostico/handlers/ignore-handler.js';
 import { scanImports } from './diagnostico/handlers/importer-handler.js';
@@ -1462,34 +1462,6 @@ export async function processarDiagnostico(opts: OpcoesProcessamentoDiagnostico)
               total: infos.length + outros.length,
               info: [...infos, ...outros]
             });
-
-            // Se exportação full estiver ativa, grava também o payload completo em arquivo separado
-            let fragmentResultado: {
-              manifestFile?: string;
-              manifest?: unknown;
-            } | undefined = undefined;
-            if (config.REPORT_EXPORT_FULL) {
-              const relatorioFull = {
-                timestamp: new Date().toISOString(),
-                totalOcorrencias: ocorrenciasLimpas.length,
-                baselineModificado: Boolean(guardianResultado && (guardianResultado as unknown as {
-                  baselineModificado?: boolean;
-                }).baselineModificado),
-                resultado: resultadoCompleto
-              };
-              // Se o relatório for muito grande, fragmentar em múltiplos arquivos para evitar arquivos gigantes
-              try {
-                fragmentResultado = await fragmentarRelatorio(relatorioFull, dir, ts, {
-                  maxOcorrenciasPerShard: config.REPORT_FRAGMENT_OCCURRENCES,
-                  maxFileEntriesPerShard: config.REPORT_FRAGMENT_FILEENTRIES
-                });
-                // Registrar no log onde está o manifest
-                log.info(messages.CliProcessamentoDiagnosticoMensagens.relatorioFullFragmentado(fragmentResultado.manifestFile));
-              } catch {
-                // Fallback: salvar como único arquivo caso a fragmentação falhe
-                await salvar(path.join(dir, `prometheus-relatorio-full-${seq}.json`), relatorioFull);
-              }
-            }
 
             // Gerar o JSON do diagnóstico agora (inclui links/manifest quando disponível)
             try {

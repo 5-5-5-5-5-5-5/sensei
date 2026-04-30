@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: MIT
 
+import type { TailwindTokenInfo } from '@prometheus';
+
 export const TAILWIND_SCREEN_SIZES = {
   sm: '640px',
   md: '768px',
@@ -87,12 +89,6 @@ export const TAILWIND_DARK_MODE_VARIANTS = ['dark', 'dark:hover', 'dark:focus', 
 export type TailwindScreen = keyof typeof TAILWIND_SCREEN_SIZES;
 export type TailwindColor = (typeof TAILWIND_COLOR_PALETTES)[number];
 export type TailwindJitPattern = (typeof TAILWIND_JIT_PATTERNS)[number];
-
-export interface TailwindTokenInfo {
-  token: string;
-  category: 'color' | 'spacing' | 'sizing' | 'typography' | 'layout' | 'flexbox' | 'grid' | 'border' | 'effect' | 'transition' | 'animation' | 'transform' | 'filter' | 'other';
-  description?: string;
-}
 
 export function categorizeTailwindToken(token: string): TailwindTokenInfo | null {
   const base = token.replace(/^(sm|md|lg|xl|2xl|hover|focus|active|group|dark|peer|before|after|placeholder|checked|disabled):/, '');

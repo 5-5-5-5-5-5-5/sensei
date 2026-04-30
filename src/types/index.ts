@@ -14,12 +14,23 @@ export * from './analistas/html/corrections/index.js';
 export * from './analistas/js-ts/corrections/index.js';
 export * from './analistas/plugins/index.js';
 
+// SQL Detectores
+export type { DetectorMigrationsResult } from './analistas/sql/detectores/detector-migrations.js';
+
+// Tailwind
+export type { TailwindTokenInfo } from './analistas/tailwind/analistas/tailwind-token.js';
+export type { TailwindDetectorConfig } from './analistas/tailwind/detectores/detector-tailwind.js';
+
+// Shared
+export type { JsonValue } from './shared/json-value.js';
+
 
 // CLI
 export * from './cli/comandos.js';
 export * from './cli/diagnostico.js';
 export * from './cli/diagnostico-handlers.js';
 export * from './cli/exporters.js';
+export type { FixPatternsResult } from './cli/fix-patterns.js';
 export * from './cli/handlers.js';
 export * from './cli/log-extensions.js';
 export * from './cli/metricas.js';

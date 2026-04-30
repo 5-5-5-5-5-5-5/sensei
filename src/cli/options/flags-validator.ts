@@ -100,10 +100,7 @@ export function validateAndNormalizeFlags(opts: FlagsBrutas): ResultadoValidacao
   if (opts.export) {
     normalized.output.export = true;
   }
-  if (opts.exportFull) {
-    normalized.output.exportFull = true;
-    normalized.output.export = true; // exportFull implica export
-  }
+
   if (opts.exportTo) {
     normalized.output.exportDir = opts.exportTo;
   }

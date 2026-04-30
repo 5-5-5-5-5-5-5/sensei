@@ -72,10 +72,11 @@ export function comandoDiagnosticar(aplicarFlagsGlobais: (opts: Record<string, u
       if (_merged.export) {
         _merged.REPORT_EXPORT_ENABLED = true;
       }
-      if (_merged.exportFull) {
-        _merged.REPORT_EXPORT_ENABLED = true;
-        _merged.REPORT_EXPORT_FULL = true;
-      }
+      // Removido: geração de relatório full fragmentado não é mais necessária
+      // if (_merged.exportFull) {
+      //   _merged.REPORT_EXPORT_ENABLED = true;
+      //   _merged.REPORT_EXPORT_FULL = true;
+      // }
       if (_merged.exportTo) {
         _merged.REPORT_OUTPUT_DIR = _merged.exportTo;
       }
