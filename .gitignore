@@ -2,10 +2,7 @@
 *.local
 .vscode
 .legados
-.codex
 .prometheus
-.qwen
-scripts
 
 # Node modules
 node_modules
