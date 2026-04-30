@@ -7,7 +7,7 @@ import { chalk, config, generate } from '@core/config';
 import { scanRepository } from '@core/execution';
 import { getMessages } from '@core/messages';
 import { decifrarSintaxe } from '@core/parsing';
-import type { FormatarCommandOpts, FormatResult } from '@prometheus';
+import type { FixPatternsResult,FormatarCommandOpts, FormatResult  } from '@prometheus';
 import {
   formatarComPrettierProjeto,
   formatarPrettierMinimo,
@@ -41,12 +41,6 @@ function detectaNodeModulesExplicito(
 ): boolean {
   const all = [...includeFlat, ...includeGroups.flat()];
   return all.some((p) => /(^|\/)node_modules(\/|$)/.test(String(p || '')));
-}
-
-interface FixPatternsResult {
-  total: number;
-  arquivosAfetados: number;
-  erros: number;
 }
 
 async function applyFixPatterns(

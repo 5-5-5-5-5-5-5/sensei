@@ -1,12 +1,5 @@
 // SPDX-License-Identifier: MIT
-import type { Ocorrencia } from '@prometheus';
-
-interface DetectorMigrationsResult {
-  nome: string;
-  descricao: string;
-  test: (relPath: string) => boolean;
-  detectar: (src: string, relPath: string) => Promise<Ocorrencia[]>;
-}
+import type { DetectorMigrationsResult, Ocorrencia } from '@prometheus';
 
 export const detectorMigrations: DetectorMigrationsResult = {
   nome: 'detector-migrations',

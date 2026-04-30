@@ -39,3 +39,6 @@ export * from './stylelint.js';
 
 // Memory
 export * from './memory.js';
+
+// JsonValue
+export type { JsonValue } from './json-value.js';

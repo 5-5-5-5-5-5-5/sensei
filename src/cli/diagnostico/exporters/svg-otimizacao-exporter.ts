@@ -62,7 +62,7 @@ existing.totalSaved += c.savedBytes;
 if (existing.exemplos.length < 10) existing.exemplos.push(c);
 }
 }
-const outputCaminho = path.join(relatoriosDir, `prometheus-svg-otimizacao-${ts}.json`);
+const outputCaminho = path.join(relatoriosDir, `svg-${ts}.json`);
 const dirsOrdenados = Array.from(porDir.entries()).sort((a, b) => b[1].totalSaved - a[1].totalSaved);
 const topArquivos = [...candidatos].sort((a, b) => b.savedBytes - a.savedBytes).slice(0, 30);
 
