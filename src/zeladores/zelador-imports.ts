@@ -24,13 +24,26 @@ const log = messages.log;
  * Configuração padrão de aliases baseada em tsconfig.json
  */
 const PADRAO_ALIAS_CONFIGURACAO: AliasConfig = {
-  '@core': './core',
   '@analistas': './analistas',
-  '@types': './types',
-  '@shared': './shared',
+  '@bin': './bin',
   '@cli': './cli',
+  '@core': './core',
+  '@core/config': './core/config',
+  '@core/execution': './core/execution',
+  '@core/messages': './core/messages',
+  '@core/parsing': './core/parsing',
+  '@core/registry': './core/registry',
+  '@core/reporting': './core/reporting',
+  '@core/schema': './core/schema',
+  '@core/utils': './core/utils',
+  '@core/workers': './core/workers',
   '@guardian': './guardian',
+  '@licensas': './licensas',
+  '@projeto-types': './types',
+  '@prometheus': './types',
   '@relatorios': './relatorios',
+  '@shared': './shared',
+  '@types': './types',
   '@zeladores': './zeladores'
 };
 

@@ -446,9 +446,6 @@ const aliases: Record<string, string> = {
       "@relatorios":
         "./src/relatorios/index"
       ,
-      "@sdk":
-        "./src/sdk/index"
-      ,
       "@shared":
         "./src/shared/index"
       ,
