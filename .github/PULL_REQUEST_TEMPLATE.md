@@ -1,3 +1,7 @@
+---
+Proveniência e Autoria: Este documento integra o projeto Prometheus (licença MIT-0).
+---
+
 <!-- Prometheus Project - MIT License -->
 
 ## Descricao
