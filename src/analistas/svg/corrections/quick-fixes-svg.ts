@@ -39,7 +39,13 @@ export const quickFixesSvg = criarCorrecao({
     }
 
     if (mensagem.includes('on') && /on\w+\s*=/.test(line)) {
-      const fixed = line.replace(/\s+on\w+\s*=\s*["'][^"']*["']/g, '');
+      const eventHandlerAttrPattern = /\s+on\w+\s*=\s*["'][^"']*["']/g;
+      let fixed = line;
+      let previous: string;
+      do {
+        previous = fixed;
+        fixed = fixed.replace(eventHandlerAttrPattern, '');
+      } while (fixed !== previous);
       return {
         original: line,
         modificado: fixed,

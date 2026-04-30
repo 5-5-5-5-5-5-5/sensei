@@ -315,7 +315,7 @@ export const analistaSql = criarAnalista({
       }
 
       // 21. SET NOCOUNT OFF em procedures (performance)
-      if (/create\s+procedure\b/i.test(linhaTrim) || /create\s+procedure\b/i.test(linhaTrim)) {
+      if (/create\s+procedure\b/i.test(linhaTrim)) {
         const procBlock = linhas.slice(index, index + 100).join('\n');
         if (/set\s+nocount\s+off/i.test(procBlock) && !/set\s+nocount\s+on/i.test(procBlock)) {
           ocorrencias.push(criarOcorrencia({
